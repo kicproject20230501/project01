@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      /* 슬라이드 배너 컨테이너 스타일 */
+      .slider-container {
+        position: relative;
+        width: 600px;
+        height: 400px;
+        margin: 0 auto;
+        overflow: hidden;
+      }
+
+      /* 슬라이드 이미지 스타일 */
+      .slider-image {
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+      }
+
+      /* 슬라이드 텍스트 스타일 */
+      .slider-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        font-size: 24px;
+        text-align: center;
+      }
+
+      /* 좌우 버튼 스타일 */
+      .slider-prev,
+      .slider-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 50px;
+        height: 50px;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        font-size: 20px;
+        text-align: center;
+        line-height: 50px;
+        cursor: pointer;
+      }
+
+      .slider-prev {
+        left: 10px;
+      }
+
+      .slider-next {
+        right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slider-container">
+      <ul class="slider">
+        <!-- 슬라이드 아이템 1 -->
+        <li class="slider-item">
+          <div
+            class="slider-image"
+            style="background-image: url('/images/index/bannertest01.jpg')"
+          ></div>
+          <div class="slider-text">슬라이드 1</div>
+        </li>
+
+        <!-- 슬라이드 아이템 2 -->
+        <li class="slider-item">
+          <div
+            class="slider-image"
+            style="background-image: url('image2.jpg')"
+          ></div>
+          <div class="slider-text">슬라이드 2</div>
+        </li>
+
+        <!-- 슬라이드 아이템 3 -->
+        <li class="slider-item">
+          <div
+            class="slider-image"
+            style="background-image: url('image3.jpg')"
+          ></div>
+          <div class="slider-text">슬라이드 3</div>
+        </li>
+      </ul>
+
+      <!-- 좌우 버튼 -->
+      <div class="slider-prev">&lt;</div>
+      <div class="slider-next">&gt;</div>
+    </div>
+
+    <script>
+      // 슬라이드 배너 관련 코드
+      document.addEventListener("DOMContentLoaded", function () {
+        let sliderContainer = document.querySelector(".slider-container");
+        let slider = document.querySelector(".slider");
+        let sliderItems = document.querySelectorAll(".slider-item");
+        let sliderPrev = document.querySelector(".slider-prev");
+        let sliderNext = document.querySelector(".slider-next");
+
+        let currentSlide = 0;
+        let totalSlides = sliderItems.length;
+        let slideInterval = setInterval(nextSlide, 6000); // 6초마다 자동 슬라이드
+
+        // 이벤트 리스너 등록
+        sliderPrev.addEventListener("click", prevSlide);
+        sliderNext.addEventListener("click", nextSlide);
+
+        // 슬라이드 초기화
+        function resetSlideInterval() {
+          clearInterval(slideInterval);
+          slideInterval = setInterval(nextSlide, 6000);
+        }
+
+        // 이전 슬라이드
+        function prevSlide() {
+          currentSlide--;
+          if (currentSlide < 0) {
+            currentSlide = totalSlides - 1;
+          }
+          showSlide();
+          resetSlideInterval();
+        }
+
+        // 다음 슬라이드
+        function nextSlide() {
+          currentSlide++;
+          if (currentSlide >= totalSlides) {
+            currentSlide = 0;
+          }
+          showSlide();
+          resetSlideInterval();
+        }
+
+        // 슬라이드 보여주기
+        function showSlide() {
+          for (let i = 0; i < totalSlides; i++) {
+            if (i === currentSlide) {
+              sliderItems[i].style.display = "block";
+            } else {
+              sliderItems[i].style.display = "none";
+            }
+          }
+        }
+
+        // 초기 슬라이드 설정
+        showSlide();
+      });
+    </script>
+  </body>
+</html>

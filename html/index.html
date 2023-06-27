@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>인덱스 페이지</title>
+    <link rel="stylesheet" href="/css/index.css" />
+  </head>
+
+  <body>
+    <header>
+      <div class="navbar" id="navbar">
+        <a id="logo" href="#none"><img src="/practice/logo.png" alt="" width="150px;"/></a>
+        <div class="sign-text">
+          <a href="">회원가입</a>
+          <a href="">로그인</a>
+        </div>
+      </div>
+
+      <div class="menubar" id="menubar">
+        <ul>
+          <!-- 카테고리 리스트 -->
+          <li class="h4 text-center m-3 px-3">
+            <a href="#none">BEST</a>
+            <a href="#none">SHOP</a>
+            <a href="#none">CART</a>
+            <a href="#none">NOTICE</a>
+            <a href="#none">Q&A</a>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- 배너 섹션 -->
+    <section class="slide-banner">
+        <div class="slider-container">
+            <div class="slider-slide active" 
+            style="background-image: url('/images/index/banner01.png');" 
+            onclick="location.href='#none';">
+              <h2>나에게 맞는 향수 찾기</h2>
+              <a href="https://www.naver.com">지금 바로 찾기</a>
+            </div>
+            <div class="slider-slide" style="background-image: url('/images/index/bannertest02.jpg');">
+              <h2>슬라이드 2</h2>
+              <a href="https://www.naver.com">지금 바로 찾기</a>
+            </div>
+            <div class="slider-slide" style="background-image: url('/images/index/bannertest03.jpg');">
+              <h2>슬라이드 3</h2>
+            </div>
+        
+            <ul class="slider-pagination">
+              <li class="active"></li>
+              <li></li>
+              <li></li>
+            </ul>
+        
+            <div class="slider-control left">&lt;</div>
+            <div class="slider-control right">&gt;</div>
+          </div>
+    </section>
+
+    <!-- 제품 이미지 -->
+    <div class="container text-center">
+      <!--첫번째 줄-->
+      <div class="row row-cols-3 row-col-md-2">
+        <div class="col p-5">
+          <a href=""
+            ><img
+              src="/Images/Index/perfume01.webp"
+              width="100%"
+            />제품사진1<br />------ 가격</a
+          >
+        </div>
+        <div class="col p-5">
+          <a href=""
+            ><img
+              src="/Images/Index/perfume01.webp"
+              width="100%"
+            />제품사진2<br />------ 가격</a
+          >
+        </div>
+        <div class="col p-5">
+          <a href=""
+            ><img
+              src="/Images/Index/perfume01.webp"
+              width="100%"
+            />제품사진3<br />------ 가격</a
+          >
+        </div>
+      </div>
+      <!-- 두번째 줄-->
+      <div class="row row-cols-3 row-col-md-2">
+        <div class="col p-5">
+          <a href=""
+            ><img
+              src="/Images/Index/perfume01.webp"
+              width="100%"
+            />제품사진4<br />------ 가격</a
+          >
+        </div>
+        <div class="col p-5">
+          <a href=""
+            ><img
+              src="/Images/Index/perfume01.webp"
+              width="100%"
+            />제품사진5<br />------ 가격</a
+          >
+        </div>
+        <div class="col p-5">
+          <a href=""
+            ><img
+              src="/Images/Index/perfume01.webp"
+              width="100%"
+            />제품사진6<br />------ 가격</a
+          >
+        </div>
+      </div>
+      <!--세번째 줄-->
+      <div class="row row-cols-3 row-col-md-2">
+        <div class="col p-5">
+          <a href=""
+            ><img
+              src="/Images/Index/perfume01.webp"
+              width="100%"
+            />제품사진7<br />------ 가격</a
+          >
+        </div>
+        <div class="col p-5">
+          <a href=""
+            ><img
+              src="/Images/Index/perfume01.webp"
+              width="100%"
+            />제품사진8<br />------ 가격</a
+          >
+        </div>
+        <div class="col p-5">
+          <a href=""
+            ><img
+              src="/Images/Index/perfume01.webp"
+              width="100%"
+            />제품사진9<br />------ 가격</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <!--SNS 이미지 태그?-->
+    <div class="footer">
+      <a href=""><img src="/practice/logo.png" width="30px" alt="" /></a>
+      <a href=""><img src="/practice/logo.png" width="30px" alt="" /></a>
+      <a href=""><img src="/practice/logo.png" width="30px" alt="" /></a>
+    </div>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="/javascript/index_bannerslide.js"></script>
+  </body>
+</html>

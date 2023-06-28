@@ -85,3 +85,9 @@
 }
 
 /* 슬라이드 배너 섹션 끝 */
+
+/* 메인화면 상품 페이지 */
+.goods a {
+  text-decoration: none;
+  color: black;
+}

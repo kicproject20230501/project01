@@ -32,7 +32,7 @@
 			</div>
 			<div class="mb-3">
 				<label for="image">첨부사진 [${board.image}]</label>
-				<input class="form-control" type="file" name="image2">
+				<input class="form-control" type="file" name="f">
 			</div>
 			
 			<button type="submit" class="btn btn-outline-primary">

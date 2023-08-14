@@ -94,14 +94,14 @@ li {
 		</c:if>
 		<c:if test="${start > bottomLine}">
 			<a
-				href="${pageContext.request.contextPath}/product/productList?pageNum=${start-bottomLine}"
+				href="${pageContext.request.contextPath}/product/productManagement?pageNum=${start-bottomLine}"
 				class="btn btn-sm btn-outline-primary">이전</a>
 		</c:if>
 
 		<!-- 현재 페이지 표시 -->
 		<c:forEach var="p" begin="${start}" end="${end}">
 			<a
-				href="${pageContext.request.contextPath}/product/productList?pageNum=${p}"
+				href="${pageContext.request.contextPath}/product/productManagement?pageNum=${p}"
 				class="btn <c:if test="${pageInt==p}"> btn-sm btn-outline-secondary </c:if> ml-3 mr-3">${p}</a>
 		</c:forEach>
 
@@ -111,7 +111,7 @@ li {
 		</c:if>
 		<c:if test="${end <  maxPage}">
 			<a
-				href="${pageContext.request.contextPath}/product/productList?pageNum=${start+bottomLine}"
+				href="${pageContext.request.contextPath}/product/productManagement?pageNum=${start+bottomLine}"
 				class="btn btn-sm btn-outline-primary">다음</a>
 		</c:if>
 	</div>   

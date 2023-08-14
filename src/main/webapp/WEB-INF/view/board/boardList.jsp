@@ -21,8 +21,8 @@
 				<th scope="col" width="7%">조회수</th>
 			</tr>
 		</thead>
-		<c:set var="boardNum" value="${boardNum}" varStatus="status"/>
-		<c:forEach var="b" items="${list}">
+		<c:set var="boardNum" value="${boardNum}"/>
+		<c:forEach var="b" items="${list}" varStatus="status">
 		<tbody>
 			<tr>
 				<th scope="row">${boardNum}</th>

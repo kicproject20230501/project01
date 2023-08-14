@@ -18,32 +18,32 @@
 
 		<p>
 			<label>아이디</label> <input class="form-control" readonly="readonly"
-				placeholder="${m.id}" >
+				placeholder="${mem.id}" >
 		</p>
 		<p>
 			<label>이름</label> <input class="form-control" readonly="readonly"
-				placeholder="${m.name}" >
+				placeholder="${mem.name}" >
 		</p>
 		<p>
 			<label>성별</label> <input class="form-control" readonly="readonly"
-				placeholder="${m.gender==1 ? "남" : "여"}">
+				placeholder="${mem.gender==1 ? "남" : "여"}">
 		</p>
 		<p>
 			<label>전화번호</label> <input class="form-control" readonly="readonly"
-				placeholder="${m.tel}">
+				placeholder="${mem.tel}">
 		</p>
 		<p>
 			<label>이메일</label> <input class="form-control" readonly="readonly"
-				placeholder="${m.email}">
+				placeholder="${mem.email}">
 		</p>
 
 		<p>
 			<label>우편번호</label> <input class="form-control" readonly="readonly"
-				placeholder="${m.zipcode}">
+				placeholder="${mem.zipcode}">
 		</p>
 		<p>
 			<label>주소</label> <input class="form-control" readonly="readonly"
-				placeholder="${m.address}"> <br><br>
+				placeholder="${mem.address}"> <br><br>
 		</p>
 		
 		

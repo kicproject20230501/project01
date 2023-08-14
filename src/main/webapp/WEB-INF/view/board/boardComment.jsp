@@ -84,7 +84,7 @@
 			<c:forEach var="c" items="${commentLi}" varStatus="status">
 			<tr>
 				<td colspan="2">${c.content}</td>
-				<td>${commentNameLi[status.index]}}</td>
+				<td>${commentNameLi[status.index]}</td>
 				<td><fmt:formatDate value="${c.regdate}" var="dateValue" pattern="yyyy-MM-dd"/>${dateValue}</td>
 				<td>
 					<form action="${pageContext.request.contextPath}/board/boardCommentDeleteForm?ser=${c.ser}"

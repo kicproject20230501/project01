@@ -34,7 +34,7 @@
 			</div>
 			<div class="mb-3">
 				<label for="image">사진 첨부</label>
-				<input class="form-control" type="file" name="image" id="boardImage">
+				<input class="form-control" type="file" name="f" id="boardImage">
 			</div>
 			
 			<div class="text-center">

@@ -11,7 +11,7 @@
 </head>
 <body>
 <br>
-<form class="container" name="f" action="${pageContext.request.contextPath}/member/AdminMemberDelete" method="post">
+<form class="container" name="f" action="${pageContext.request.contextPath}/member/adminMemberDelete" method="post">
 <h2 align="center">회원 목록</h2><br><br>
 <table class="table ">
 <tbody><tr>

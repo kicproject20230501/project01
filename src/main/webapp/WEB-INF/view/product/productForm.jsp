@@ -62,7 +62,7 @@ method="post" onsubmit="return blankchk();">
 			
 			<div class="form-group row">
 				<label class="col-sm-2">설문정보1</label>
-				<select class="form-select required" aria-label="설문정보1 선택" name="prodans1" id="prodans1">
+				<select class="form-select required" name="prodans1" id="prodans1">
 				  <option value="" selected>설문정보1 선택</option>
 				  <option value="flower">꽃</option>
 				  <option value="fruit">과일</option>
@@ -72,10 +72,10 @@ method="post" onsubmit="return blankchk();">
 			
 			<div class="form-group row">
 				<label class="col-sm-2 required">설문정보2</label>
-				<select class="form-select" aria-label="분류2 선택" name="prodans2" id="prodans2">
+				<select class="form-select" name="prodans2" id="prodans2">
 					<option value="" selected>설문정보2 선택</option>
 					<option value="">-------꽃-------</option>
-					<option value="lilac" <c:if test="${prodans2 == 'lilac'}">selected</c:if>>라일락</option>
+					<option value="lilac">라일락</option>
 					<option value="citrus">시트러스</option>
 					<option value="lavender">라벤더</option>
 					<option value="rose">장미</option>

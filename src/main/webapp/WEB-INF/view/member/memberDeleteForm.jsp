@@ -17,10 +17,10 @@
 		<div class="container" style="text-align:center">
 		<p>
 			<label>비밀번호</label>
-			<input class="w3-input" type="password" name="pass" >
+			<input type="password" name="pass" >
 		</p>
 		<p><br><br>
-			<input class="w3-input" type="submit" value="확인" >
+			<input class="btn btn-outline-danger" type="submit" value="확인" >
 		</p>
 		</div>
 	</form>

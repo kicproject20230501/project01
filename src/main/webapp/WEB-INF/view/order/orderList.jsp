@@ -16,7 +16,7 @@
 </head>
 <body>
 	<div class="container">
-		<h2 align="center">${member.name}님의주문내역</h2>
+		<h2 align="center">${member.name}님의 주문내역</h2>
 		<br> <br>
 
 		<div class="d-flex justify-content-center">

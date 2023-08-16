@@ -106,9 +106,6 @@ public class OrderController {
 
 			}
 
-			System.out.println(list);
-			System.out.println(quantityList);
-			
 			m.addAttribute("list", list);
 			m.addAttribute("quantityList", quantityList);
 			return "order/order";
@@ -117,98 +114,9 @@ public class OrderController {
 	
 	// 주문
 	@RequestMapping("orderPro")
-	public String orderPro(Order order, OrderItem orderItem) {
-		String id = (String) session.getAttribute("id");
-		String msg = "";
-		String url = "";
-
-		// 주문 번호 만들기 용 (양식: id + 년월일시분초)
-		Date date = new Date();
-		SimpleDateFormat format = new SimpleDateFormat("_yyyyMMddHHmmss");
-		String ordernum = id + format.format(date);
-		// 주문 완료 시 장바구니 삭제
-		Cart cart = new Cart();
-		
-		order.setId(id);
-		order.setResult(1);
-		order.setOrdernum(ordernum); // 주문 번호 (id + 년도월일시분초)
-
-		if (request.getParameterValues("multi-prodnum") == null) { // 상품 페이지 -> 주문서인 경우
-			int prodnum = Integer.parseInt(request.getParameter("single-prodnum"));
-			int quantity = Integer.parseInt(request.getParameter("single-quantity"));
-			int price = Integer.parseInt(request.getParameter("single-price"));
-			int totalPrice = Integer.parseInt(request.getParameter("single-total-price"));
-
-			if (totalPrice > 50000) { // 5만원 이상인 경우 배송비 무료
-				order.setDelivercost(0);
-			} else {
-				order.setDelivercost(2500);
-			}
-
-			orderItem.setProdnum(prodnum);
-			orderItem.setPrice(price);
-			orderItem.setQuantity(quantity);
-
-			if (od.insertOrder(order) > 0) {
-				orderItem.setOrdernum(order.getOrdernum()); // orderItem에 추가될 ordernum 설정
-				od.insertOrderItem(orderItem); // order가 될 경우 orderItem에도 해당 상품들 추가
-				// 재고 Update
-				Product p = pd.productOne(prodnum);
-				int stock = p.getStock() - quantity;
-				p.setStock(stock);
-				pd.stockUpdate(p);
-				msg = "주문이 완료되었습니다.";
-				url = "order/orderResult?ordernum=" + ordernum;
-			} else {
-				msg = "오류가 발생했습니다.";
-				url = "product/productDetail?prodnum=" + prodnum;
-			}
-		} else { // 장바구니 -> 주문서인 경우 (상품이 여러개)
-			String[] multiProdnum = request.getParameterValues("multi-prodnum");
-			String[] multiQuantity = request.getParameterValues("multi-quantity");
-			String[] multiPrice = request.getParameterValues("multi-price");
-			String[] multiTotalPrice = request.getParameterValues("multi-total-price");
-
-			int finalTotalPrice = 0;
-			for (int i = 0; i < multiTotalPrice.length; i++) {
-				finalTotalPrice += Integer.parseInt(multiTotalPrice[i]);
-			}
-
-			if (finalTotalPrice > 50000) { // 5만원 이상인 경우 무료배송
-				order.setDelivercost(0);
-			} else {
-				order.setDelivercost(2500);
-			}
-
-			if (od.insertOrder(order) > 0) {
-				for (int i = 0; i < multiProdnum.length; i++) {
-					orderItem.setProdnum(Integer.parseInt(multiProdnum[i]));
-					orderItem.setPrice(Integer.parseInt(multiPrice[i]));
-					orderItem.setQuantity(Integer.parseInt(multiQuantity[i]));
-					orderItem.setOrdernum(order.getOrdernum());
-					od.insertOrderItem(orderItem);
-					// 장바구니에서 삭제
-					cart.setProdnum(Integer.parseInt(multiProdnum[i]));
-					cart.setId(id);
-					cd.orderedCartDelete(cart);
-					// 재고 update
-					Product p = pd.productOne(Integer.parseInt(multiProdnum[i]));
-					int stock = p.getStock() - Integer.parseInt(multiQuantity[i]);
-					p.setStock(stock);
-					pd.stockUpdate(p);
-				}
-				msg = "주문이 완료되었습니다.";
-				url = "order/orderResult?ordernum=" + ordernum;
-			} else {
-				msg = "오류가 발생했습니다.";
-				url = "cart/cartList";
-			}
-		}
-
-		m.addAttribute("ordernum", ordernum);
-		m.addAttribute("msg", msg);
-		m.addAttribute("url", url);
-		return "alert";
+	public void orderPro(Order order, OrderItem orderItem) {
+		System.out.println(request.getParameter("detailaddress"));
+		System.out.println(order);
 	} // orderPro End
 	
 	// 주문내역

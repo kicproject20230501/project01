@@ -11,7 +11,7 @@ public class Order {
 	private String tel; // 받는 사람 전화번호
 	private String zipcode; // 받는 사람 우편번호
 	private String address; // 받는 사람 주소
-	private String detailAddress; // 받는 사람 상세 주소
+	private String detailaddress; // 받는 사람 상세 주소
 	private int result; // 주문 상태
 	private int delivercost; // 배송비
 	private Date regdate; // 주문 날짜
@@ -65,12 +65,12 @@ public class Order {
 		this.address = address;
 	}
 
-	public String getDetailAddress() {
-		return detailAddress;
+	public String getDetailaddress() {
+		return detailaddress;
 	}
 
-	public void setDetailAddress(String detailAddress) {
-		this.detailAddress = detailAddress;
+	public void setDetailAddress(String detailaddress) {
+		this.detailaddress = detailaddress;
 	}
 
 	public int getResult() {
@@ -96,12 +96,13 @@ public class Order {
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
-	
+
 	// toString
 	@Override
 	public String toString() {
-		return "orderItem [ordernum=" + ordernum + ", name=" + name + ", tel=" + tel + ", zipcode=" + zipcode
-				+ ", address=" + address + ", result=" + result + ", delivercost=" + delivercost + ", regdate="
-				+ regdate + "]";
+		return "Order [ordernum=" + ordernum + ", id=" + id + ", name=" + name + ", tel=" + tel + ", zipcode=" + zipcode
+				+ ", address=" + address + ", detailaddress=" + detailaddress + ", result=" + result + ", delivercost="
+				+ delivercost + ", regdate=" + regdate + "]";
 	}
+
 }

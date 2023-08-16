@@ -52,12 +52,12 @@
 			<input class="form-control" type="text" id="sample4_roadAddress" 
 				name="address" placeholder="도로명주소" readonly> </div>
 			<div class="col">
-			<input class="form-control" type="text" id="sample4_jibunAddress" placeholder="지번주소"> </div> </div> </div>
+			<input class="form-control" type="text" id="sample4_jibunAddress" placeholder="지번주소" readonly> </div> </div> </div>
 			<span id="guide" style="color: #999; display: none"></span> 
 			<div class="mb-3">
 			<div class="row">
     		<div class="col">
-			<input class="form-control" type="text" id="sample4_detailAddress" placeholder="상세주소"> </div>
+			<input class="form-control" type="text" id="sample4_detailAddress" placeholder="상세주소" name="detailaddress"> </div>
 			<div class="col">
 			<input class="form-control" type="text" id="sample4_extraAddress" placeholder="참고항목" readonly> </div> </div> </div>			
 		</div>

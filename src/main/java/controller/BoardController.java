@@ -329,7 +329,7 @@ public class BoardController {
 		int num2 = b.getNum(); // 댓글을 삭제하면 num만으로 해당 게시글로 돌아갈 수 없음.
 		
 		// 세션의 ID와 다르거나 admin 계정이 아니면 댓글 삭제 불가
-		if (id.equals(bc.getName()) || id.equals("admin")) {
+		if (id.equals(bc.getId()) || id.equals("admin")) {
 			if (bd.commentDelete(ser) > 0) {
 				msg = "댓글이 삭제 되었습니다.";
 				url = "/board/boardComment?num="+num2;

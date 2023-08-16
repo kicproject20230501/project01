@@ -103,7 +103,6 @@ public class ProductController {
 
 		int limit = 6; // 한 page 당 게시물 갯수
 		int pageInt = Integer.parseInt(pageNum); // page 번호
-		System.out.println(pageInt);
 		int productCount = pd.productCount(); // 전체 게시물 갯수
 		int prodNum = productCount - ((pageInt - 1) * limit);
 
@@ -145,7 +144,6 @@ public class ProductController {
 
 		int limit = 6; // 한 page 당 게시물 갯수
 		int pageInt = Integer.parseInt(pageNum); // page 번호
-		System.out.println(pageInt);
 		int productCount = pd.productCount(); // 전체 게시물 갯수
 		int prodNum = productCount - ((pageInt - 1) * limit);
 

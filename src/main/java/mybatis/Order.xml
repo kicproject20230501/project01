@@ -6,7 +6,7 @@
 	
 	<insert id="insertOrder" parameterType="order">
 		insert into order2 values 
-		(#{ordernum}, #{id}, #{name}, #{tel}, #{zipcode}, #{address}, #{result}, #{delivercost}, sysdate)
+		(#{ordernum}, #{id}, #{name}, #{tel}, #{zipcode}, #{address}, #{detailaddress}, #{result}, #{delivercost}, sysdate)
 	</insert>
 	
 	<insert id="insertOrderItem" parameterType="orderItem">

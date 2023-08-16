@@ -24,7 +24,7 @@
 			</tbody>
 		</table>
 
-		<form method="post" onsubmit="return blankchk();">
+		<form method="post" onsubmit="return blankchk(this);">
 			<!-- 주문 정보 입력 -->
 			<div class="info-div">
 				<br>
@@ -50,7 +50,7 @@
 									name="zipcode" placeholder="우편번호" readonly>
 							</div>
 							<div class="col">
-								<input type="button" class="btn btn-outline-secondary"
+								<input type="button" class="btn btn-outline-secondary" id="searchZipcodeBtn"
 									onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
 							</div>
 						</div>
@@ -312,25 +312,30 @@
 	
 	<!-- 빈칸 체크 -->
 
-	function blankchk() {
+	function blankchk(form) {
 		if(document.getElementById( 'name' ).value.trim() == "") {
 	        alert("이름을 입력해주세요.")
+	        form.name.focus()
 	        return false;
 	    }
 		if(document.getElementById( 'tel' ).value.trim() == "") {
 	        alert("전화번호를 입력해주세요.")
+	        form.tel.focus()
 	        return false;
 		}
 		if(document.getElementById( 'sample4_postcode' ).value.trim() == "") {
 	        alert("우편번호를 입력해주세요.")
+	        form.zipcode.focus()
 	        return false;
 	    }
 	    if(document.getElementById( 'sample4_roadAddress' ).value.trim() == "") {
 	        alert("주소를 입력해주세요.")
+	        form.address.focus()
 	        return false;
 	    }
 	    if(document.getElementById( 'sample4_detailAddress' ).value.trim() == "") {
 	        alert("상세주소를 입력해주세요.")
+	        form.detailaddress.focus()
 	        return false;
 	    }	else return true;
 	    };

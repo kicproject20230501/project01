@@ -6,7 +6,8 @@
 
 <!-- 회원가입 시 우편번호 주소-->
 
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 	function sample4_execDaumPostcode() {
 		new daum.Postcode(
@@ -110,92 +111,135 @@
 	<br>
 	<div class="container mt-3">
 		<h2 align="center">회원가입</h2>
-		</div><br>
-		<div class="container mt-3">
-		    <form class="container" name="f" action="${pageContext.request.contextPath}/member/joinPro" method="post" onsubmit="return blankchk();">
-						<div class="mb-3">
-						<label>아이디  (4자 이상)</label>
-						<input class="form-control" type="text" name="id" id="id" placeholder="Id" min="4" onblur="checkDuplicateId()"> </div>
-						
-						<div class="mb-3">
-						<label>비밀번호</label>
-						<input class="form-control" type="password" name="pass" placeholder="Password" id="pass"> </div>
-						
-						<div class="mb-3">
-						<label>이름</label> 
-						<input class="form-control" type="text" name="name" placeholder="Username" id="name"> </div>
-						
-						<div class="mb-3">
-						<p class="mb-0"><label>성별</label></p>
-						<div class="form-check form-check-inline">
-						<input class="form-check-input" type="radio" name="gender" value="1" checked> 남 </div> 
-						<div class="form-check form-check-inline">
-						<input class="form-check-input" type="radio" name="gender" value="2">여 </div> </div>
-						
-						<div class="mb-3">
-						<label>전화번호</label>
-						<input class="form-control" type="text" name="tel" placeholder="Phone Number" id="tel"></div>
-						
-						<div class="mb-3">
-						<label>이메일</label> 
-						<input class="form-control" type="text" name="email" placeholder="example@hotmail.com" id="email">  </div>
-						
-						<div class="mb-3">
-						<p class="mb-0"><label>주소</label></p>
-						<div class="row">
-    					<div class="col">
-						<input class="form-control" type="text" id="sample4_postcode" name="zipcode" placeholder="우편번호" readonly> </div>
-						<div class="col">
-						<input type="button" class="btn btn-outline-secondary" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"> </div> </div> </div>
-						
-						<div class="mb-3">
-						<div class="row">
-    					<div class="col">
-						<input class="form-control" type="text" id="sample4_roadAddress" name="address" placeholder="도로명주소" readonly> </div>
-						<div class="col">
-						<input class="form-control" type="text" id="sample4_jibunAddress" placeholder="지번주소"> </div> </div> </div>
-						<span id="guide" style="color: #999; display: none"></span> 
-						<div class="mb-3">
-						<div class="row">
-    					<div class="col">
-						<input class="form-control" type="text" id="sample4_detailAddress" placeholder="상세주소"> </div>
-						<div class="col">
-						<input class="form-control" type="text" id="sample4_extraAddress" placeholder="참고항목" readonly> </div> </div> </div>
-						<div class="mt-5">
-						<input class="form-control" type="submit" value="회원가입"> </div>
-</form>
-</div>
-<script>
+	</div>
+	<br>
+	<div class="container mt-3">
+		<form class="container" name="f"
+			action="${pageContext.request.contextPath}/member/joinPro"
+			method="post" onsubmit="return blankchk(this);">
+			<div class="mb-3">
+				<label>아이디 (4자 이상)</label> <input class="form-control" type="text"
+					name="id" id="id" placeholder="Id" min="4"
+					onblur="checkDuplicateId()">
+			</div>
+
+			<div class="mb-3">
+				<label>비밀번호</label> <input class="form-control" type="password"
+					name="pass" placeholder="Password" id="pass">
+			</div>
+
+			<div class="mb-3">
+				<label>이름</label> <input class="form-control" type="text"
+					name="name" placeholder="Username" id="name">
+			</div>
+
+			<div class="mb-3">
+				<p class="mb-0">
+					<label>성별</label>
+				</p>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="gender"
+						value="1" checked> 남
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="gender"
+						value="2">여
+				</div>
+			</div>
+
+			<div class="mb-3">
+				<label>전화번호</label> <input class="form-control" type="text"
+					name="tel" placeholder="Phone Number" id="tel">
+			</div>
+
+			<div class="mb-3">
+				<label>이메일</label> <input class="form-control" type="text"
+					name="email" placeholder="example@hotmail.com" id="email">
+			</div>
+
+			<div class="mb-3">
+				<p class="mb-0">
+					<label>주소</label>
+				</p>
+				<div class="row">
+					<div class="col">
+						<input class="form-control" type="text" id="sample4_postcode"
+							name="zipcode" placeholder="우편번호" readonly>
+					</div>
+					<div class="col">
+						<input type="button" class="btn btn-outline-secondary"
+							onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
+					</div>
+				</div>
+			</div>
+
+			<div class="mb-3">
+				<div class="row">
+					<div class="col">
+						<input class="form-control" type="text" id="sample4_roadAddress"
+							name="address" placeholder="도로명주소" readonly>
+					</div>
+					<div class="col">
+						<input class="form-control" type="text" id="sample4_jibunAddress"
+							placeholder="지번주소">
+					</div>
+				</div>
+			</div>
+			<span id="guide" style="color: #999; display: none"></span>
+			<div class="mb-3">
+				<div class="row">
+					<div class="col">
+						<input class="form-control" type="text" id="sample4_detailAddress"
+							placeholder="상세주소">
+					</div>
+					<div class="col">
+						<input class="form-control" type="text" id="sample4_extraAddress"
+							placeholder="참고항목" readonly>
+					</div>
+				</div>
+			</div>
+			<div class="mt-5">
+				<input class="form-control" type="submit" value="회원가입">
+			</div>
+		</form>
+	</div>
+	<script>
 
 	<!-- 빈칸 체크 -->
 
-	function blankchk() {
+	function blankchk(form) {
 	if(document.getElementById( 'id' ).value.trim() == "") {
     	alert("아이디는 필수 입력 값입니다.")
       	return false;
 	}
     if(document.getElementById( 'pass' ).value.trim() == "") {
         alert("비밀번호는 필수 입력 값입니다.")
+        form.password.focus()
         return false;
     }
     if(document.getElementById( 'name' ).value.trim() == "") {
         alert("이름을 입력해주세요.")
+        form.name.focus()
         return false;
     }
 	if(document.getElementById( 'tel' ).value.trim() == "") {
         alert("전화번호를 입력해주세요.")
+        form.tel.focus()
         return false;
 	}
     if(document.getElementById( 'email' ).value.trim() == "") {
         alert("이메일을 입력해주세요.")
+        form.email.focus()
         return false;
     }
     if(document.getElementById( 'sample4_postcode' ).value.trim() == "") {
         alert("우편번호를 입력해주세요.")
+        form.zipcode.focus()
         return false;
     }
     if(document.getElementById( 'sample4_roadAddress' ).value.trim() == "") {
         alert("주소를 입력해주세요.")
+        form.address.focus()
         return false;
     }
     	else return true;

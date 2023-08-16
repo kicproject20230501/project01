@@ -133,8 +133,8 @@ public class OrderController {
 		order.setId(id);
 		order.setResult(1);
 		order.setOrdernum(ordernum); // 주문 번호 (id + 년도월일시분초)
-		order.setDetailAddress(request.getParameter("detailaddress"));
-
+		
+		System.out.println(order);
 		if (request.getParameterValues("multi-prodnum") == null) { // 상품 페이지 -> 주문서인 경우
 			int prodnum = Integer.parseInt(request.getParameter("single-prodnum"));
 			int quantity = Integer.parseInt(request.getParameter("single-quantity"));
@@ -206,7 +206,6 @@ public class OrderController {
 			}
 		}
 		
-		System.out.println(request.getParameter("detailaddress"));
 		m.addAttribute("ordernum", ordernum);
 		m.addAttribute("msg", msg);
 		m.addAttribute("url", url);

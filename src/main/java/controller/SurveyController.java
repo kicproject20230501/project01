@@ -81,7 +81,11 @@ public class SurveyController {
 		System.out.println("나무?: " + request.getParameter("ck3wood"));
 
 		switch (page) {
+		
+		case "surveyStart":
 
+			return "survey/surveyStart";
+		
 		case "survey01":
 
 			return "survey/survey01";

@@ -15,7 +15,7 @@ public class Order {
 	private int result; // 주문 상태
 	private int delivercost; // 배송비
 	private Date regdate; // 주문 날짜
-	
+
 	// setter, getter
 	public String getOrdernum() {
 		return ordernum;
@@ -69,7 +69,7 @@ public class Order {
 		return detailaddress;
 	}
 
-	public void setDetailAddress(String detailaddress) {
+	public void setDetailaddress(String detailaddress) {
 		this.detailaddress = detailaddress;
 	}
 

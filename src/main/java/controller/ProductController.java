@@ -4,10 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.annotation.WebInitParam;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,15 +37,15 @@ public class ProductController {
 		session = request.getSession();
 		
 	}
-
 	
-	
+	// 상품 입력 페이지
 	@RequestMapping("productForm")
 	public String productForm() {
 
 		return "product/productForm";
-	}
-
+	} // productForm End
+	
+	// 상품 업로드
 	@RequestMapping("productPro")
 	public String productPro(@RequestParam("f1") MultipartFile multipartFile1,
 			@RequestParam("f2") MultipartFile multipartFile2,
@@ -90,8 +87,9 @@ public class ProductController {
 		m.addAttribute("msg", msg);
 		m.addAttribute("url", url);
 		return "alert";
-	} // productForm End
-
+	} // productPro End
+	
+	// 상품 페이지
 	@RequestMapping("productList")
 	public String productList() {
 		session.setAttribute("pageNum", "1");
@@ -131,8 +129,9 @@ public class ProductController {
 		m.addAttribute("maxPage", maxPage);
 
 		return "product/productList";
-	}
-
+	} // productList End
+	
+	// 상품 관리 페이지 (admin 전용)
 	@RequestMapping("productManagement")
 	public String productManagement() {
 		session.setAttribute("pageNum", "1");
@@ -160,10 +159,7 @@ public class ProductController {
 		if (end > maxPage)
 			end = maxPage;
 
-		// 주문 관련 추가한 코드
-
 		m.addAttribute("prodNum", prodNum);
-
 		m.addAttribute("pageInt", pageInt);
 		m.addAttribute("bottomLine", bottomLine);
 		m.addAttribute("start", start);
@@ -171,9 +167,9 @@ public class ProductController {
 		m.addAttribute("maxPage", maxPage);
 		m.addAttribute("ma", ma);
 		return "product/productManagement";
-
-	}
-
+	} // productManagement End
+	
+	// 상품 정보 수정 페이지 (admin 전용)
 	@RequestMapping("productUpdateForm")
 	public String productUpdateForm(@RequestParam("prodnum") int prodnum) {
 
@@ -181,9 +177,9 @@ public class ProductController {
 
 		m.addAttribute("product", product);
 		return "product/productUpdateForm";
-
-	} // productUpdateForm end
-
+	} // productUpdateForm End
+	
+	// 상품 정보 수정 (admin 전용)
 	@RequestMapping("productUpdatePro")
 	public String productUpdatePro(@RequestParam("f1") MultipartFile multipartFile1,
 			@RequestParam("f2") MultipartFile multipartFile2,
@@ -234,16 +230,18 @@ public class ProductController {
 			
 		m.addAttribute("msg", msg);
 		m.addAttribute("url", url);
-		return "alert"; // view/product/alert 이동
-	} // productUpdatePro end
-
+		return "alert";
+	} // productUpdatePro End
+	
+	// 상품 삭제 페이지 (admin 전용)
 	@RequestMapping("productDeleteForm")
 	public String productDeleteForm(@RequestParam("prodnum") int prodnum) {
 
 		m.addAttribute("prodnum", prodnum);
 		return "product/productDeleteForm";
-	} // productDelete end
-
+	} // productDeleteForm End
+	
+	// 상품 삭제 (admin 전용)
 	@RequestMapping("productDeletePro")
 	public String productDeletePro(@RequestParam("prodnum") int prodnum) {
 
@@ -260,8 +258,9 @@ public class ProductController {
 		m.addAttribute("msg", msg);
 		m.addAttribute("url", url);
 		return "alert";
-	} // productDeletePro end
-
+	} // productDeletePro End
+	
+	// 상품 상세 페이지
 	@RequestMapping("productDetail")
 	public String productDetail(@RequestParam("prodnum") int prodnum) {
 
@@ -269,7 +268,7 @@ public class ProductController {
 
 		m.addAttribute("product", product);
 		return "product/productDetail";
-	}
+	} // productDetail End
 	
 
 } // ProductController End

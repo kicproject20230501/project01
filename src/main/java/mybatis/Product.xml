@@ -20,19 +20,20 @@
 	</select>
 	
 	<select id="productOne" parameterType="int"  resultType="product">
-     select * from product where prodnum = #{prodnum}
+    	select * from product where prodnum = #{prodnum}
     </select>
 	
 	<update id="productUpdate"  parameterType="product" >
-	update product set name = #{name}, price = #{price}, 
-	stock = #{stock}, info = #{info}, image = #{image},
-	prodgender = #{prodgender}, prodans1 = #{prodans1}, 
-	prodans2 = #{prodans2}, detail = #{detail} where prodnum = #{prodnum}
+		update product set name = #{name}, price = #{price}, 
+		stock = #{stock}, info = #{info}, image = #{image},
+		prodgender = #{prodgender}, prodans1 = #{prodans1}, 
+		prodans2 = #{prodans2}, detail = #{detail} where prodnum = #{prodnum}
 	</update>
 
 	<delete id="productDelete"  parameterType="int">
-	delete from product where prodnum = #{prodnum}
+		delete from product where prodnum = #{prodnum}
 	</delete>
+	
 	<select id="orderProductList" parameterType="map" resultType="product">
 		select * from product where prodnum = #{prodnum}
 	</select>

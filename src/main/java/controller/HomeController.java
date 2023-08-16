@@ -26,19 +26,22 @@ public class HomeController {
 		session = request.getSession();
 	}
 	
-	@RequestMapping("index") // /home/index
+	// 메인 페이지
+	@RequestMapping("index")
 	public String index() {
 		
 		return "home/index";
-	}
+	} // index End
 	
+	// 소개 페이지
 	@RequestMapping("about") // /home/index
 	public String about() {
 		
 		return "home/about";
-	}
+	} // about End
 	
-	@RequestMapping("adminAlert") // admin 확인
+	// admin 확인
+	@RequestMapping("adminAlert")
 	public String adminAlert(String id) {
 		if (id.equals("admin")) {
 			m.addAttribute("msg", "접근 권한이 없습니다.");
@@ -46,10 +49,10 @@ public class HomeController {
 		m.addAttribute("url", "home/index");
 		
 		return "alert";
-	}
+	} // adminAlert End
 	
-	//로그인한 유저만 가능
-	@RequestMapping("loginAlert") // 로그인 확인
+	// 로그인 확인
+	@RequestMapping("loginAlert")
 	public String alert(String id){
 		if(id.equals("login")) {
 			m.addAttribute("msg", "로그인을 해주세요.");
@@ -57,6 +60,6 @@ public class HomeController {
 		m.addAttribute("url", "member/loginForm");	
 		
 		return "alert";
-	}
+	} // loginAlert End
 	
-}
+} // HomeController End

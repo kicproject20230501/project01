@@ -1,13 +1,11 @@
 package controller;
 
-import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,27 +53,24 @@ public class OrderController {
 		session = request.getSession();
 	}
 	
-	
+	// 주문 페이지
 	@RequestMapping("order")
-	public String order() {
+	public String order(@RequestParam("prodnum") int prodnum,
+			@RequestParam("quantity") int quantity) {
 		String id = (String) session.getAttribute("id");
-		String[] chk = request.getParameterValues("chk");
+		String[] chk = request.getParameterValues("chk"); // 체크된 체크박스들
 
 		Member member = md.oneMember(id);
 
 		Cart cart = new Cart();
 		List<Product> li = new ArrayList<Product>();
-		List<List<Product>> list = new ArrayList();
-		List<Integer> quantityList = new ArrayList();
+		List<List<Product>> list = new ArrayList<List<Product>>();
+		List<Integer> quantityList = new ArrayList<Integer>();
 
-		int quantity = 0;
-		int prodnum = 0;
 
 		m.addAttribute("member", member);
 
 		if (chk == null) { // 상품 페이지에서 바로 주문한 경우
-			prodnum = Integer.parseInt(request.getParameter("prodnum"));
-			quantity = Integer.parseInt(request.getParameter("quantity"));
 			li = pd.orderProductList(prodnum);
 			Product product = pd.productOne(prodnum);
 			m.addAttribute("li", li);
@@ -111,21 +106,23 @@ public class OrderController {
 
 			}
 
-			m.addAttribute("list", list);
-			m.addAttribute("quantityList", quantityList);
 			System.out.println(list);
 			System.out.println(quantityList);
+			
+			m.addAttribute("list", list);
+			m.addAttribute("quantityList", quantityList);
 			return "order/order";
 		}
-	}
-
+	} // orderEnd
+	
+	// 주문
 	@RequestMapping("orderPro")
 	public String orderPro(Order order, OrderItem orderItem) {
 		String id = (String) session.getAttribute("id");
 		String msg = "";
 		String url = "";
 
-		// 주문 번호 만들기 용
+		// 주문 번호 만들기 용 (양식: id + 년월일시분초)
 		Date date = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("_yyyyMMddHHmmss");
 		String ordernum = id + format.format(date);
@@ -153,8 +150,8 @@ public class OrderController {
 			orderItem.setQuantity(quantity);
 
 			if (od.insertOrder(order) > 0) {
-				orderItem.setOrdernum(order.getOrdernum());
-				od.insertOrderItem(orderItem);
+				orderItem.setOrdernum(order.getOrdernum()); // orderItem에 추가될 ordernum 설정
+				od.insertOrderItem(orderItem); // order가 될 경우 orderItem에도 해당 상품들 추가
 				// 재고 Update
 				Product p = pd.productOne(prodnum);
 				int stock = p.getStock() - quantity;
@@ -166,7 +163,7 @@ public class OrderController {
 				msg = "오류가 발생했습니다.";
 				url = "product/productDetail?prodnum=" + prodnum;
 			}
-		} else { // 장바구니 -> 주문서인 경우
+		} else { // 장바구니 -> 주문서인 경우 (상품이 여러개)
 			String[] multiProdnum = request.getParameterValues("multi-prodnum");
 			String[] multiQuantity = request.getParameterValues("multi-quantity");
 			String[] multiPrice = request.getParameterValues("multi-price");
@@ -212,8 +209,9 @@ public class OrderController {
 		m.addAttribute("msg", msg);
 		m.addAttribute("url", url);
 		return "alert";
-	}
-
+	} // orderPro End
+	
+	// 주문내역
 	@RequestMapping("orderList")
 	public String orderList() {
 		String id = (String) session.getAttribute("id");
@@ -225,8 +223,9 @@ public class OrderController {
 		m.addAttribute("li", li);
 		m.addAttribute("member", member);
 		return "order/orderList";
-	}
-
+	} // orderList End
+	
+	// 주문 상세 페이지
 	@RequestMapping("orderDetail")
 	public String orderDetail(@RequestParam("ordernum") String ordernum) {
 		String id = (String) session.getAttribute("id");
@@ -255,15 +254,17 @@ public class OrderController {
 		m.addAttribute("prodnameLi", prodnameLi);
 		m.addAttribute("li", li);
 		return "order/orderDetail";
-	}
-
+	} // orderDetail End
+	
+	// 주문 취소 페이지
 	@RequestMapping("orderCancelForm")
 	public String orderCancelForm(@RequestParam("ordernum") String ordernum) {
 
 		m.addAttribute("ordernum", ordernum);
 		return "order/orderCancelForm";
-	}
-
+	} // ordeerCancelForm End
+	
+	// 주문 취소
 	@RequestMapping("orderCancelPro")
 	public String orderCancelPro(@RequestParam("ordernum") String ordernum) {
 		String id = (String) session.getAttribute("id");
@@ -295,6 +296,7 @@ public class OrderController {
 			order.setResult(3);
 			if (od.orderUpdate(order) > 0) {
 				for (int i = 0; i < li.size(); i++) {
+					// 주문 취소하면 해당 상품의 재고를 돌려놓기
 					Product p = pd.productOne(prodnumLi.get(i));
 					int stock = p.getStock() + quantityLi.get(i);
 					p.setStock(stock);
@@ -314,15 +316,17 @@ public class OrderController {
 		m.addAttribute("msg", msg);
 		m.addAttribute("url", url);
 		return "alert";
-	}
-
+	} // orderCancelPro End
+	
+	// 주문 결과 페이지
 	@RequestMapping("orderResult")
 	public String orderResult(@RequestParam("ordernum") String ordernum) {
 
 		m.addAttribute("ordernum", ordernum);
-		return "/order/orderResult";
-	}
-
+		return "order/orderResult";
+	} // orderResult End
+	
+	// 주문 확정
 	@RequestMapping("orderConfirm")
 	public String orderConfirm(@RequestParam("ordernum") String ordernum) {
 		String id = (String) session.getAttribute("id");
@@ -344,8 +348,9 @@ public class OrderController {
 		m.addAttribute("msg", msg);
 		m.addAttribute("url", url);
 		return "alert";
-	}
-
+	} // orderConfirm End
+	
+	// 주문 관리 페이지 (admin 전용)
 	@RequestMapping("orderManagement")
 	public String orderManagement() {
 		session.setAttribute("pageNum", "1");
@@ -390,8 +395,9 @@ public class OrderController {
 		m.addAttribute("maxPage", maxPage);
 		m.addAttribute("resultLi", resultLi);
 		return "/order/orderManagement";
-	}
-
+	} // orderManagement End
+	
+	// 주문 상태 수정 (admin 전용)
 	@RequestMapping("orderStateUpdate")
 	public String orderStateUpdate(@RequestParam("ordernum") String ordernum,
 			@RequestParam("result") int result) {
@@ -413,7 +419,6 @@ public class OrderController {
 		m.addAttribute("msg", msg);
 		m.addAttribute("url", url);
 		return "alert";
-	}
+	} // orderStateUpdate End
 
-
-}
+} // OrderController End

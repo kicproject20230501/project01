@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-
+// 유저 로그인 확인 클래스
 public class LoginUser extends HandlerInterceptorAdapter {
 	
 	@Override

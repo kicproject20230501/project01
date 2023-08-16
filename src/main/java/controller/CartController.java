@@ -44,17 +44,16 @@ public class CartController {
 		session = request.getSession();
 	}
 	
-	// 상세 페이지에서 장바구니 추가
+	// 장바구니 추가
 	@RequestMapping("cartPro")
-	public String cartPro(Cart c) {
+	public String cartPro(@RequestParam("prodnum") int prodnum,
+			@RequestParam("quantity") int quantity,
+			@RequestParam("price") int price, Cart c) {
 		String id = (String) session.getAttribute("id");
 		String msg = "";
 		String url = "";
 		
-		int prodnum = Integer.parseInt(request.getParameter("prodnum"));
-		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		String prodname = request.getParameter("prodname");
-		int price = Integer.parseInt(request.getParameter("price"));
 		
 		c.setId(id);
 		c.setProdnum(prodnum);
@@ -65,7 +64,7 @@ public class CartController {
 
 		Product product = pd.productOne(prodnum);
 
-		int result = cd.checkCart(c);
+		int result = cd.checkCart(c); // 장바구니에 있는지 확인
 
 		if (result != 1) {
 			if (product.getStock() < quantity) { // 주문 수량이 재고보다 많은 경우
@@ -77,7 +76,7 @@ public class CartController {
 				url = "cart/cartList";
 			}
 		} else {
-			cd.checkUpdateCart(quantity, id, prodnum);
+			cd.checkUpdateCart(quantity, id, prodnum); // 이미 장바구니에 존재하는 경우 quantity update
 			msg = "이미 장바구니에 존재하는 상품입니다.";
 			url = "cart/cartList";
 		}
@@ -85,8 +84,9 @@ public class CartController {
 		m.addAttribute("msg", msg);
 		m.addAttribute("url", url);
 		return "alert";
-	}
-
+	} // cartPro End
+	
+	// 장바구니 페이지
 	@RequestMapping("cartList")
 	public String cartList() {
 		String id = (String) session.getAttribute("id");
@@ -97,14 +97,14 @@ public class CartController {
 		m.addAttribute("li", li);
 		m.addAttribute("id", id);
 		return "cart/cartList";
-	}
-
+	} // cartList end
+	
+	// 장바구니 업데이트 (수량 업데이트)
 	@RequestMapping("cartUpdate")
-	public String cartUpdate(@RequestParam("cartid") int cartid, Cart c) {
+	public String cartUpdate(@RequestParam("cartid") int cartid, 
+			@RequestParam("quantity") int quantity, Cart c) {
 		String msg = "오류가 발생했습니다.";
 		String url = "cart/cartList";
-		
-		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		
 		c.setCartid(cartid);
 		c.setQuantity(quantity);
@@ -113,7 +113,7 @@ public class CartController {
 		Product product = pd.productOne(prodnum);
 		int stock = product.getStock();
 
-		if (stock < quantity) {
+		if (stock < quantity) { // 장바구니에 추가하려는 상품의 수량이 재고보다 많은 경우
 			msg = "해당 상품의 재고보다 수량이 많습니다.";
 			url = "cart/cartList";
 		} else {
@@ -125,8 +125,9 @@ public class CartController {
 		m.addAttribute("msg", msg);
 		m.addAttribute("url", url);
 		return "alert";
-	}
-
+	} // cartUpdate End
+	
+	// 장바구니 삭제
 	@RequestMapping("cartDelete")
 	public String cartDelete(@RequestParam("cartid") int cartid, Cart c) {
 		String msg = "오류가 발생했습니다.";
@@ -144,6 +145,6 @@ public class CartController {
 		m.addAttribute("msg", msg);
 		m.addAttribute("url", url);
 		return "alert";
-	}
+	} // cartDelete End
 
-}
+} // cartController End

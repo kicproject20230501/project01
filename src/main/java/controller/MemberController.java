@@ -33,20 +33,23 @@ public class MemberController {
 		session = request.getSession();
 
 	}
-
-	@RequestMapping("joinForm") // /member/joinForm
+	
+	// 회원가입 페이지
+	@RequestMapping("joinForm")
 	public String joinForm() {
 
 		return "member/joinForm";
-	}
-
-	@RequestMapping("loginForm") // /member/joinForm
+	} // joinForm End
+	
+	// 로그인 페이지
+	@RequestMapping("loginForm")
 	public String loginForm() {
 
 		return "member/loginForm";
-	}
-
-	@RequestMapping("joinPro") // /member/joinForm
+	} // loginForm End
+	
+	// 회원가입
+	@RequestMapping("joinPro")
 	public String joinPro(Member mem) {
 
 		int num = md.insertMember(mem);
@@ -64,9 +67,10 @@ public class MemberController {
 		m.addAttribute("msg", msg);
 		m.addAttribute("url", url);
 		return "alert";
-	}
-
-	@RequestMapping("loginPro") // /member/joinForm
+	} // joinPro End
+	
+	// 로그인
+	@RequestMapping("loginPro")
 	public String loginPro(String id, String pass) {
 
 		Member mem = md.oneMember(id);
@@ -88,9 +92,10 @@ public class MemberController {
 		m.addAttribute("msg", msg);
 		m.addAttribute("url", url);
 		return "alert";
-	}
-
-	@RequestMapping("logout") // /member/joinForm
+	} // loginPro End
+	
+	// 로그아웃
+	@RequestMapping("logout")
 	public String logout() {
 
 		String id = (String) session.getAttribute("id");
@@ -101,9 +106,10 @@ public class MemberController {
 		m.addAttribute("msg", msg);
 		m.addAttribute("url", url);
 		return "alert";
-	}
-
-	@RequestMapping("memberInfo") // /member/joinForm
+	} // logout End
+	
+	// 회원정보 (마이페이지)
+	@RequestMapping("memberInfo")
 	public String memberInfo() {
 
 		String id = (String) session.getAttribute("id");
@@ -111,8 +117,9 @@ public class MemberController {
 
 		m.addAttribute("mem", mem);
 		return "member/memberInfo";
-	}
-
+	} // memberInfo End
+	
+	// 회원정보 업데이트 페이지
 	@RequestMapping("memberUpdateForm")
 	public String memberUpdateForm() {
 
@@ -121,10 +128,10 @@ public class MemberController {
 
 		m.addAttribute("mem", mem);
 		return "member/memberUpdateForm";
-	}
-
+	} // memberUpdateForm End
+	
+	// 아이디 중복 확인
 	@RequestMapping("checkDuplicateId")
-
 	public String checkDuplicateId(String id) {
 
 		Member mem = md.oneMember(id);
@@ -134,8 +141,9 @@ public class MemberController {
 			m.addAttribute("chk", "아이디가 이미 사용 중입니다. 다른 아이디를 선택해주세요.");
 
 		return "member/checkDuplicateId";
-	}
-
+	} // checkDuplicateId End
+	
+	// 회원정보 수정
 	@RequestMapping("memberUpdatePro")
 	public String memberUpdatePro(Member newm) {
 
@@ -165,17 +173,18 @@ public class MemberController {
 		m.addAttribute("msg", msg);
 		m.addAttribute("url", url);
 		return "alert";
-	}
-
+	} // memberUpdatePro End
+	
+	// 비밀번호 업데이트 페이지
 	@RequestMapping("memberPassForm")
-//    @Login("MemberLoginUser")
 	public String memberPassForm() {
 
 		return "member/memberPassForm";
-	}
-
+	} // memberPassForm End
+	
+	// 비밀번호 업데이트
 	@RequestMapping("memberPassPro")
-	public String memberPassPro(String pass, String chgpass1, String chgpass2) {
+	public String memberPassPro(String pass, String chgpass1) {
 		String id = (String) session.getAttribute("id");
 		String msg = "로그인이 필요합니다";
 		String url = "member/loginForm";
@@ -200,14 +209,16 @@ public class MemberController {
 		m.addAttribute("msg", msg);
 		m.addAttribute("url", url);
 		return "alert";
-	}
-
+	} // memberPassPro End
+	
+	// 회원 탈퇴 페이지
 	@RequestMapping("memberDeleteForm")
 	public String memberDeleteForm() {
 
 		return "member/memberDeleteForm";
-	}
-
+	} // memberDeleteForm End
+	
+	// 회원 탈퇴
 	@RequestMapping("memberDeletePro")
 	public String memberDeletePro(String pass) {
 
@@ -237,16 +248,18 @@ public class MemberController {
 		m.addAttribute("msg", msg);
 		m.addAttribute("url", url);
 		return "alert";
-	}
-
+	} // memberDeletePro End
+	
+	// 회원 리스트 (admin 전용)
 	@RequestMapping("memberList")
 	public String memberList() {
 		List<Member> li = md.memberList();
 
 		m.addAttribute("li", li);
 		return "member/memberList";
-	}
-
+	} // memberList End
+	
+	// 회원 탈퇴처리 (admin 전용)
 	@RequestMapping("adminMemberDelete")
 	public String MemberAdminDelete() {
 
@@ -262,5 +275,6 @@ public class MemberController {
 		}
 
 		return "alert";
-	}
-}
+	} // memberAdminDelete End
+	
+} // MemberController End

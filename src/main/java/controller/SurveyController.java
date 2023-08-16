@@ -27,7 +27,7 @@ public class SurveyController {
 	Model m;
 	HttpSession session;
 	HttpServletRequest request;
-	
+
 	@ModelAttribute
 	void init(HttpServletRequest request, Model m) {
 		this.request = request;
@@ -35,10 +35,13 @@ public class SurveyController {
 		session = request.getSession();
 	}
 
+	// 설문 1페이지 (성별)
 	@RequestMapping("survey01")
 	public String survey01() {
-	return "survey/survey01"; }
+		return "survey/survey01";
+	} // survey01 End
 	
+	// 설문 시작 페이지
 	@RequestMapping("surveyStart")
 	public String surveyStart(Survey s) {
 		// 설문 시작화면에 통계표 구현
@@ -62,11 +65,12 @@ public class SurveyController {
 		m.addAttribute("FemaleD", FemaleD);
 
 		return "survey/surveyStart";
-	}
-
+	} // surveyStart End
+	
+	// 설문 답변에 따라 다르게 로딩되는 페이지 (설문 2, 설문 3, 설문 결과)
 	@RequestMapping("RadioCheckedPro")
 	public String RadioCheckedPro(@RequestParam("page") String page, @RequestParam("ck1gender") int ansGender,
-								  @RequestParam("ck2favorite") String ans1, Survey survey) {
+			@RequestParam("ck2favorite") String ans1, Survey survey) {
 		String msg = "";
 		// value 확인
 		System.out.println("page:" + page);
@@ -77,12 +81,11 @@ public class SurveyController {
 		System.out.println("나무?: " + request.getParameter("ck3wood"));
 
 		switch (page) {
-		
+
 		case "survey01":
-			
+
 			return "survey/survey01";
 
-		
 		case "survey02":
 			m.addAttribute("ck1gender", ansGender);
 			m.addAttribute("ck2favorite", ans1);
@@ -129,8 +132,8 @@ public class SurveyController {
 			String image = p.getImage();
 			String pname = p.getName();
 
-			System.out.println("상품명"+pname);
-			System.out.println("상품사진"+image);
+			System.out.println("상품명" + pname);
+			System.out.println("상품사진" + image);
 
 			m.addAttribute("pname", pname);
 			m.addAttribute("image", image);
@@ -138,7 +141,7 @@ public class SurveyController {
 			// 이전 설문 결과 표시 창
 			// Answer db에서 id가 가지고잇는 리스트 출력후 배열로 정렬
 			String id = (String) session.getAttribute("id");
-			//String id = "1048";
+			// String id = "1048";
 			survey.setId(id);
 			List<Survey> anslist = surbd.surveyList(id);
 			List<String> anslistImage = new ArrayList<>();
@@ -168,12 +171,13 @@ public class SurveyController {
 		}
 
 		return page;
-	}
+	} // RadioCheckedPro End
 
-    // 이미 설문 조사한 사람도 여러번 참여가능하며 같은아이디 다른 시퀀스 번호로 설문한 자료 저장됨
+	// 설문 결과 DB에 저장
+	// 이미 설문 조사한 사람도 여러번 참여가능하며 같은아이디 다른 시퀀스 번호로 설문한 자료 저장됨
 	@RequestMapping("surveyInsertPro")
 	public String surveyInsertPro(@RequestParam("page") String page, @RequestParam("ck1gender") int ansGender,
-								  @RequestParam("ck2favorite") String ans1, Survey survey) {
+			@RequestParam("ck2favorite") String ans1, Survey survey) {
 		String url = "";
 		System.out.println(page);
 
@@ -184,7 +188,7 @@ public class SurveyController {
 		m.addAttribute("ck3wood", request.getParameter("ck3wood"));
 
 		String id = (String) session.getAttribute("id");
-		//String id = "1048";
+		// String id = "1048";
 		String ans2 = " ";
 		if (request.getParameter("ck3fruit") != null && !request.getParameter("ck3fruit").equals("")) {
 			ans2 = request.getParameter("ck3fruit");
@@ -206,10 +210,10 @@ public class SurveyController {
 		int prodnum = p.getProdnum();
 		survey.setProdname(prodname);
 		System.out.println(prodname + ":" + prodnum);
-		
+
 		String anslistProdnum = request.getParameter("pnum");
 		System.out.println(anslistProdnum);
-		
+
 		switch (page) {
 		// 홈페이지로~
 		case "surveyStart":
@@ -230,20 +234,19 @@ public class SurveyController {
 			num = surbd.insertSurvey(survey);
 			if (num > 0) {
 				System.out.println("저장성공");
-				url = "product/productDetail?prodnum="+prodnum;
+				url = "product/productDetail?prodnum=" + prodnum;
 			} else {
 				System.out.println("저장실패");
 			}
 			m.addAttribute("url", url);
 			return "survey/alert";
-		
-		
+
 		case "product2":
-			
+
 			num = surbd.insertSurvey(survey);
 			if (num > 0) {
 				System.out.println("저장성공");
-				url = "product/productDetail?prodnum="+anslistProdnum;
+				url = "product/productDetail?prodnum=" + anslistProdnum;
 			} else {
 				System.out.println("저장실패");
 			}
@@ -251,18 +254,6 @@ public class SurveyController {
 			return "survey/alert";
 		}
 		return null;
-	}
-	
-	//로그인한 유저만 가능
-	@RequestMapping("loginAlert")
-	public String alert(String id){
-		if(id.equals("login")) {
-			m.addAttribute("msg", "로그인 하신 유저분들만 설문 하실 수 있습니다.");
-		} 
-		
-		m.addAttribute("url", "member/loginForm");
-		
-		return "alert2";
-	} 
-	 
-}// end
+	} // surveyInsertPro End
+
+} // end

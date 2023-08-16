@@ -53,7 +53,7 @@ public class BoardController {
 
 		m.addAttribute("member", member);
 		return "board/boardForm";
-	} // boardForm end
+	} // boardForm End
 	
 	
 	// 게시글 업로드
@@ -90,7 +90,7 @@ public class BoardController {
 		m.addAttribute("msg", msg);
 		m.addAttribute("url", url);
 		return "alert";
-	} // boardList end
+	} // boardList End
 	
 	
 	// 게시글 목록
@@ -171,7 +171,7 @@ public class BoardController {
 		m.addAttribute("maxPage", maxPage);
 
 		return "board/boardList"; // view/board/boardList.jsp
-	} // boardList end
+	} // boardList End
 	
 	
 	// 게시글 수정 페이지
@@ -197,7 +197,7 @@ public class BoardController {
 		m.addAttribute("boardName", boardName);
 		m.addAttribute("board", board);
 		return "board/boardUpdateForm";
-	} // boardUpdateForm end
+	} // boardUpdateForm End
 
 	
 	// 게시글 수정
@@ -235,7 +235,7 @@ public class BoardController {
 		m.addAttribute("msg", msg);
 		m.addAttribute("url", url);
 		return "alert"; // view/board/alert.jsp 이동
-	} // boardUpdatePro end
+	} // boardUpdatePro End
 	
 	
 	// 게시글 삭제 페이지
@@ -244,7 +244,7 @@ public class BoardController {
 		
 		m.addAttribute("num", num);
 		return "board/boardDeleteForm";
-	} // boardDeleteForm end
+	} // boardDeleteForm End
 	
 	
 	// 게시글 삭제
@@ -263,7 +263,7 @@ public class BoardController {
 		m.addAttribute("msg", msg);
 		m.addAttribute("url", url);
 		return "alert";
-	} // boardDeletePro end
+	} // boardDeletePro End
 
 	
 	// 게시글 페이지 (댓글 포함)
@@ -293,7 +293,7 @@ public class BoardController {
 		m.addAttribute("commentLi", commentLi);
 		m.addAttribute("board", board);
 		return "board/boardComment";
-	} // boardComment end
+	} // boardComment End
 	
 	
 	// 댓글 업로드
@@ -313,7 +313,7 @@ public class BoardController {
 		m.addAttribute("c", c);
 
 		return "board/boardCommentPro";
-	} // boardCommentPro end
+	} // boardCommentPro End
 	
 	// 댓글 삭제 페이지
 	@RequestMapping("boardCommentDeleteForm")

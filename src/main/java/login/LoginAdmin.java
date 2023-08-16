@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-
+// admin 계정 확인 클래스
 public class LoginAdmin extends HandlerInterceptorAdapter {
 	
 	@Override

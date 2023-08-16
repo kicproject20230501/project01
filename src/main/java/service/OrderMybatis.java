@@ -47,7 +47,7 @@ public class OrderMybatis {
 	public int orderUpdate(Order order) { // 주문 상태 변경용
 		return sqlSession.insert(NS + "orderUpdate", order);
 	}
-	
+
 	public int orderCount() {
 		return sqlSession.selectOne(NS + "orderCount");
 	}

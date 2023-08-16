@@ -20,47 +20,58 @@
 	</select>
 
 	<select id="boardList" parameterType="map" resultType="board">
-		select * from (
+		select *
+		from (
 		select rownum rnum, a.* from
 		(select * from board2 where
-		boardid = #{boardid}
+		boardid =
+		#{boardid}
 		order by num desc) a) where rnum BETWEEN #{start}
 		and #{end}
 	</select>
 
 	<select id="boardOne" parameterType="int" resultType="board">
-		select * from board2 where num = #{num}
+		select *
+		from board2 where num = #{num}
 	</select>
 
 	<update id="boardUpdate" parameterType="board">
-		update board2 set boardid = #{boardid}, subject = #{subject},
-		content = #{content}, image = #{image} where num = #{num}
+		update board2 set boardid
+		= #{boardid}, subject = #{subject},
+		content = #{content}, image =
+		#{image} where num = #{num}
 	</update>
 
 	<delete id="boardDelete" parameterType="int">
-		delete from board2 where num = #{num}
+		delete from board2 where
+		num = #{num}
 	</delete>
 
 	<delete id="boardDelete2" parameterType="int">
-		delete from boardcomment2 where num = #{num}
+		delete from
+		boardcomment2 where num = #{num}
 	</delete>
 
 	<insert id="insertComment" parameterType="map">
-		insert into boardcomment2 values
+		insert into
+		boardcomment2 values
 		(boardcomseq2.nextval,#{num},#{name},#{comment},sysdate)
 	</insert>
 
 	<select id="commentList" parameterType="int"
 		resultType="comment">
-		select * from boardcomment2 where num = #{num} order by regdate desc
+		select * from boardcomment2 where num = #{num} order by
+		regdate desc
 	</select>
 
 	<select id="commentOne" parameterType="int" resultType="comment">
-		select * from boardcomment2 where ser = #{ser}
+		select *
+		from boardcomment2 where ser = #{ser}
 	</select>
 
 	<delete id="commentDelete" parameterType="int">
-		delete from boardcomment2 where ser = #{ser}
+		delete from
+		boardcomment2 where ser = #{ser}
 	</delete>
 
 

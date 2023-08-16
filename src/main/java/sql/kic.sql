@@ -114,6 +114,7 @@ name varchar(20),
 tel varchar(20),
 zipcode varchar(10),
 address varchar(100),
+detailaddress varchar(100),
 result int,
 delivercost int, 
 regdate date);

@@ -21,7 +21,6 @@
 		select * from cart where id = #{id}
 	</select>
 	
-	
 	<select id="cartOne" parameterType="int" resultType="cart">
 		select * from cart where cartid = #{cartid}
 	</select>

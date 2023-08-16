@@ -100,10 +100,12 @@ public class CartController {
 	}
 
 	@RequestMapping("cartUpdate")
-	public String cartUpdate(@RequestParam("cartid") int cartid, @RequestParam("quantity") int quantity, Cart c) {
+	public String cartUpdate(@RequestParam("cartid") int cartid, Cart c) {
 		String msg = "오류가 발생했습니다.";
 		String url = "cart/cartList";
-
+		
+		int quantity = Integer.parseInt(request.getParameter("quantity"));
+		
 		c.setCartid(cartid);
 		c.setQuantity(quantity);
 		Cart cart = cd.cartOne(cartid);

@@ -44,8 +44,8 @@ public class BoardController {
 		session = request.getSession();
 	}
 	
-	
-	@RequestMapping("boardForm") // 게시글 작성 페이지
+	// 게시글 작성 페이지
+	@RequestMapping("boardForm")
 	public String boardForm() {
 		String id = (String)session.getAttribute("id");
 		
@@ -56,7 +56,8 @@ public class BoardController {
 	} // boardForm end
 	
 	
-	@RequestMapping("boardPro") // 게시글 업로드
+	// 게시글 업로드
+	@RequestMapping("boardPro")
 	public String boardPro(@RequestParam("f") MultipartFile multipartFile, Board board) {
 		String path = request.getServletContext().getRealPath("/")+"WEB-INF/view/board/images/"; // 사진 파일 경로
 		String msg = "게시물 등록에 실패하였습니다.";
@@ -92,7 +93,8 @@ public class BoardController {
 	} // boardList end
 	
 	
-	@RequestMapping("boardList") // 게시글 목록
+	// 게시글 목록
+	@RequestMapping("boardList")
 	public String boardList() {
 		// boardid가 파라미터로 넘어 왔을 때만 session에 저장
 		if (request.getParameter("boardid") != null) /* */ {
@@ -142,13 +144,14 @@ public class BoardController {
 		if (end > maxPage)
 			end = maxPage;
 		
-
+		// 게시글 num list
 		List<Integer> boardNumLi = new ArrayList<Integer>();
 		for (int i = 0; i < list.size(); i++) {
 			int boardNum2 = list.get(i).getNum();
 			boardNumLi.add(boardNum2);
 		}
 		
+		// 게시글 이름 list (게시글 작성자에 id 대신 닉네임을 뜨게 하기 위해)
 		List<String> boardNameLi = new ArrayList<String>();
 		for (int i = 0; i < boardNumLi.size(); i++) {
 			int boardNum2 = boardNumLi.get(i);
@@ -156,7 +159,7 @@ public class BoardController {
 			String Name2 = md.oneMember(Id2).getName();
 			boardNameLi.add(Name2);
 		}
-				
+		
 		m.addAttribute("boardNameLi", boardNameLi);
 		m.addAttribute("list", list);
 		m.addAttribute("boardNum", boardNum);
@@ -171,6 +174,7 @@ public class BoardController {
 	} // boardList end
 	
 	
+	// 게시글 수정 페이지
 	@RequestMapping("boardUpdateForm")
 	public String boardUpdateForm(@RequestParam("num") int num) {
 	
@@ -196,6 +200,7 @@ public class BoardController {
 	} // boardUpdateForm end
 
 	
+	// 게시글 수정
 	@RequestMapping("boardUpdatePro")
 	public String boardUpdatePro(@RequestParam("f") MultipartFile multipartFile, 
 			@RequestParam("num") int boardNum,
@@ -233,6 +238,7 @@ public class BoardController {
 	} // boardUpdatePro end
 	
 	
+	// 게시글 삭제 페이지
 	@RequestMapping("boardDeleteForm")
 	public String boardDeleteForm(@RequestParam("num") int num) {
 		
@@ -241,6 +247,7 @@ public class BoardController {
 	} // boardDeleteForm end
 	
 	
+	// 게시글 삭제
 	@RequestMapping("boardDeletePro")
 	public String boardDeletePro(@RequestParam("num") int num) {
 		String msg = "";
@@ -259,7 +266,8 @@ public class BoardController {
 	} // boardDeletePro end
 
 	
-	@RequestMapping("boardComment") // 게시글 페이지 (댓글)
+	// 게시글 페이지 (댓글 포함)
+	@RequestMapping("boardComment")
 	public String boardComment(@RequestParam("num") int boardnum) {
 		
 		Board board = bd.boardOne(boardnum);
@@ -288,7 +296,8 @@ public class BoardController {
 	} // boardComment end
 	
 	
-	@RequestMapping("boardCommentPro") // 댓글 업로드
+	// 댓글 업로드
+	@RequestMapping("boardCommentPro")
 	public String boardCommentPro(@RequestParam("num") int boardnum) {
 		String name = (String)session.getAttribute("id");
 		String comment = request.getParameter("comment");
@@ -306,6 +315,7 @@ public class BoardController {
 		return "board/boardCommentPro";
 	} // boardCommentPro end
 	
+	// 댓글 삭제 페이지
 	@RequestMapping("boardCommentDeleteForm")
 	public String boardCommentDeleteForm(@RequestParam("ser") int ser) {
 		
@@ -317,6 +327,7 @@ public class BoardController {
 		return "board/boardCommentDeleteForm";
 	}
 	
+	// 댓글 삭제
 	@RequestMapping("boardCommentDeletePro")
 	public String boardCommentDeletePro(@RequestParam("ser") int ser) {
 		String id = (String)session.getAttribute("id");

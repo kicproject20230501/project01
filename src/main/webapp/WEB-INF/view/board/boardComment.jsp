@@ -67,7 +67,8 @@
 		<tr>
 			<!-- 세션에 로그인이 되어 있지 않으면 댓글을 남길 수 없음 -->
 			<% if (session.getAttribute("id")==null) { %>
-			<td colspan="3">로그인한 사용자만 댓글을 남길 수 있습니다.</td>
+			<td colspan="3"><textarea rows="1" class="form-control"
+			cols="50" name="content" id="comment" placeholder="로그인한 사용자만 댓글을 남길 수 있습니다." readonly></textarea></td>
 			<% } else { %>
 			<td colspan="3" class="center">
 			<textarea rows="1" class="form-control"

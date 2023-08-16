@@ -43,14 +43,19 @@ public class CartController {
 		this.m = m;
 		session = request.getSession();
 	}
-
-	@RequestMapping("cartPro") // 상세 페이지에서 장바구니 추가
-	public String cartPro(@RequestParam("prodnum") int prodnum, @RequestParam("quantity") int quantity,
-			@RequestParam("prodname") String prodname, @RequestParam("price") int price, Cart c) {
+	
+	// 상세 페이지에서 장바구니 추가
+	@RequestMapping("cartPro")
+	public String cartPro(Cart c) {
 		String id = (String) session.getAttribute("id");
 		String msg = "";
 		String url = "";
-
+		
+		int prodnum = Integer.parseInt(request.getParameter("prodnum"));
+		int quantity = Integer.parseInt(request.getParameter("quantity"));
+		String prodname = request.getParameter("prodname");
+		int price = Integer.parseInt(request.getParameter("price"));
+		
 		c.setId(id);
 		c.setProdnum(prodnum);
 		c.setProdname(prodname);

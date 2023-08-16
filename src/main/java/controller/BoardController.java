@@ -273,6 +273,10 @@ public class BoardController {
 		Board board = bd.boardOne(boardnum);
 		List<BoardComment> commentLi = bd.commentList(boardnum);
 		
+		String id = board.getName();
+		String name = md.oneMember(id).getName();
+		
+		m.addAttribute("name", name);
 		m.addAttribute("commentLi", commentLi);
 		m.addAttribute("board", board);
 		return "board/boardComment";

@@ -19,7 +19,7 @@
 			</tr>
 			<tr>
 				<td>작성자</td>
-				<td>${mem.name}</td>
+				<td>${name}</td>
 				<td>작성일</td>
 				<td><fmt:formatDate value="${board.regdate}" var="dateValue" pattern="yyyy-MM-dd"/>${dateValue}</td>
 			</tr>

@@ -55,7 +55,7 @@
 	<insert id="insertComment" parameterType="map">
 		insert into
 		boardcomment2 values
-		(boardcomseq2.nextval,#{num},#{name},#{comment},sysdate)
+		(boardcomseq2.nextval,#{num},#{id},#{name},#{comment},sysdate)
 	</insert>
 
 	<select id="commentList" parameterType="int"
@@ -67,6 +67,11 @@
 	<select id="commentOne" parameterType="int" resultType="comment">
 		select *
 		from boardcomment2 where ser = #{ser}
+	</select>
+	
+	<select id="commentOne2" parameterType="int" resultType="comment">
+		select *
+		from boardcomment2 where num = #{num}
 	</select>
 
 	<delete id="commentDelete" parameterType="int">

@@ -7,7 +7,8 @@ import java.util.Date;
 public class BoardComment {
 	private int ser; // 댓글 고유번호
 	private int num; // 댓글을 달 게시글의 고유번호
-	private String name; // 댓글 작성자 id
+	private String id;
+	private String name; // 댓글 작성자 이름
 	private String content; // 댓글 내용
 	private Date regdate; // 댓글 작성 날짜
 	private SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd"); // toString 작성 날짜 확인용
@@ -27,6 +28,14 @@ public class BoardComment {
 
 	public void setNum(int num) {
 		this.num = num;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -53,11 +62,10 @@ public class BoardComment {
 		this.regdate = regdate;
 	}
 
-	// toString
 	@Override
 	public String toString() {
-		return "BoardComment [ser=" + ser + ", num=" + num + ", content=" + content + ", regdate=" + regdate + ", sd="
-				+ sd + "]";
+		return "BoardComment [ser=" + ser + ", num=" + num + ", id=" + id + ", name=" + name + ", content=" + content
+				+ ", regdate=" + regdate + ", sd=" + sd + "]";
 	}
 
 }

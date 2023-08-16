@@ -272,24 +272,7 @@ public class BoardController {
 		
 		Board board = bd.boardOne(boardnum);
 		List<BoardComment> commentLi = bd.commentList(boardnum);
-		List<String> commentIdLi = new ArrayList<String>();
-		List<String> commentNameLi = new ArrayList<String>();
 		
-		String id = bd.boardOne(boardnum).getName();
-		Member mem = md.oneMember(id);
-		
-		for (int i = 0; i < commentLi.size(); i++) {
-			String id2 = (commentLi.get(i).getName());
-			commentIdLi.add(id2);
-		}
-		
-		for (int i = 0; i < commentIdLi.size(); i++) {
-			String id3 = commentIdLi.get(i);
-			commentNameLi.add( md.oneMember(id3).getName());
-		}
-		
-		m.addAttribute("commentNameLi", commentNameLi);
-		m.addAttribute("mem", mem);
 		m.addAttribute("commentLi", commentLi);
 		m.addAttribute("board", board);
 		return "board/boardComment";
@@ -299,9 +282,10 @@ public class BoardController {
 	// 댓글 업로드
 	@RequestMapping("boardCommentPro")
 	public String boardCommentPro(@RequestParam("num") int boardnum) {
-		String name = (String)session.getAttribute("id");
+		String id = (String)session.getAttribute("id");
+		String name = md.oneMember(id).getName();
 		String comment = request.getParameter("comment");
-		int num = bd.insertComment(comment, name, boardnum);
+		int num = bd.insertComment(comment, id, name, boardnum);
 
 		if (num == 0)
 			comment = "저장되지 않았습니다.";

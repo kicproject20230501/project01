@@ -28,6 +28,7 @@ create sequence boardseq2;
 create table boardcomment2 (
 ser int primary key,
 num int,
+id varchar(20),
 name varchar(20),
 content varchar(2000),
 regdate date);

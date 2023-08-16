@@ -48,9 +48,10 @@ public class BoardMybatis {
 		return sqlSession.insert(NS + "boardDelete", num);
 	}
 
-	public int insertComment(String comment, String name, int num) {
+	public int insertComment(String comment, String id, String name, int num) {
 		Map map = new HashMap();
 		map.put("comment", comment);
+		map.put("id", id);
 		map.put("name", name);
 		map.put("num", num);
 		return sqlSession.insert(NS + "insertComment", map);
@@ -64,6 +65,10 @@ public class BoardMybatis {
 
 	public BoardComment commentOne(int ser) {
 		return sqlSession.selectOne(NS + "commentOne", ser);
+	}
+	
+	public BoardComment commentOne2(int num) {
+		return sqlSession.selectOne(NS + "commentOne2", num);
 	}
 
 	public int commentDelete(int ser) {

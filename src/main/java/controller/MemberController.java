@@ -33,21 +33,21 @@ public class MemberController {
 		session = request.getSession();
 
 	}
-	
+
 	// 회원가입 페이지
 	@RequestMapping("joinForm")
 	public String joinForm() {
 
 		return "member/joinForm";
 	} // joinForm End
-	
+
 	// 로그인 페이지
 	@RequestMapping("loginForm")
 	public String loginForm() {
 
 		return "member/loginForm";
 	} // loginForm End
-	
+
 	// 회원가입
 	@RequestMapping("joinPro")
 	public String joinPro(Member mem) {
@@ -68,7 +68,7 @@ public class MemberController {
 		m.addAttribute("url", url);
 		return "alert";
 	} // joinPro End
-	
+
 	// 로그인
 	@RequestMapping("loginPro")
 	public String loginPro(String id, String pass) {
@@ -93,7 +93,7 @@ public class MemberController {
 		m.addAttribute("url", url);
 		return "alert";
 	} // loginPro End
-	
+
 	// 로그아웃
 	@RequestMapping("logout")
 	public String logout() {
@@ -107,7 +107,7 @@ public class MemberController {
 		m.addAttribute("url", url);
 		return "alert";
 	} // logout End
-	
+
 	// 회원정보 (마이페이지)
 	@RequestMapping("memberInfo")
 	public String memberInfo() {
@@ -118,7 +118,7 @@ public class MemberController {
 		m.addAttribute("mem", mem);
 		return "member/memberInfo";
 	} // memberInfo End
-	
+
 	// 회원정보 업데이트 페이지
 	@RequestMapping("memberUpdateForm")
 	public String memberUpdateForm() {
@@ -129,7 +129,7 @@ public class MemberController {
 		m.addAttribute("mem", mem);
 		return "member/memberUpdateForm";
 	} // memberUpdateForm End
-	
+
 	// 아이디 중복 확인
 	@RequestMapping("checkDuplicateId")
 	public String checkDuplicateId(String id) {
@@ -142,7 +142,7 @@ public class MemberController {
 
 		return "member/checkDuplicateId";
 	} // checkDuplicateId End
-	
+
 	// 회원정보 수정
 	@RequestMapping("memberUpdatePro")
 	public String memberUpdatePro(Member newm) {
@@ -174,14 +174,14 @@ public class MemberController {
 		m.addAttribute("url", url);
 		return "alert";
 	} // memberUpdatePro End
-	
+
 	// 비밀번호 업데이트 페이지
 	@RequestMapping("memberPassForm")
 	public String memberPassForm() {
 
 		return "member/memberPassForm";
 	} // memberPassForm End
-	
+
 	// 비밀번호 업데이트
 	@RequestMapping("memberPassPro")
 	public String memberPassPro(String pass, String chgpass1) {
@@ -210,14 +210,14 @@ public class MemberController {
 		m.addAttribute("url", url);
 		return "alert";
 	} // memberPassPro End
-	
+
 	// 회원 탈퇴 페이지
 	@RequestMapping("memberDeleteForm")
 	public String memberDeleteForm() {
 
 		return "member/memberDeleteForm";
 	} // memberDeleteForm End
-	
+
 	// 회원 탈퇴
 	@RequestMapping("memberDeletePro")
 	public String memberDeletePro(String pass) {
@@ -249,7 +249,7 @@ public class MemberController {
 		m.addAttribute("url", url);
 		return "alert";
 	} // memberDeletePro End
-	
+
 	// 회원 리스트 (admin 전용)
 	@RequestMapping("memberList")
 	public String memberList() {
@@ -258,23 +258,29 @@ public class MemberController {
 		m.addAttribute("li", li);
 		return "member/memberList";
 	} // memberList End
-	
+
 	// 회원 탈퇴처리 (admin 전용)
 	@RequestMapping("adminMemberDelete")
 	public String MemberAdminDelete() {
+		String msg = "";
+		String url = "";
 
 		String[] chkdel = request.getParameterValues("chkdel");
 
-		for (String cid : chkdel) {
-
-			md.deleteMember(cid);
-			String msg = "해당 회원의 탈퇴 처리가 되었습니다";
-			String url = "member/memberList";
-			m.addAttribute("msg", msg);
-			m.addAttribute("url", url);
+		if (chkdel == null) {
+			msg = "체크한 아이디가 없습니다.";
+			url = "member/memberList";
+		} else {
+			for (String cid : chkdel) {
+				md.deleteMember(cid);
+				msg = "해당 회원의 탈퇴 처리가 되었습니다";
+				url = "member/memberList";
+			}
 		}
 
+		m.addAttribute("msg", msg);
+		m.addAttribute("url", url);
 		return "alert";
 	} // memberAdminDelete End
-	
+
 } // MemberController End

@@ -179,23 +179,23 @@
         return false;
     }
     if(document.getElementById( 'name' ).value.trim() == "") {
-        alert("이름은 필수 입력 값입니다.")
+        alert("이름을 입력해주세요.")
         return false;
     }
 	if(document.getElementById( 'tel' ).value.trim() == "") {
-        alert("전화번호는 필수 입력 값입니다.")
+        alert("전화번호를 입력해주세요.")
         return false;
 	}
     if(document.getElementById( 'email' ).value.trim() == "") {
-        alert("이메일은 필수 입력 값입니다.")
+        alert("이메일을 입력해주세요.")
         return false;
     }
     if(document.getElementById( 'sample4_postcode' ).value.trim() == "") {
-        alert("우편번호는 필수 입력 값입니다.")
+        alert("우편번호를 입력해주세요.")
         return false;
     }
     if(document.getElementById( 'sample4_roadAddress' ).value.trim() == "") {
-        alert("주소는 필수 입력 값입니다.")
+        alert("주소를 입력해주세요.")
         return false;
     }
     	else return true;

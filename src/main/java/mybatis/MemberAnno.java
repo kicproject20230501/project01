@@ -30,4 +30,7 @@ public interface MemberAnno {
 
 	@Select("select * from member2")
 	List<Member> memberList();
+	
+	@Select("select count(*) from member2 where id = #{id}")
+	int checkId(String id);
 }

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import model.Member;
 import service.MemberMybatis;
@@ -129,19 +131,15 @@ public class MemberController {
 		m.addAttribute("mem", mem);
 		return "member/memberUpdateForm";
 	} // memberUpdateForm End
-
-	// 아이디 중복 확인
-	@RequestMapping("checkDuplicateId")
-	public String checkDuplicateId(String id) {
-
-		Member mem = md.oneMember(id);
-		if (mem == null)
-			m.addAttribute("chk", "사용 가능한 아이디 입니다.");
+	
+	// 아이디 확인 - 중복 및 글자 수 (ajax)
+	@RequestMapping(value = "/checkid", method={RequestMethod.GET})
+	public @ResponseBody int idCheck(String id) {
+		if (id == null || id == "")
+			return -1;
 		else
-			m.addAttribute("chk", "아이디가 이미 사용 중입니다. 다른 아이디를 선택해주세요.");
-
-		return "member/checkDuplicateId";
-	} // checkDuplicateId End
+			return md.checkId(id);
+	} // checkid End
 
 	// 회원정보 수정
 	@RequestMapping("memberUpdatePro")

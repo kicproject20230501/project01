@@ -53,4 +53,9 @@ public class MemberMybatis {
 
 		return sqlSession.getMapper(MemberAnno.class).memberList();
 	}
+	
+	public int checkId(String id) {
+		int result = sqlSession.getMapper(MemberAnno.class).checkId(id);
+		return result;
+	}
 }

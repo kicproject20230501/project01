@@ -78,7 +78,10 @@
 		delete from
 		boardcomment2 where ser = #{ser}
 	</delete>
-
+	
+	<update id="readCntUpdate" parameterType="int">
+		update board2 set readcnt = readcnt + 1 where num = #{num}
+	</update>
 
 
 </mapper>

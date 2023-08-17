@@ -365,7 +365,6 @@ public class OrderController {
 
 		int limit = 10; // 한 page 당 게시물 갯수
 		int pageInt = Integer.parseInt(pageNum); // page 번호
-		System.out.println(pageInt);
 		int orderCount = od.orderCount(); // 전체 게시물 갯수
 		int orderNum = orderCount - ((pageInt - 1) * limit);
 

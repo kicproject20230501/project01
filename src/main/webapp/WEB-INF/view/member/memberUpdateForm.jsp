@@ -126,7 +126,7 @@
 </script>
 		 
 			<p>
-				<label>아이디</label> <input class="form-control" type="text" name="id" id="id" placeholder="${mem.id}" min="4" onblur="checkDuplicateId()"></p>
+				<label>아이디</label> <input class="form-control" type="text" name="id" id="id" placeholder="${mem.id}" readonly="readonly"></p>
 			<p>
 				<label>비밀번호</label> <input class="form-control" type="password" name="pass" placeholder="Password"></p>
 			<p>

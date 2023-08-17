@@ -74,5 +74,9 @@ public class BoardMybatis {
 	public int commentDelete(int ser) {
 		return sqlSession.delete(NS + "commentDelete", ser);
 	}
+	
+	public int readCntUpdate(int num) {
+		return sqlSession.insert(NS + "readCntUpdate", num);
+	}
 
 }

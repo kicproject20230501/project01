@@ -63,11 +63,11 @@ li {
 						</ul>
 						<div class="card-body container text-center">
 							<a href="#" class="card-link"> 
-							<img src="${pageContext.request.contextPath}/images/shop/하트.png"
+							<img src="${pageContext.request.contextPath}/images/shop/heart.png"
 								alt="" width="30px"></a> 
 							<a href="#" class="card-link cart-btn" data-prodnum="${p.prodnum}" 
 							data-prodname="${p.name}" data-price="${p.price}"> 
-							<img src="${pageContext.request.contextPath}/images/shop/장바구니.png"
+							<img src="${pageContext.request.contextPath}/images/shop/cart.png"
 								alt="" width="30px"></a>
 						</div>
 					</div>

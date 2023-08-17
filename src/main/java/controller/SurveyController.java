@@ -40,7 +40,7 @@ public class SurveyController {
 	public String survey01() {
 		return "survey/survey01";
 	} // survey01 End
-	
+
 	// 설문 시작 페이지
 	@RequestMapping("surveyStart")
 	public String surveyStart(Survey s) {
@@ -66,12 +66,13 @@ public class SurveyController {
 
 		return "survey/surveyStart";
 	} // surveyStart End
-	
+
 	// 설문 답변에 따라 다르게 로딩되는 페이지 (설문 2, 설문 3, 설문 결과)
 	@RequestMapping("RadioCheckedPro")
 	public String RadioCheckedPro(@RequestParam("page") String page, @RequestParam("ck1gender") int ansGender,
 			@RequestParam("ck2favorite") String ans1, Survey survey) {
 		String msg = "";
+
 		// value 확인
 		System.out.println("page:" + page);
 		System.out.println("성별: " + ansGender);
@@ -81,11 +82,11 @@ public class SurveyController {
 		System.out.println("나무?: " + request.getParameter("ck3wood"));
 
 		switch (page) {
-		
+
 		case "surveyStart":
 
 			return "survey/surveyStart";
-		
+
 		case "survey01":
 
 			return "survey/survey01";
@@ -131,33 +132,41 @@ public class SurveyController {
 			// 설문 문항 따라서 보이는 제품사진//제품이름
 			// product db에서 image와 name가져오기
 			Product p = surbd.ProductImage(ansGender, ans1, ans2);
-			System.out.println("resultpage출력" + ansGender + "," + ans1 + "," + ans2);
+			if (p == null) {
+				p = surbd.ProductImage2(ansGender, ans1);
+				System.out.println("==p2실행==");
+			} else {
+				p = surbd.ProductImage(ansGender, ans1, ans2);
+				System.out.println("==정상실행==");
+			}
+			System.out.println("resultpage출력 : " + ansGender + "," + ans1 + "," + ans2);
 
 			String image = p.getImage();
 			String pname = p.getName();
+			int prodimagenum = p.getProdnum();
 
-			System.out.println("상품명" + pname);
-			System.out.println("상품사진" + image);
-
+			System.out.println("상품명: " + pname);
+			System.out.println("상품사진: " + image);
+			System.out.println("상품번호: " + prodimagenum);
 			m.addAttribute("pname", pname);
 			m.addAttribute("image", image);
-
+			m.addAttribute("prodimagenum", prodimagenum);
 			// 이전 설문 결과 표시 창
 			// Answer db에서 id가 가지고잇는 리스트 출력후 배열로 정렬
 			String id = (String) session.getAttribute("id");
-			// String id = "1048";
+			String prodName = " ";
 			survey.setId(id);
 			List<Survey> anslist = surbd.surveyList(id);
+			System.out.println("anslist: " + anslist);
 			List<String> anslistImage = new ArrayList<>();
 			List<String> anslistImageName = new ArrayList<>();
 			List<Integer> anslistProdnum = new ArrayList<>();
 			for (int i = 0; i < anslist.size(); i++) {
 				ansGender = anslist.get(i).getAnsGender();
-				ans1 = anslist.get(i).getAns1();
-				ans2 = anslist.get(i).getAns2();
-				p = surbd.ProductImage(ansGender, ans1, ans2);
+				prodName = anslist.get(i).getProdname();
+				p = surbd.ProductImageN(prodName, ansGender);
 				anslistImage.add(p.getImage());
-				anslistImageName.add(p.getName());
+				anslistImageName.add(prodName);
 				anslistProdnum.add(p.getProdnum());
 			}
 			System.out.println("anslistImage: " + anslistImage);
@@ -190,7 +199,10 @@ public class SurveyController {
 		m.addAttribute("ck3fruit", request.getParameter("ck3fruit"));
 		m.addAttribute("ck3flower", request.getParameter("ck3flower"));
 		m.addAttribute("ck3wood", request.getParameter("ck3wood"));
-
+		m.addAttribute("pname", request.getParameter("pname"));
+		m.addAttribute("prodimagenum", request.getParameter("prodimagenum"));
+		m.addAttribute("pnum",request.getParameter("pnum"));
+		
 		String id = (String) session.getAttribute("id");
 		// String id = "1048";
 		String ans2 = " ";
@@ -204,19 +216,27 @@ public class SurveyController {
 			ans2 = request.getParameter("ck3wood");
 		}
 
-		survey.setId(id);
-		survey.setAnsGender(ansGender);
-		survey.setAns1(ans1);
-		survey.setAns2(ans2);
 		// 설문 결과에 나온 상품 이름 불러오기
+
 		Product p = surbd.ProductImage(ansGender, ans1, ans2);
-		String prodname = p.getName();
-		int prodnum = p.getProdnum();
+		if (p == null) {
+			p = surbd.ProductImage2(ansGender, ans1);
+			System.out.println("==p2실행==");
+		} else {
+			p = surbd.ProductImage(ansGender, ans1, ans2);
+			System.out.println("==정상실행==");
+		}
+
+		String prodname = request.getParameter("pname");
+		int prodnum = Integer.parseInt(request.getParameter("prodimagenum"));
+		String anslistProdnum = request.getParameter("pnum");
+
+		survey.setId(id);
+		survey.setAnsGender(p.getProdgender());
+		survey.setAns1(p.getProdans1());
+		survey.setAns2(p.getProdans2());
 		survey.setProdname(prodname);
 		System.out.println(prodname + ":" + prodnum);
-
-		String anslistProdnum = request.getParameter("pnum");
-		System.out.println(anslistProdnum);
 
 		switch (page) {
 		// 홈페이지로~
@@ -225,7 +245,7 @@ public class SurveyController {
 			int num = surbd.insertSurvey(survey);
 			if (num > 0) {
 				url = "/home/index";
-				System.out.println("저장성공");
+				System.out.println("저장성공 - 홈페이지로");
 			} else {
 				System.out.println("저장실패");
 			}
@@ -237,7 +257,7 @@ public class SurveyController {
 
 			num = surbd.insertSurvey(survey);
 			if (num > 0) {
-				System.out.println("저장성공");
+				System.out.println("저장성공 - 설문결과상품");
 				url = "product/productDetail?prodnum=" + prodnum;
 			} else {
 				System.out.println("저장실패");
@@ -249,7 +269,7 @@ public class SurveyController {
 
 			num = surbd.insertSurvey(survey);
 			if (num > 0) {
-				System.out.println("저장성공");
+				System.out.println("저장성공 - 이전결과상품");
 				url = "product/productDetail?prodnum=" + anslistProdnum;
 			} else {
 				System.out.println("저장실패");

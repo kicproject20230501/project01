@@ -11,7 +11,6 @@
 	<mapping path="/test/*"  decorator="/layout/layout.jsp" />
 	<mapping path="/cart/*"  decorator="/layout/layout.jsp" />
 	
-	<mapping path="*/checkDuplicateId" exclude="true" /> 
 	<mapping path="*/boardDeleteForm" exclude="true" />
 	<mapping path="*/boardCommentPro" exclude="true" />
 	<mapping path="*/surveyStart" exclude="true" />
@@ -21,5 +20,6 @@
 	<mapping path="*/surveyResult" exclude="true" />     
 	<mapping path="*/cartDeleteForm" exclude="true" />
 	<mapping path="*/productDeleteForm" exclude="true" />
+	<mapping path="*/reviewEnroll/*" exclude="true" />
 	
 </sitemesh>

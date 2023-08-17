@@ -1,10 +1,10 @@
 package service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -29,15 +29,28 @@ public class SurveyMybatis {
 		map.put("ansGender", ansGender);
 		map.put("ans1", ans1);
 		map.put("ans2", ans2);
-		System.out.println(map);
+		
 		return sqlSession.selectOne(NS + "ProductImage", map);
+		
+	}
+	public Product ProductImageN(String prodName,int ansGender) {
+		Map map = new HashMap();
+		map.put("prodname", prodName);
+		map.put("ansGender", ansGender);
+		return sqlSession.selectOne(NS + "ProductImageN", map);
+	}
+	
+	public Product ProductImage2(int ansGender, String ans1) {
+		Map map = new HashMap();
+		map.put("ansGender", ansGender);
+		map.put("ans1", ans1);
+		return sqlSession.selectOne(NS + "ProductImage2", map);
 	}
 
 	public List<Survey> surveyList(String id) {
 
 		Map map = new HashMap();
 		map.put("id", id);
-
 		return sqlSession.selectList(NS + "surveyList", map);
 	}
 

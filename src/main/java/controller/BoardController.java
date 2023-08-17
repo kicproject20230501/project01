@@ -273,9 +273,6 @@ public class BoardController {
 		Cookie cookie = null;
 		Cookie[] cookies = request.getCookies();
 		
-		System.out.println("id=" + id);
-		System.out.println("loginId=" + loginId);
-
 		if (!id.equals(loginId)) {
 			if (cookies != null && cookies.length > 0) { // 기존 쿠키가 있을 경우
 				for (Cookie c : cookies) {

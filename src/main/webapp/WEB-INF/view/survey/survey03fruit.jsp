@@ -31,65 +31,41 @@
                 padding: 25px;
                } 
         </style>
-        <script>
-	// ck1,2,3,4 = checkbox id값
-    // next(page) function 동작시 체크된값 value 넘김.
-    // 2개이상 체크 못하도록
-    var maxChecked = 1;   
-	var totalChecked = 0; 
-
-	function CountChecked(field) {
-    if (field.checked) 
-        totalChecked += 1; 
-   		 else 
-        totalChecked -= 1; 
-
-    if (totalChecked > maxChecked) { 
-        alert ("한가지만 선택 가능합니다."); 
-    field.checked = false;
-    totalChecked -= 1;
-    }
+       <script>
+   		var totalChecked = 0; 
+   		function CountChecked(field) {
+       		if (field.checked) {
+          	 totalChecked += 1; 
+   			}else {
+           totalChecked -= 1;
+           } 
+   		}
+   		
+        function pre(page){
+	    	//alert(page)
+	    	document.RadioPost.page.value=page;
+	    	document.RadioPost.submit()
+        }
     
-	}
-	
-    function pre(page){
-    	//alert(page)
-    	document.RadioPost.page.value=page;
-    	document.RadioPost.submit()
-    }
-    
-    function next(page) {
-    	//alert(page)
-    	document.RadioPost.page.value=page;
-    	
-    	
-    	const Favorite = [
-    			document.getElementById('ck1').value,
-    			document.getElementById('ck2').value,
-    			document.getElementById('ck3').value,
-    			document.getElementById('ck4').value
-    			];
-    	let ckbox = document.querySelectorAll('input[name="ck0"]:checked');
-    	let Favoriteck = [];
+    	function next(page) {
+	    	//alert(page)
+	    	
+	    	//alert(document.RadioPost.page.value)
+	    	let ck = document.RadioPost.ck0.value
+	    	
+	    	document.RadioPost.page.value=page;
+	    	
+	    	document.RadioPost.ck3fruit.value=ck;
 
-    	for (let i = 0; i < ckbox.length; i++) {
-    		Favoriteck.push(ckbox[i].value);
-    	}	
-    	//alert(Favoriteck)
-    	
-    	if(totalChecked===0){
-    		alert('반드시 선택해주세요')
-    		page = survey03fruit;
-    	}
-    	
-    	//alert(document.RadioPost.page.value)
-    	document.RadioPost.ck3fruit.value=Favoriteck;
-    	//alert(ck3flower)
-    	document.RadioPost.submit()
-    }
-    
-
-    </script>
+	    	if(totalChecked===0){
+	    		alert('반드시 하나 이상 선택해주세요')
+	    		page = survey02;
+	    	}
+	    	
+	    	//alert(ck)
+	    	document.RadioPost.submit()
+   			}
+    	</script>
       </head>
     
     <body style="background-image: url('${pageContext.request.contextPath}/images/surveyback/svFruitback.jpg'); 
@@ -131,11 +107,11 @@
               <input
                 onclick="CountChecked(this)"
                 class="btn-check form-check-input"
-                type="checkbox"
+               type="radio"
                 name="ck0"
-                id="ck1"
+                id="radio1"
                 value="cherry" />
-              <label class="btn btn-outline-dark form-check-label fs-4 fw-bold" for="ck1" 
+              <label class="btn btn-outline-dark form-check-label fs-4 fw-bold" for="radio1" 
                       style="width: 80%; padding: 10px;">
                       &nbsp;체리
               </label>
@@ -145,11 +121,11 @@
               <input
                 onclick="CountChecked(this)"
                 class="btn-check form-check-input"
-                type="checkbox"
+               type="radio"
                 name="ck0"
-                id="ck2"
+                id="radio2"
                 value="peach" />
-              <label class="btn btn-outline-dark form-check-label fs-4 fw-bold" for="ck2" 
+              <label class="btn btn-outline-dark form-check-label fs-4 fw-bold" for="radio2" 
                      style="width: 80%; padding: 10px;">
                      &nbsp;복숭아
               </label>
@@ -159,11 +135,11 @@
               <input
                 onclick="CountChecked(this)"
                 class="btn-check form-check-input"
-                type="checkbox"
+               type="radio"
                 name="ck0"
-                id="ck3"
+                id="radio3"
                 value="strawberry"/>
-              <label class="btn btn-outline-dark form-check-label fs-4 fw-bold" for="ck3" 
+              <label class="btn btn-outline-dark form-check-label fs-4 fw-bold" for="radio3" 
                       style="width: 80%; padding: 10px;">
                       &nbsp;딸기
               </label>
@@ -173,11 +149,11 @@
               <input
                 onclick="CountChecked(this)"
                 class="btn-check form-check-input"
-                type="checkbox"
+                type="radio"
                 name="ck0"
-                id="ck4"
+                id="radio4"
                 value="lemon" />
-              <label class="btn btn-outline-dark form-check-label fs-4 fw-bold" for="ck4" 
+              <label class="btn btn-outline-dark form-check-label fs-4 fw-bold" for="radio4" 
                      style="width: 80%; padding: 10px;">
                      &nbsp;레몬
               </label>

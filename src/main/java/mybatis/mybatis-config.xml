@@ -15,6 +15,7 @@
 		<typeAlias type="model.OrderItem" alias="orderitem" />
 		<typeAlias type="model.Board" alias="board" />
 		<typeAlias type="model.BoardComment" alias="comment" />
+		<typeAlias type="model.ProdReview" alias="prodreview" />
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
@@ -35,5 +36,6 @@
 		<mapper resource="mybatis/Order.xml" />
 		<mapper resource="mybatis/Product.xml" />
 		<mapper resource="mybatis/Board.xml" />
+		<mapper resource="mybatis/ProdReview.xml" />
 	</mappers>
 </configuration>

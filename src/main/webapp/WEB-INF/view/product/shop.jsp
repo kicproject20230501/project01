@@ -33,9 +33,9 @@ li {
 		<p>
 			<a href="#none" style="font-weight: bold;">최신순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
 			<a href="#none">인기순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp <a
-				href="#none">후기순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp <a href="#none">낮은가격</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+				href="#none">후기순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp <a href="#none">낮은 가격순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
 
-			<a href="">높은가격</a>
+			<a href="">높은 가격순</a>
 		</p>
 	</div>
 
@@ -128,6 +128,9 @@ li {
 			$(".current-price").val(price);
 			$(".cart-form").submit();
 		});
+		
+		/* 높은 가격 순 정리 */
+		
 	</script>
 </body>
 </html>

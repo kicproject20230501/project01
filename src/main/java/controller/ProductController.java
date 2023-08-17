@@ -10,12 +10,15 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import model.Product;
+import service.MemberMybatis;
 import service.ProductMybatis;
 
 @Controller
@@ -24,6 +27,9 @@ public class ProductController {
 	
 	@Autowired
 	ProductMybatis pd;
+	
+	@Autowired
+	MemberMybatis md;
 	
 	Model m;
 	HttpSession session;
@@ -261,12 +267,24 @@ public class ProductController {
 	// 상품 상세 페이지
 	@RequestMapping("productDetail")
 	public String productDetail(@RequestParam("prodnum") int prodnum) {
-
+		String id = (String) session.getAttribute("id");
 		Product product = pd.productOne(prodnum);
-
+		
+		m.addAttribute("id", id);
 		m.addAttribute("product", product);
 		return "product/productDetail";
 	} // productDetail End
+	
+	// 리뷰 등록 페이지 테스트
+	@RequestMapping("reviewEnroll/{id}")
+	public String replyEnrollWindowGET(@PathVariable("id") String id,
+			@RequestParam("prodnum") int prodnum) {
+		Product product = pd.productOne(prodnum);
+		
+		m.addAttribute("product", product);
+		m.addAttribute("id", id);
+		return "product/reviewEnroll";
+	}
 	
 
 } // ProductController End

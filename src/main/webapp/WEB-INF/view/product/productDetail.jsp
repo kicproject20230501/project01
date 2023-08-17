@@ -73,6 +73,17 @@
 				class="rounded" alt="...">
 		</div>
 	</div>
+	
+	<div class="container">
+		<div class="d-flex justify-content-center">
+			<h3>리뷰</h3>
+		</div>
+		<c:if test="${id != null}">
+		<div class="d-flex justify-content-end review_btn_wrap">
+			<button class="btn">리뷰 쓰기</button>
+		</div>
+		</c:if>
+	</div>
 
 	<!-- 장바구니 form -->
 	<form action="${pageContext.request.contextPath}/cart/cartPro"
@@ -116,6 +127,22 @@
 			let quantity = $(this).parent("div").find("input").val();
 			$(".order-quantity").val(quantity);
 			$(".order-form").submit();
+		});
+		
+		/* 리뷰쓰기 팝업 */
+		$(".review_btn_wrap").on("click", function(e){
+		
+		e.preventDefault();			
+		
+		const id = '${id}';
+		const prodnum = '${product.prodnum}';
+
+		let popUrl = "reviewEnroll/" + id + "?prodnum=" + prodnum;
+		console.log(popUrl);
+		let popOption = "width = 490px, height=490px, top=300px, left=300px, scrollbars=yes";
+		
+		window.open(popUrl,"리뷰 쓰기",popOption);
+		
 		});
 	</script>
 </body>

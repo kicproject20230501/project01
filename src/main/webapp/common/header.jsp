@@ -32,7 +32,7 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/home/about">ABOUT</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/product/productList">SHOP</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/product/shop">SHOP</a>
                         </li>
                         <li class="nav-item dropdown">
           					<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

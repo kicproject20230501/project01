@@ -74,10 +74,10 @@
 		location="/WEB-INF/view/product/images/" />
 
 	<mvc:resources mapping="/images/**"
-		location="/webapp/resource/images/" />
+		location="/WEB-INF/resource/images/" />
 
 	<mvc:resources mapping="/css/**"
-		location="/webapp/resource/css/" />
+		location="/WEB-INF/resource/css/" />
 
 
 	<mvc:interceptors>

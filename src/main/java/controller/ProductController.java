@@ -90,7 +90,7 @@ public class ProductController {
 	} // productPro End
 	
 	// 상품 페이지
-	@RequestMapping("productList")
+	@RequestMapping("shop")
 	public String productList() {
 		session.setAttribute("pageNum", "1");
 		if (request.getParameter("pageNum") != null) /* pageNum을 넘겨 받음 */ {

@@ -127,7 +127,7 @@ public class ProductController {
 		m.addAttribute("end", end);
 		m.addAttribute("maxPage", maxPage);
 
-		return "product/productList";
+		return "product/shop";
 	} // productList End
 	
 	// 상품 관리 페이지 (admin 전용)

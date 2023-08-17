@@ -272,17 +272,21 @@ public class BoardController {
 		String loginId = (String) session.getAttribute("id");
 		Cookie cookie = null;
 		Cookie[] cookies = request.getCookies();
+		
+		System.out.println("id=" + id);
+		System.out.println("loginId=" + loginId);
 
-		if (id != loginId) {
+		if (!id.equals(loginId)) {
 			if (cookies != null && cookies.length > 0) { // 기존 쿠키가 있을 경우
 				for (Cookie c : cookies) {
-					if (c.getName().equals("readBoard")) {
-						cookie = c;
+					if (c.getName().equals("readBoard")) { // "readBoard" 쿠키를 가지고 있을 경우
+						cookie = c; // cookie에 쿠키 추가
 					}
 				}
 			}
 			
 			int result = 0;
+			
 			
 			if (cookie == null) { // "readBoard" 쿠키가 없을 경우
 				cookie = new Cookie("readBoard", boardnum + "");
@@ -301,6 +305,8 @@ public class BoardController {
 				response.addCookie(cookie);
 			}
 
+		} else {
+			
 		}
 
 		m.addAttribute("name", name);

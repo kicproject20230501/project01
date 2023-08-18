@@ -20,6 +20,27 @@ li {
 	text-decoration: underline;
 }
 
+.avg_rate {
+	background:
+		url('${pageContext.request.contextPath}/images/shop/star_bg.png')
+		no-repeat;
+	width: 121px;
+	height: 20px;
+	position: relative;
+}
+
+.avg_rate .avg_rating {
+	position: absolute;
+	background:
+		url('${pageContext.request.contextPath}/images/shop/star.png');
+	background-size: cover;
+	width: auto;
+	height: 40px;
+}
+
+.tab {
+	white-space: pre;
+}
 </style>
 </head>
 
@@ -33,9 +54,8 @@ li {
 		<p>
 			<a href="#none" style="font-weight: bold;">최신순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
 			<a href="#none">인기순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp <a
-				href="#none">후기순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp <a href="#none">낮은 가격순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-
-			<a href="">높은 가격순</a>
+				href="#none">후기순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp <a href="#none">낮은
+				가격순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp <a href="">높은 가격순</a>
 		</p>
 	</div>
 
@@ -62,12 +82,14 @@ li {
 						<ul class="list-group list-group-flush">
 						</ul>
 						<div class="card-body container text-center">
-							<a href="#" class="card-link"> 
-							<img src="${pageContext.request.contextPath}/images/shop/하트.png"
-								alt="" width="30px"></a> 
-							<a href="#" class="card-link cart-btn" data-prodnum="${p.prodnum}" 
-							data-prodname="${p.name}" data-price="${p.price}"> 
-							<img src="${pageContext.request.contextPath}/images/shop/장바구니.png"
+							<div class="avg_rate" style="display: inline-block;">
+								<span class="avg_rating"></span>
+							</div>
+							<span class="tab">&#9;</span>
+							<a href="#" class="card-link cart-btn"
+								data-prodnum="${p.prodnum}" data-prodname="${p.name}"
+								data-price="${p.price}"> <img
+								src="${pageContext.request.contextPath}/images/shop/장바구니.png"
 								alt="" width="30px"></a>
 						</div>
 					</div>
@@ -129,7 +151,7 @@ li {
 			$(".cart-form").submit();
 		});
 		
-		/* 높은 가격 순 정리 */
+		/* 상품 평점 */
 		
 	</script>
 </body>

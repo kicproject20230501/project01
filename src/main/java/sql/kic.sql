@@ -132,6 +132,20 @@ price int
 -- 주문 상품 시퀀스 생성
 create sequence orderitemseq;
 
+-- 리뷰 테이블 생성
+create table prodreview (
+reviewnum int primary key,
+prodnum int,
+id varchar(20),
+content varchar(2000),
+rating int,
+regdate date
+);
+
+-- 리뷰 시퀀스 생성
+create sequence reviewnumseq;
+
+
 -- 테이블 및 시퀀스 삭제
 --drop table board2;
 --drop table boardcomment2;

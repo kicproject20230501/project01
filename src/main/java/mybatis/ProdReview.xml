@@ -8,20 +8,33 @@
 		(reviewnumseq.nextval,#{prodnum},#{id},#{content},#{rating},sysdate)
 	</insert>
 	
-	<update id="reviewUpdate" parameterType="map">
+	<update id="reviewUpdate" parameterType="prodReview">
 		update prodreview set content = #{content}, rating = #{rating} 
-		where id = #{id} and prodnum = #{prodnum}
+		where reviewnum = #{reviewnum}
 	</update>
 	
 	<delete id="deleteReview" parameterType="int">
 		delete from prodreview where reviewnum = #{reviewnum}
 	</delete>
 	
-	<select id="reviewList" parameterType="map" resultType="prodReview">
-		select * from ( 
-		select rownum rnum, a.* from
-		(select * from prodreview where prodnum = #{prodnum} order by reviewnum desc) a) 
-		where rnum BETWEEN #{start} and #{end}
+	<select id="checkReview" parameterType="map" resultType="prodReview">
+		select reviewnum from prodreview where id = #{id} and prodnum = #{prodnum}
 	</select>
+
+	<select id="reviewList" parameterType="int" resultType="prodReview">
+		select * from prodreview where prodnum = #{prodnum}
+		order by reviewnum desc
+	</select>
+	
+	<select id="reviewTotal" parameterType="int" resultType="int">
+  		select count(*)
+  		from prodreview
+  		where prodnum = #{prodnum}
+  	</select>
+  	
+  	<select id="reviewOne" parameterType="int" resultType="prodReview">
+  		select *
+		from prodreview where reviewnum = #{reviewnum}
+  	</select>
 
 </mapper>

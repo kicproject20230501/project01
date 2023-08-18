@@ -16,7 +16,7 @@ public class ProductMybatis {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	private static final String NS = "mybatis.product.";
+	private static final String NS = "mybatis.Product.";
 
 	public int insertProduct(Product product) {
 		return sqlSession.insert(NS + "insertProduct", product);

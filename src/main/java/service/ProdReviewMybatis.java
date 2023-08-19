@@ -51,4 +51,8 @@ public class ProdReviewMybatis {
 		return sqlSession.insert(NS + "reviewUpdate", prodReview);
 	}
 	
+	public int deleteProdReview(int reviewnum) {
+		return sqlSession.insert(NS + "deleteReview", reviewnum);
+	}
+	
 }

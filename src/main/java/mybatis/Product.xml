@@ -34,6 +34,10 @@
 		delete from product where prodnum = #{prodnum}
 	</delete>
 	
+	<delete id="productDelete2" parameterType="int">
+		delete from prodreview where prodnum = #{prodnum}
+	</delete>
+	
 	<select id="orderProductList" parameterType="map" resultType="product">
 		select * from product where prodnum = #{prodnum}
 	</select>

@@ -324,8 +324,8 @@ public class ProductController {
 	}
 	
 	/* 리뷰 수정 팝업창 */
-	@GetMapping("reviewUpdate")
-	public String replyUpdateWindowGET(ProdReview prodReview, Model model,
+	@RequestMapping("reviewUpdate")
+	public String reviewUpdateWindowGET(ProdReview prodReview,
 			@RequestParam("reviewnum") int reviewnum,
 			@RequestParam("prodnum") int prodnum) {
 		String id = (String) session.getAttribute("id");
@@ -333,9 +333,21 @@ public class ProductController {
 		ProdReview review = prd.reviewOne(reviewnum);
 		
 		m.addAttribute("product", product);
-		model.addAttribute("review", review);
-		model.addAttribute("id", id);
+		m.addAttribute("review", review);
+		m.addAttribute("id", id);
 		return "product/reviewUpdate";
+	}
+	
+	/* 리뷰 삭제 팝업창 */
+	@RequestMapping("reviewDelete")
+	public String reviewDeleteWindowGET(ProdReview prodReview,
+			@RequestParam("reviewnum") int reviewnum) {
+		String id = (String) session.getAttribute("id");
+		ProdReview review = prd.reviewOne(reviewnum);
+		
+		m.addAttribute("id", id);
+		m.addAttribute("review", review);
+		return "product/reviewDelete";
 	}
 	
 	

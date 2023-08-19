@@ -21,5 +21,6 @@
 	<mapping path="*/cartDeleteForm" exclude="true" />
 	<mapping path="*/productDeleteForm" exclude="true" />
 	<mapping path="*/reviewEnroll/*" exclude="true" />
-	<mapping path="*/reviewList/*" exclude="true" />
+	<mapping path="*/reviewUpdate" exclude="true" />
+	<mapping path="*/reviewDelete" exclude="true" />
 </sitemesh>

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -78,39 +80,53 @@
 </style>
 </head>
 <body>
-	<div class="head_div d-flex justify-content-center"><span>리뷰 등록</span></div>
+	<div class="head_div d-flex justify-content-center"><span>리뷰 수정</span></div>
 	<div class="conatiner text-center">
 		<div class="mt-3 mb-2">
 			<h3>${product.name}</h3>
-			<h5>작성 아이디: ${id}</h5>
+		</div>
+		<div class="mb-2">
+			<span>최초 작성일: 
+				<fmt:formatDate value="${review.regdate}" var="dateValue" pattern="yyyy-MM-dd"/>${dateValue}</span>
 		</div>
 		<div class="rating_div">
-			<input type="radio" name="reviewStar" value="5" id="rate1">
+			<input type="radio" name="reviewStar" value="5" id="rate1"
+			<c:if test="${review.rating == 5}">checked</c:if>>
 			<label for="rate1">★</label>
-			<input type="radio" name="reviewStar" value="4" id="rate2">
+			<input type="radio" name="reviewStar" value="4" id="rate2"
+			<c:if test="${review.rating == 4}">checked</c:if>>
 			<label for="rate2">★</label>
-			<input type="radio" name="reviewStar" value="3" id="rate3">
+			<input type="radio" name="reviewStar" value="3" id="rate3"
+			<c:if test="${review.rating == 3}">checked</c:if>>
 			<label for="rate3">★</label>
-			<input type="radio" name="reviewStar" value="2" id="rate4">
+			<input type="radio" name="reviewStar" value="2" id="rate4"
+			<c:if test="${review.rating == 2}">checked</c:if>>
 			<label for="rate4">★</label>
-			<input type="radio" name="reviewStar" value="1" id="rate5">
+			<input type="radio" name="reviewStar" value="1" id="rate5"
+			<c:if test="${review.rating == 1}">checked</c:if>>
 			<label for="rate5">★</label>
 			<span>평점</span>
 		</div>
 		<div class="content_div mt-3">
 			<span>리뷰</span>
-			<textarea name="content" class="content_textarea"></textarea>
+			<textarea name="content" class="content_textarea">${review.content}</textarea>
 		</div>
 		<div class="content_counter_div">
-			<span style="color:#aaa;" id="counter">(0 / 최대 100자)</span>
+			<span style="color:#aaa;" id="counter">( / 최대 100자)</span>
 		</div>
 		<div class="btn_div mt-5">
-			<a class="btn btn-outline-primary enroll_btn">등록</a>
-			<a class="btn btn-outline-danger cancel_btn">취소</a>
+			<a class="btn btn-outline-primary update_btn">수정</a>
+			<a class="btn btn-outline-secondary cancel_btn">취소</a>
 		</div>
 	</div>
 	
 	<script>
+	/* 최초 글자 수 표시 */
+	$("document").ready(function() {
+		var original_content = String(${review.content});
+		$('#counter').html("("+original_content.length+" / 최대 100자)");
+	});
+	
 	/* textarea 글자 수 카운팅 */
 	$('.content_textarea').keyup(function (e){
 	    var content = $(this).val();
@@ -128,11 +144,12 @@
 		window.close();
 	});	
 	
-	/* 등록 버튼 */
-	$(".enroll_btn").on("click", function(e){
-
-		const prodnum = '${product.prodnum}';
-		const id = '${id}';
+	/* 수정 버튼 */
+	$(".update_btn").on("click", function(e){
+	
+		const reviewnum = '${review.reviewnum}';
+		const prodnum = '${review.prodnum}';
+		const id = '${review.id}';
 		const rating = $("input[name=reviewStar]:checked").val();
 		const content = $("textarea").val();
 		
@@ -141,6 +158,7 @@
 			alert("별점을 선택해주세요.");
 		} else {
 			const data = {
+					reviewnum : reviewnum,
 					prodnum : prodnum,
 					id : id,
 					content : content,
@@ -150,9 +168,10 @@
 			$.ajax({
 				data : data,
 				type : 'POST',
-				url : '${pageContext.request.contextPath}/prodReview/enroll',
+				url : '${pageContext.request.contextPath}/prodReview/update',
 				success : function(result){
-					alert("리뷰가 등록되었습니다.");
+					alert("리뷰가 수정되었습니다.");
+					opener.parent.location.reload();
 					window.close();
 				}
 				

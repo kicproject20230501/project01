@@ -42,13 +42,13 @@ public class ProdReviewController {
 	
 	// 리뷰 등록
 	@PostMapping("enroll")
-	public void enrollReplyPOST(ProdReview prodReview) {
+	public void enrollReview(ProdReview prodReview) {
 		prd.insertProdReview(prodReview);
 	}
 	
 	// 리뷰 체크 (이미 작성한 리뷰가 있는지)
 	@PostMapping("check")
-	public String reviewCheckPOST(ProdReview prodReview) {
+	public String checkReview(ProdReview prodReview) {
 		
 		int result = prd.checkReview(prodReview);
 		
@@ -60,12 +60,17 @@ public class ProdReviewController {
 	}
 	
 	// 리뷰 수정
-	@PostMapping("reviewUpdateForm")
-	public void enrollReplyUpdate(ProdReview prodReview) {
-		
-		
-		m.addAttribute("prodReview", prodReview);
+	@PostMapping("update")
+	public void updateReview(ProdReview prodReview) {
+
 		prd.updateProdReview(prodReview);
+	}
+	
+	// 리뷰 삭제
+	@PostMapping("delete")
+	public void deleteReview(int reviewnum) {
+		
+		prd.deleteProdReview(reviewnum);
 	}
 	
 	

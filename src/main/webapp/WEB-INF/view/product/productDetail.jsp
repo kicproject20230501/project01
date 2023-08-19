@@ -10,27 +10,27 @@
 <style>
 	.rate{
 		background: url('${pageContext.request.contextPath}/images/shop/star_bg.png') no-repeat;
-		width: 121px;
-		height: 20px;
+		width: 120px;
+		height: 19px;
 		position: relative;
 	}
 	.rate .my_rating{
 		position: absolute;
 		background: url('${pageContext.request.contextPath}/images/shop/star.png');
 		width: auto;
-		height: 20px;
+		height: 19px;
 	}
 	.rate .other_rating{
 		position: absolute;
 		background: url('${pageContext.request.contextPath}/images/shop/star.png');
 		width: auto;
-		height: 20px;
+		height: 19px;
 	}
 	.avg_rate{
 		background: url('${pageContext.request.contextPath}/images/shop/star_bg.png') no-repeat;
 		background-size: cover;
-		width: 242px;
-		height: 40px;
+		width: 240px;
+		height: 38px;
 		position: relative;
 	}
 	.avg_rate .avg_rating{
@@ -38,10 +38,7 @@
 		background: url('${pageContext.request.contextPath}/images/shop/star.png');
 		background-size: cover;
 		width: auto;
-		height: 40px;
-	}
-	.tab { 
-		white-space: pre; 
+		height: 38px;
 	}
 </style>
 </head>
@@ -139,20 +136,17 @@
 			<c:if test="${not empty list}">
 				<c:if test="${myReview != null}">
 				<div class="mb-2">
-					<span><strong>${myReview.id}</strong></span>
-					<span class="tab">&#9;</span><span class="tab">&#9;</span>
+					<input type="hidden" class="myReviewNum" value="${myReview.reviewnum}">
+					<span class="pe-3"><strong>${myReview.id}</strong></span>
 					<div class="rate" style="display: inline-block;">
-					<span class="my_rating">${myReview.rating}</span><span class="tab">&#9;</span>
+					<span class="my_rating">${myReview.rating}</span>
 					</div>
-					<span class="tab">&#9;</span>
-					<span>
+					<span class="px-3">
 					<fmt:formatDate value="${myReview.regdate}" var="dateValue" pattern="yyyy-MM-dd"/>${dateValue}
 					</span>
-					<span class="tab">&#9;</span>
 					<a class="btn btn-sm btn-outline-secondary review_update_btn">수정</a>
 					<a class="btn btn-sm btn-outline-danger review_delete_btn">삭제</a>
-					<span class="tab">&#9;</span>
-					<span style="color: blue;">나의 리뷰!</span>
+					<span style="color: blue;" class="ps-3">나의 리뷰!</span>
 					</div>
 					</c:if>
 				<div>
@@ -162,16 +156,13 @@
 			<c:forEach var="r" items="${list}" varStatus="status">
 				<c:if test="${reviewIdList[status.index] ne id}">
 				<div class="mb-2">
-					<span><strong>${r.id}</strong></span>
-					<span class="tab">&#9;</span><span class="tab">&#9;</span>
+					<span class="pe-3"><strong>${r.id}</strong></span>
 					<div class="rate" style="display: inline-block;">
 					<span class="other_rating_${status.index} other_rating">${r.rating}</span>
 					</div>
-					<span class="tab">&#9;</span>
-					<span>
+					<span class="px-3">
 					<fmt:formatDate value="${r.regdate}" var="dateValue" pattern="yyyy-MM-dd"/>${dateValue}
 					</span>
-					<span class="tab">&#9;</span>
 				</div>
 				<div>
 					<span>${r.content}</span>
@@ -231,10 +222,11 @@
 		$("document").ready(function() {
 			let total_rating = 0;
 			/* 나의 리뷰 */
-			let my_rating = $(".my_rating").text();
+			let my_rating = parseInt($(".my_rating").text());
 			$(".my_rating").empty();
 			let star_width = (my_rating / 5) * 100;
 			$(".my_rating").css("width", star_width+'%');
+			
 			/* 다른 사람 리뷰 */
 			for (let i = 0; i < ${list.size()}; i++) {
 				let other_rating = $(".other_rating_"+i).text();
@@ -245,30 +237,42 @@
 					total_rating += parseInt(other_rating);
 				}
 			}
+			
+			console.log("total_rating: " + total_rating);
+			console.log("my_rating: " + my_rating);
+			
+			
 			/* 평균 평점 */
-			if (isNaN(total_rating) == true && my_rating == "") { // 리뷰가 아예 없는 경우
+			if (total_rating == 0 && isNaN(my_rating) == true) { // 리뷰가 아예 없는 경우
 				$(".avg_rating_text").text("리뷰 없음");
-			} else if (isNaN(total_rating) == true && my_rating != "") { // 나의 리뷰만 있는 경우
+			} else if (total_rating == 0 && isNaN(my_rating) == false) { // 나의 리뷰만 있는 경우
 				avg_rating = parseInt(my_rating);
 				let avg_star_width = (avg_rating / 5) * 100;
 				const roundNum = (Math.round(avg_rating * 10) / 10).toFixed(1);
 				$(".avg_rating_text").text(roundNum);
 				$(".avg_rating").css("width", avg_star_width+'%');
-			} else if (isNaN(total_rating) == false && my_rating == "") { // 다른 사람의 리뷰만 있는 경우
+			} else if (total_rating != 0 && isNaN(my_rating) == true) { // 다른 사람의 리뷰만 있는 경우
 				avg_rating = total_rating/${list.size()};
 				const roundNum = (Math.round(avg_rating * 10) / 10).toFixed(1);
 				let avg_star_width = (avg_rating / 5) * 100;
 				$(".avg_rating_text").text(roundNum);
 				$(".avg_rating").css("width", avg_star_width+'%');
-			} else if (isNaN(total_rating) == false && my_rating != "") { // 나의 리뷰 + 다른 사람의 리뷰 모두 있는 경우
+				let cscswidth = $(".avg_rating").width();
+			} else if (total_rating != 0 && isNaN(my_rating) == false) { // 나의 리뷰 + 다른 사람의 리뷰 모두 있는 경우
 				total_rating += parseInt(my_rating);
 				avg_rating = total_rating/${list.size()};
 				const roundNum = (Math.round(avg_rating * 10) / 10).toFixed(1);
 				let avg_star_width = (avg_rating / 5) * 100;
 				$(".avg_rating_text").text(roundNum);
 				$(".avg_rating").css("width", avg_star_width+'%');
+				let cscswidth = $(".avg_rating").width();
 			}
+			
+			
 		});
+		
+		
+		
 		
 		/* 리뷰쓰기 팝업 */
 		$(".review_btn").on("click", function(e){
@@ -303,10 +307,23 @@
 		$(document).on('click', '.review_update_btn', function(e){
 				
 			e.preventDefault();
-			let popUrl = "/reviewUpdate?id=" + '${id}' + "&prodnum=" + '${product.prodnum}';	
+			let reviewnum = $(this).parent("div").find("input").val();
+			let popUrl = "reviewUpdate?reviewnum=" + reviewnum + "&prodnum=" + '${product.prodnum}' + "&id=" + '${id}';	
 			let popOption = "width = 490px, height=490px, top=300px, left=300px, scrollbars=yes"	
 				
-			window.open(popUrl,"리뷰 수정",popOption);			
+			window.open(popUrl,"리뷰 수정",popOption);
+			
+		});
+		
+		/* 리뷰 삭제 버튼 */
+		$(document).on('click', '.review_delete_btn', function(e){
+				
+			e.preventDefault();
+			let reviewnum = $(this).parent("div").find("input").val();
+			let popUrl = "reviewDelete?reviewnum=" + reviewnum;	
+			let popOption = "width = 490px, height=490px, top=300px, left=300px, scrollbars=yes"	
+			
+			window.open(popUrl,"리뷰 삭제",popOption);
 			
 		});
 		

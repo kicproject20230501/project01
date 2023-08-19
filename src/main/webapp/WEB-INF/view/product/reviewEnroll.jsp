@@ -106,7 +106,7 @@
 		</div>
 		<div class="btn_div mt-5">
 			<a class="btn btn-outline-primary enroll_btn">등록</a>
-			<a class="btn btn-outline-danger cancel_btn">취소</a>
+			<a class="btn btn-outline-secondary cancel_btn">취소</a>
 		</div>
 	</div>
 	
@@ -153,6 +153,7 @@
 				url : '${pageContext.request.contextPath}/prodReview/enroll',
 				success : function(result){
 					alert("리뷰가 등록되었습니다.");
+					opener.parent.location.reload();
 					window.close();
 				}
 				

@@ -49,6 +49,7 @@ public class ProductMybatis {
 	}
 
 	public int productDelete(int prodnum) {
+		sqlSession.delete(NS + "productDelete2", prodnum);
 		return sqlSession.delete(NS + "productDelete", prodnum);
 	}
 

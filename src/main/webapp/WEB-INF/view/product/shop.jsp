@@ -24,8 +24,8 @@ li {
 	background:
 		url('${pageContext.request.contextPath}/images/shop/star_bg.png')
 		no-repeat;
-	width: 121px;
-	height: 20px;
+	width: 120px;
+	height: 19px;
 	position: relative;
 }
 
@@ -35,11 +35,7 @@ li {
 		url('${pageContext.request.contextPath}/images/shop/star.png');
 	background-size: cover;
 	width: auto;
-	height: 40px;
-}
-
-.tab {
-	white-space: pre;
+	height: 19px;
 }
 </style>
 </head>
@@ -63,7 +59,7 @@ li {
 	<div class="product text-center  flex-wrap:wrap"
 		style="width: 81%; margin: auto;">
 
-		<c:forEach var="p" items="${li}">
+		<c:forEach var="p" items="${li}" varStatus="status">
 			<ul class="d-inline-flex flex-sm-column m-auto p-5">
 				<li class="mt-3">
 					<div class="card" style="width: 18rem;">
@@ -82,14 +78,15 @@ li {
 						<ul class="list-group list-group-flush">
 						</ul>
 						<div class="card-body container text-center">
-							<div class="avg_rate" style="display: inline-block;">
-								<span class="avg_rating"></span>
+							<div class="avg_rate align-middle text-start"
+								style="display: inline-block;">
+								<span class="avg_rating" id="avg_rating_${status.index}">
+									${ratingList[status.index]}</span>
 							</div>
-							<span class="tab">&#9;</span>
-							<a href="#" class="card-link cart-btn"
+							<a href="#" class="card-link cart-btn ps-3"
 								data-prodnum="${p.prodnum}" data-prodname="${p.name}"
 								data-price="${p.price}"> <img
-								src="${pageContext.request.contextPath}/images/shop/장바구니.png"
+								src="${pageContext.request.contextPath}/images/shop/cart.png"
 								alt="" width="30px"></a>
 						</div>
 					</div>
@@ -150,9 +147,20 @@ li {
 			$(".current-price").val(price);
 			$(".cart-form").submit();
 		});
-		
+
+
 		/* 상품 평점 */
-		
+		$("document").ready(function() {
+
+			for (i = 0; i < '${li.size()}'; i++) {
+				let rating = $("#avg_rating_"+i).text();
+				console.log(rating);
+				$("#avg_rating_"+i).empty();
+				let star_width = (rating / 5) * 100;
+				$("#avg_rating_"+i).css("width", star_width + '%');
+			}
+
+		});
 	</script>
 </body>
 </html>

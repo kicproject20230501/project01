@@ -58,4 +58,9 @@ public class OrderMybatis {
 		map.put("end", pageInt * limit);
 		return sqlSession.selectList(NS + "orderListAdmin", map);
 	}
+	
+	public List<OrderItem> reviewOrderItem(int prodnum) {
+		return sqlSession.selectList(NS + "reviewOrderItem", prodnum);
+	}
+	
 }

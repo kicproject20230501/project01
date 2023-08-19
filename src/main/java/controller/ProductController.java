@@ -3,6 +3,7 @@ package controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,17 +12,16 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import model.Board;
+import model.OrderItem;
 import model.ProdReview;
 import model.Product;
-import service.MemberMybatis;
+import service.OrderMybatis;
 import service.ProdReviewMybatis;
 import service.ProductMybatis;
 
@@ -34,6 +34,10 @@ public class ProductController {
 
 	@Autowired
 	ProdReviewMybatis prd;
+	
+	@Autowired
+	OrderMybatis od;
+	
 
 	Model m;
 	HttpSession session;
@@ -137,7 +141,6 @@ public class ProductController {
 						totalRating += reviewList.get(j).getRating();
 					}
 					avgRating = (double) totalRating / reviewList.size();
-					System.out.println(avgRating);
 					ratingList.add(Math.round(avgRating*10)/10.0);
 				} else {
 					ratingList.add(reviewList.get(0).getRating());
@@ -299,11 +302,34 @@ public class ProductController {
 			int reviewnum = list.get(i).getReviewnum();
 			if (prd.reviewOne(reviewnum).getId().equals(id)) {
 				myReviewNum = reviewnum;
+				reviewIdList.add(prd.reviewOne(reviewnum).getId());
 			}
-			reviewIdList.add(prd.reviewOne(reviewnum).getId());
 		}
 		ProdReview myReview = prd.reviewOne(myReviewNum);
-
+		
+		// 구매했는지 확인 (구매한 경우에만 리뷰 작성 가능)
+		List<OrderItem> orderItemList = od.reviewOrderItem(prodnum);
+		List<String> ordernumList = new ArrayList<String>(); // 모든 ordernum 리스트
+		List<String> splitOrdernumList = new ArrayList<String>(); // ordernumList를 split("_")한 배열의 요소를 추가한 리스트
+		int availableReview = 0; // 리뷰 작성 가능상태 (0 = 리뷰 작성 불가, 1 = 리뷰 작성 가능)
+		
+		if (orderItemList.isEmpty() != true) { // 한 번이라도 누군가 주문한 적이 있는 상품인 경우
+			for (int i = 0; i < orderItemList.size(); i++) {
+				String ordernum = orderItemList.get(i).getOrdernum();
+				if (od.orderOne(ordernum).getResult() == 5) { // 주문 확정한 상품인 경우 (주문 확정한 상품에 대해서만 리뷰 작성 가능)
+					String[] ordernumArr = ordernum.split("_"); // ordernum을 split("_")한 배열
+					for (int j = 0; j < ordernumArr.length; j++) {
+						String splitOrdernum = ordernumArr[j];
+						splitOrdernumList.add(splitOrdernum); // 해당 배열의 요소들을 splitOrdernumList에 추가
+					}
+				}
+			}
+			if (splitOrdernumList.contains(id)) { // splitOrdernumList에 현재 세션의 id가 있는 경우
+				availableReview = 1;
+			}
+		}
+		
+		m.addAttribute("availableReview", availableReview);
 		m.addAttribute("reviewIdList", reviewIdList);
 		m.addAttribute("myReview", myReview);
 		m.addAttribute("list", list);

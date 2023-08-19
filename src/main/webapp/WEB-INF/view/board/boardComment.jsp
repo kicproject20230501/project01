@@ -111,9 +111,11 @@
 						console.log("Data: " + data + "\nStatus: " + state);
 						let commentList = document.querySelector("#commentList")
 						commentList.innerHTML = data + commentList.innerHTML
-						console.log(commentList.innerHTML)
+						console.log(commentList.innerHTML);
 					})
 			document.querySelector("#comment").value = ''
+			alert("댓글이 등록되었습니다.");
+			location.reload();
 		} else {
 			alert ("댓글 내용을 입력해주세요.")
 		}

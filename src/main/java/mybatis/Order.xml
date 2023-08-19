@@ -40,5 +40,9 @@
 		(select * from order2 order by id, regdate desc) a) 
 		where rnum BETWEEN #{start} and #{end}
 	</select>
+	
+	<select id="reviewOrderItem" parameterType="int" resultType="orderitem">
+		select * from orderitem where prodnum = #{prodnum}
+	</select>
 
 </mapper>

@@ -23,7 +23,7 @@ li {
  <div class="product text-center  flex-wrap:wrap" style="width:81%; margin:auto;">
  
      <div class="text-lg-end text-center container d-flex justify-content-center">
-		<a class="btn btn-outline-dark" href="${pageContext.request.contextPath}/product/productForm" >상품 등록</a>
+		<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/product/productForm" >상품 등록</a>
 		</div>		      
             
  	<c:forEach var="p" items="${ma}">
@@ -53,7 +53,7 @@ li {
                         </a>
                         
                         <a href="${pageContext.request.contextPath}/product/productDeleteForm?prodnum=${p.prodnum}">          
-                        <button class="btn btn-outline-dark" type="button" onclick="" style="float: center;" >
+                        <button class="btn btn-outline-danger" type="button" onclick="" style="float: center;" >
                         삭제
                         </button><!-- 상품 삭제탭으로 이동 -->
                         

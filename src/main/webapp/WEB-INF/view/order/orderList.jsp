@@ -24,10 +24,10 @@
 				style="width: 90%;">
 				<thead>
 					<tr>
-						<th scope="col" width="40%">주문번호</th>
+						<th scope="col" width="35%">주문번호</th>
+						<th scope="col" width="25%">주문날짜</th>
 						<th scope="col" width="20%">주문상태</th>
-						<th scope="col" width="15%"></th>
-						<th scope="col" width="15%"></th>
+						<th scope="col" width="20%"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -37,12 +37,12 @@
 								class="ordernum-input" value="${o.ordernum}"> <a
 								href="${pageContext.request.contextPath}/order/orderDetail?ordernum=${o.ordernum}"
 								style="color: black;'">${o.ordernum}</a></td>
-
+							<td><fmt:formatDate value="${o.regdate}" pattern="yyyy-MM-dd"/></td>
 							<c:choose>
 								<c:when test="${o.result == 1}">
 									<!-- 주문 완료 -->
 									<td><span>주문 완료</span></td>
-									<td colspan="2"><button
+									<td><button
 											class="cancel-btn btn btn-outline-danger"
 											data-ordernum="${o.ordernum}">주문취소</button></td>
 								</c:when>
@@ -50,19 +50,19 @@
 								<c:when test="${o.result == 2}">
 									<!-- 배송 중 -->
 									<td><span>배송 중</span></td>
-									<td colspan="2"><span>배송 중인 상품은 취소 하실 수 없습니다.</span></td>
+									<td><span>배송 중인 상품은 취소 하실 수 없습니다.</span></td>
 								</c:when>
 
 								<c:when test="${o.result == 3}">
 									<!-- 주문 취소 -->
 									<td><span style="color: crimson;">주문 취소</span></td>
-									<td colspan="2">
+									<td>
 								</c:when>
 
 								<c:when test="${o.result == 4}">
 									<!-- 배송 완료 -->
 									<td><span>배송 완료</span></td>
-									<td colspan="2"><button
+									<td><button
 											class="confirm-btn btn btn-outline-primary"
 											data-ordernum="${o.ordernum}">주문확정</button></td>
 								</c:when>
@@ -70,7 +70,7 @@
 								<c:when test="${o.result == 5}">
 									<!-- 주문 확정 -->
 									<td><span>주문 확정</span></td>
-									<td colspan="2">
+									<td>
 								</c:when>
 							</c:choose>
 						</tr>

@@ -62,7 +62,7 @@
 			</div>
 
 			<div class="form-group row">
-				<label class="col-sm-2">성별${product.prodgender}</label>
+				<label class="col-sm-2">성별</label>
 				<div class="com-sm-5">
 					<input type="radio" name="prodgender" id="prodgender" value="1"
 						<c:if test="${product.prodgender eq 1}"> checked </c:if>>

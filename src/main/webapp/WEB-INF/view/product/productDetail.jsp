@@ -176,20 +176,37 @@
 				</div>
 				<hr>
 				<c:forEach var="r" items="${list}" varStatus="status">
-					<c:if test="${reviewIdList[status.index] ne id}">
-						<div class="mb-2">
-							<span class="pe-3"><strong>${r.id}</strong></span>
-							<div class="rate" style="display: inline-block;">
-								<span class="other_rating_${status.index} other_rating">${r.rating}</span>
+					<c:if test="${id ne null}">
+						<c:if test="${reviewIdList[status.index] ne id}">
+							<div class="mb-2">
+								<span class="pe-3"><strong>${r.id}</strong></span>
+								<div class="rate" style="display: inline-block;">
+									<span class="other_rating_${status.index} other_rating">${r.rating}</span>
+								</div>
+								<span class="px-3"> <fmt:formatDate value="${r.regdate}"
+										var="dateValue" pattern="yyyy-MM-dd" />${dateValue}
+								</span>
 							</div>
-							<span class="px-3"> <fmt:formatDate value="${r.regdate}"
-									var="dateValue" pattern="yyyy-MM-dd" />${dateValue}
-							</span>
-						</div>
-						<div>
-							<span>${r.content}</span>
-						</div>
-						<hr>
+							<div>
+								<span>${r.content}</span>
+							</div>
+							<hr>
+						</c:if>
+					</c:if>
+					<c:if test="${id eq null}">
+							<div class="mb-2">
+								<span class="pe-3"><strong>${r.id}</strong></span>
+								<div class="rate" style="display: inline-block;">
+									<span class="other_rating_${status.index} other_rating">${r.rating}</span>
+								</div>
+								<span class="px-3"> <fmt:formatDate value="${r.regdate}"
+										var="dateValue" pattern="yyyy-MM-dd" />${dateValue}
+								</span>
+							</div>
+							<div>
+								<span>${r.content}</span>
+							</div>
+							<hr>
 					</c:if>
 				</c:forEach>
 			</c:if>

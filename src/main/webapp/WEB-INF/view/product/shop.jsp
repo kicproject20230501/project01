@@ -154,7 +154,6 @@ li {
 
 			for (i = 0; i < '${li.size()}'; i++) {
 				let rating = $("#avg_rating_"+i).text();
-				console.log(rating);
 				$("#avg_rating_"+i).empty();
 				let star_width = (rating / 5) * 100;
 				$("#avg_rating_"+i).css("width", star_width + '%');

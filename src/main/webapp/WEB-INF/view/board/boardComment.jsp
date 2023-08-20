@@ -81,12 +81,14 @@
 				<td colspan="2">내용</td>
 				<td>작성자</td>
 				<td>작성일</td>
+				<td></td>
 			</tr>
 			<c:forEach var="c" items="${commentLi}" varStatus="status">
 			<tr>
 				<td colspan="2">${c.content}</td>
 				<td>${c.name}</td>
 				<td><fmt:formatDate value="${c.regdate}" var="dateValue" pattern="yyyy-MM-dd"/>${dateValue}</td>
+				<c:if test="${id ne null}">
 				<td>
 					<form action="${pageContext.request.contextPath}/board/boardCommentDeleteForm?ser=${c.ser}"
 					name="del" method="post" >
@@ -94,6 +96,10 @@
 						<button type="submit" class="btn btn-sm btn-outline-danger">삭제</button>
 					</form>
 				</td>
+				</c:if>
+				<c:if test="${id eq null}">
+				<td></td>
+				</c:if>
 			</tr>
 			</c:forEach>
 		</table>

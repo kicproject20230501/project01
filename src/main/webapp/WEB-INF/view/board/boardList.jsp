@@ -37,17 +37,16 @@
 		</c:forEach>
 		</tbody>
 	</table> <!-- 게시판 테이블 끝 -->
-	
+
 	<!-- 게시글 등록 버튼, admin만 작성버튼이 나타나도록 -->
-	 <% String admin = (String)session.getAttribute("id");
- 		if (admin!=null && admin.equals("admin")) { %>
+	<c:if test="${sessionScope.id ne null && sessionScope.id eq 'admin'}">
 		<div class="col">
 			<button type="button" class="btn btn-outline-dark"
 			onclick="location.href='${pageContext.request.contextPath}/board/boardForm'">
 				<i class="fa-solid fa-pencil"></i> 쓰기
 			</button>
 		</div>
-	<%} %>
+	</c:if>
 	</div>
 	
 	<!-- 게시판 페이지 표시 -->
@@ -59,8 +58,8 @@
 		</c:if>
 		<c:if test="${start > bottomLine}">
 			<a
-				href="${pageContext.request.contextPath}/board/boardList?pageNum=${start-bottomLine}"
-				class="btn btn-sm btn-outline-primary">이전</a>
+				href="${pageContext.request.contextPath}/board/boardList?pageNum=${start-bottomLine+(bottomLine-1)}"          
+				class="btn btn-sm btn-outline-primary">이전</a> 					<!-- 1페이지 아니라 5페이지로 이동하게  -->         
 			</c:if>
 
 		<!-- 현재 페이지 표시 -->
@@ -80,6 +79,15 @@
 				class="btn btn-sm btn-outline-primary">다음</a>
 		</c:if>
 	</div>
+	
+	<!-- 내가 쓴 댓글 모아보기 : admin에서는 안나타나게  -->
+	<c:if test="${sessionScope.id ne 'admin'}">
+	<div class="container text-end">
+	<button type="button" class="btn btn-outline-dark"
+		onclick="location.href='${pageContext.request.contextPath}/board/myComment'">내가 쓴 댓글
+	</button>	
+	</div>  
+	</c:if>  
 	
 </body>
 </html>

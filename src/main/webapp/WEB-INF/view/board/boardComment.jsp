@@ -8,6 +8,20 @@
 <head>
 <meta charset="UTF-8">
 <title>게시물: ${board.num}</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+<style>
+	.commentDelete-btn {
+		border: none;
+	    display: inline-block;
+	    padding: 0px 30px;
+	    border-radius: 15px;
+	    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+	    text-decoration: none;
+	    transition: 0.25s;
+	    background-color: crimson;
+	    color: white;
+	}
+</style>
 </head>
 <body>
 	<div class="container">
@@ -111,7 +125,7 @@
 					<form action="${pageContext.request.contextPath}/board/boardCommentDeleteForm?ser=${c.ser}"
 					name="del" method="post" >
 						<input type="hidden" name="ser" value="${ser}">
-						<button type="submit" class="btn btn-sm btn-outline-danger">삭제</button>
+						<button type="submit" class="commentDelete-btn">삭제</button>
 					</form>
 				</td>
 				</c:if>

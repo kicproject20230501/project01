@@ -15,10 +15,10 @@
 <div class=container>
 <form action="${pageContext.request.contextPath}/board/checkCommentDelete"
 			 		name="del" method="post" > 
-<table class="table table-hover">
+<table class="table table-hover" >
 
 	<thead>
-		<tr class="table-dark"> 
+		<tr class="table-dark" align="center"> 
 		<th><input type="checkbox" id="chkAll" name="chkAll"/> 전체선택 </th>
 		<th scope="col">작성내용</th>                  
 		<th scope="col">작성날짜</th>
@@ -42,18 +42,18 @@
 	</c:when>
 	
 	<c:otherwise>	
-					<!-- 작성댓글 존재함 -->
+										<!-- 작성댓글 존재함 -->
 	<c:forEach var="c" items="${coname}">
         
 		<tbody>
-	 	<tr>
+	 	<tr align="center">
 	 	<td><input type="checkbox" name="chk" value="${c.ser}"/></td>
 		<td><a href="${pageContext.request.contextPath}/board/boardComment?num=${c.num}"
 					style="color: black;">${c.content}</a></td>
 		<td> <fmt:formatDate value="${c.regdate}" var="dateValue" pattern="yyyy-MM-dd HH:mm"/>${dateValue} </td>
 		<td>
 			
-				<button type="submit" class="btn btn-sm btn-outline-danger" 
+				<button type="submit" class="btn btn-sm btn-outline-danger"
 				onclick="location.href='${pageContext.request.contextPath}/board/boardCommentDeleteForm?ser=${c.ser}'">삭제</button>  </td>
 		</tr>
 		</tbody>
@@ -63,17 +63,18 @@
 </c:choose>
 </table>
 
-
-	<button type="button" class="btn btn-outline-primary"
+	<div class="text-center">
+	<button type="button" class="btn btn-outline-secondary"
 		onclick="location.href='${pageContext.request.contextPath}/board/boardList?PageNum=${pageInt}'">           
 		게시글 목록                 
 	</button>
 	
-	<button id="deleteChk" type="submit" class="btn btn-outline-primary">삭제</button>
-	
+	<button id="deleteChk" type="submit" class="btn btn-outline-danger">선택한 댓글 삭제</button>
+	</div>
 
 </form>
 </div>
+
 
 <script>
 	$(document).ready(function() {

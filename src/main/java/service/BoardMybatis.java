@@ -84,5 +84,10 @@ public class BoardMybatis {
 		map.put("id", id);
 		return sqlSession.selectList(NS+"commentName", id);
 	}
+	
+	public List<BoardComment> commentListAdmin() {
+		Map map = new HashMap();
+		return sqlSession.selectList(NS + "commentListAdmin");
+	}
 
 }

@@ -406,5 +406,24 @@ public class BoardController {
 
 		return "board/checkCommentDelete";
 	} // checkCommentDelete
+	
+	// 전체 댓글 관리 페이지
+	@RequestMapping("commentManagement")
+	public String commentListAdmin() {
+		
+		List<BoardComment> adminComment = bd.commentListAdmin();
+		int boardnum = 0;
+		List subjectList = new ArrayList();
+		for (int i = 0; i < adminComment.size(); i++) {
+			boardnum = adminComment.get(i).getNum();
+			Board board = bd.boardOne(boardnum);
+			String subject = board.getSubject();
+			subjectList.add(subject);
+		}
+		
+		m.addAttribute("subjectList", subjectList);		
+		m.addAttribute("adminComment", adminComment);
+		return "board/commentManagement"; 
+	}
 
 } // BoardController End

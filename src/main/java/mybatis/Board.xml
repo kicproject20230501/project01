@@ -86,6 +86,10 @@
 	<select id="commentName" parameterType="String" resultType="comment">                                 
 		select * from boardcomment2 where id = #{id} order by regdate desc
 	</select>
+	
+	<select id="commentListAdmin" resultType="comment">
+		select * from boardcomment2 order by regdate desc
+	</select>
 
 
 </mapper>

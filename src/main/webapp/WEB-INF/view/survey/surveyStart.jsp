@@ -39,7 +39,7 @@
 </style>
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
-   navigator.geolocation.getCurrentPosition(onGeoOk);
+   navigator.geolocation.getCurrentPosition(onGeoOk, onError);
 
    let cityname;   //장소 
    let nweather;   //현재날씨
@@ -105,7 +105,15 @@
 	         console.error("날씨 정보를 불러오는 중 오류가 발생했습니다.", error);
 	      });
 	}	
-    
+   	
+  function onError(error) {
+	console.log('위치정보를 가져올수 없습니다.')
+	let weatherscreen = document.getElementById('weatherscreen');
+   let noweather = document.getElementById('noweather');
+	weatherscreen.style.display = 'none';
+	noweather.style.display = 'inline-block';
+  	}
+   
 	function pnext() {
 	document.weatherPost.submit()
 	}
@@ -132,8 +140,9 @@
 	</div>
 	<!-- 도넛 차트 end-->
 	<!-- 날씨 view start -->
+	<div id="weatherscreen" style="display: ">
 	<div class="position-absolute top-0 start-0 d-none d-sm-none d-md-block" 
-		style="margin-top:100px; margin-left:50px; background-color: rgba(220, 220, 220, 0.8); display: inline-block;">
+		style="margin-top:200px; margin-left:50px; background-color: rgba(220, 220, 220, 0.8); display: inline-block;">
 	<form name="ajaxForm" >
 		<input type="hidden" name="nowWeather" id="nowWeather" value="">
 	</form>
@@ -162,6 +171,10 @@
 		</form>
 	</div>
 	</div>
+	</div>
+	</div>
+	<div id="noweather" style="display: ">
+	<input  type="hidden" name="위치정보공유를 차단하여" value="날씨 정보가 없습니다">
 	</div>
 	<!-- 날씨 end -->
 	<div class="btnbox" style="text-align: center;display: block; margin-top: 100px;">

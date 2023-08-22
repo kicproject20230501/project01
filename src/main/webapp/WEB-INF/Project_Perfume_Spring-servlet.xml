@@ -94,6 +94,7 @@
 			<mvc:mapping path="/board/boardUpdateForm" />
 			<mvc:mapping path="/board/boardUpdatePro" />
 			<mvc:mapping path="/board/boardDeleteForm" />
+			<mvc:mapping path="/board/CommentManagement" />
 			<mvc:mapping path="/member/memberList" />
 			<mvc:mapping path="/member/adminMemberDelete" />
 			<mvc:mapping path="/order/orderManagement" />
@@ -127,6 +128,7 @@
 			<mvc:mapping path="/order/orderCancelPro" />
 			<mvc:mapping path="/order/orderResult" />
 			<mvc:mapping path="/order/orderConfirm" />
+			<mvc:mapping path="/board/myComment" />
 			<ref bean="login"/>
 		</mvc:interceptor>	
 	</mvc:interceptors>

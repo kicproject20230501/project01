@@ -15,8 +15,16 @@
 	</div>
 	<br>
 	<div class="container mt-3">
+	<div class="row">
+	<div class="col-lg-2 text-center">
+      <input class="btn btn-outline-success" type="button" onclick="location.href='${pageContext.request.contextPath}/order/orderList'" value="주문내역">
+		<input class="btn btn-outline-primary" type="button" onclick="location.href='${pageContext.request.contextPath}/member/memberUpdateForm'" value="회원정보수정">
+		<input class="btn btn-outline-secondary" type="button" onclick="location.href='${pageContext.request.contextPath}/member/memberPassForm'" value="비밀번호수정">
+		<input class="btn btn-outline-danger" type="button" onclick="location.href='${pageContext.request.contextPath}/member/memberDeleteForm'" value="회원탈퇴">
 
-		<p>
+    </div>
+    <div class="col-lg-10">
+      <p>
 			<label>아이디</label> <input class="form-control" readonly="readonly"
 				placeholder="${mem.id}" >
 		</p>
@@ -45,14 +53,11 @@
 			<label>주소</label> <input class="form-control" readonly="readonly"
 				placeholder="${mem.address}"> <br><br>
 		</p>
+    </div>
+    
+    </div>
 		
 		
-		<div class="d-flex justify-content-around">
-		<input class="btn btn-outline-success" type="button" onclick="location.href='${pageContext.request.contextPath}/order/orderList'" value="주문내역">
-		<input class="btn btn-outline-primary" type="button" onclick="location.href='${pageContext.request.contextPath}/member/memberUpdateForm'" value="회원정보수정">
-		<input class="btn btn-outline-secondary" type="button" onclick="location.href='${pageContext.request.contextPath}/member/memberPassForm'" value="비밀번호수정">
-		<input class="btn btn-outline-danger" type="button" onclick="location.href='${pageContext.request.contextPath}/member/memberDeleteForm'" value="회원탈퇴"></div>
-
 
 	</div>
 </body>

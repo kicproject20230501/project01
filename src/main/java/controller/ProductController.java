@@ -109,15 +109,19 @@ public class ProductController {
 		if ( prodans1!= null) /* */ {
 			session.setAttribute("pageNum", "1");
 		}
-
+		String order = request.getParameter("order");
+		
 		if (request.getParameter("pageNum") != null) /* pageNum을 넘겨 받음 */ {
 			session.setAttribute("pageNum", request.getParameter("pageNum"));
 		}
 		String pageNum = (String) session.getAttribute("pageNum");
 		if (pageNum == null)
 			pageNum = "1"; // 넘겨받은 pageNum이 없으면 1페이지로
+		if (order == null)
+			order = "prodnum";
 		
-
+		
+		if (prodans1==null) prodans1="all";
 		int limit = 6; // 한 page 당 게시물 갯수
 		int pageInt = Integer.parseInt(pageNum); // page 번호
 		
@@ -125,11 +129,11 @@ public class ProductController {
 		int productCount = pd.productCount(prodans1); // 전체 게시물 갯수
 		int prodNum = productCount - ((pageInt - 1) * limit);
 
-		List<Product> li = pd.productList(pageInt, limit, prodans1);
+		List<Product> li = pd.productList(pageInt, limit, prodans1, order);
 		
 		// 상품 카테고리 이름
 		String ansName = "";
-		if (prodans1==null) prodans1="all";
+		
 		switch (prodans1) {
 		case "all":
 			ansName = "전체 상품";
@@ -216,8 +220,8 @@ public class ProductController {
 		int pageInt = Integer.parseInt(pageNum); // page 번호
 		int productCount = pd.productCount(prodans1); // 전체 게시물 갯수
 		int prodNum = productCount - ((pageInt - 1) * limit);
-
-		List<Product> ma = pd.productList(pageInt, limit, prodans1);
+		String order = request.getParameter("order");
+		List<Product> ma = pd.productList(pageInt, limit, prodans1, order);
 
 		int bottomLine = 5;
 		int start = (pageInt - 1) / bottomLine * bottomLine + 1;

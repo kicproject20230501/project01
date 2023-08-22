@@ -152,24 +152,37 @@ public class SurveyController {
 	public String surveyStart(Survey s) {
 		// 설문 시작화면에 통계표 구현
 		// 각 성별 선호 향 도넛그래프로 표시
-
-		List<Survey> MaleD = surbd.AnswerDoughnut(1);
-		List<Survey> FemaleD = surbd.AnswerDoughnut(2);
-
-		while (MaleD.size() < 3) {
-			MaleD.add(s);
-			if (MaleD.size() == 3)
-				break;
+		// db 비어있을경우 1출력
+		String Arr[] = {"flower","fruit","wood"};
+		List<Survey> MaleD = new ArrayList<>();
+		List<Survey> FemaleD = new ArrayList<>();
+		
+		for(int i=0; i<3; i++) {
+		    List<Survey> resultck = surbd.AnswerDoughnut(1, Arr[i]);
+		    Survey maleSurvey = new Survey();
+		    if(resultck.isEmpty() || resultck == null) {
+		        maleSurvey.setDoughnut(1);
+		        System.out.println("1:"+Arr[i]+"는 값이 없어서 1추가 되었습니다");
+		    } else {
+		        maleSurvey.setDoughnut(resultck.get(0).getDoughnut());
+		    }
+		    MaleD.add(maleSurvey); 
 		}
-		while (FemaleD.size() < 3) {
-			FemaleD.add(s);
-			if (FemaleD.size() == 3)
-				break;
+		
+		for(int i=0; i<3; i++) {
+		    List<Survey> resultck = surbd.AnswerDoughnut(2, Arr[i]);
+		    Survey femaleSurvey = new Survey();
+		    if(resultck.isEmpty() || resultck == null) {
+		        femaleSurvey.setDoughnut(1);
+		        System.out.println("2:"+Arr[i]+"는 값이 없어서 1추가 되었습니다");
+		    } else {
+		        femaleSurvey.setDoughnut(resultck.get(0).getDoughnut());
+		    }
+		    FemaleD.add(femaleSurvey); 
 		}
-
-		m.addAttribute("MaleD", MaleD);
+		
+		m.addAttribute("MaleD", MaleD); 
 		m.addAttribute("FemaleD", FemaleD);
-
 		return "survey/surveyStart";
 	} // surveyStart End
 

@@ -55,9 +55,9 @@
 	</select>
 	
 	<!-- 설문 결과에 저장된 선호향 그래프 -->
-	<select id="AnswerDoughnut" parameterType="int" resultType="survey">
+	<select id="AnswerDoughnut" parameterType="map" resultType="survey">
 		select  ans1, count(*) doughnut from answer
-		where ansGender = #{ansGender}
+		where ansGender = #{ansGender} and ans1 like '%${ans1}%'
 		group by  ans1
 		order  by  1
 	</select>

@@ -49,7 +49,7 @@ public class SurveyMybatis {
 	public Product ProductImage3(String ans1) {
 		Map map = new HashMap();
 		map.put("ans1", ans1);
-		System.out.println(map);
+		System.out.println("날씨"+map);
 		return sqlSession.selectOne(NS + "ProductImage3", map);
 	}
 
@@ -60,9 +60,11 @@ public class SurveyMybatis {
 		return sqlSession.selectList(NS + "surveyList", map);
 	}
 
-	public List<Survey> AnswerDoughnut(int ansGender) {
-
-		return sqlSession.selectList(NS + "AnswerDoughnut", ansGender);
+	public List<Survey> AnswerDoughnut(int ansGender, String ans1) {
+		Map map = new HashMap();
+		map.put("ansGender", ansGender);
+		map.put("ans1", ans1);
+		return sqlSession.selectList(NS + "AnswerDoughnut", map);
 	}
 	
 	public Product surveyNo1(int ansGender) {

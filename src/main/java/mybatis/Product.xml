@@ -16,7 +16,7 @@
 		select * from ( 
 		select rownum rnum, a.* from
 		(select * from product  ${prodans1}
-		 order by prodnum desc) a) 
+		  ${order} asc) a) 
 		where rnum BETWEEN #{start} and #{end}
 	</select>
 	

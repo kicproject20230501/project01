@@ -45,18 +45,19 @@ li {
 		<h2>${ansName}</h2>
 	</div>
 
+	
 	<!-- 상품 정렬 -->
-	<div class="array mb-3 text-center subdivision" >
-	<div id="items"></div>
+	<div class="array mb-3 text-center subdivision">
 		<p>
-			<button>최신순</button>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="${pageContext.request.contextPath}/product/shop">가격순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp 
-			<a href="${pageContext.request.contextPath}/product/shop">후기순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp 
-			<a href="${pageContext.request.contextPath}/product/shop">높은가격</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<button id="price_desc">높은가격</button>
+			<a href="${pageContext.request.contextPath}/product/shop?prodans1=${prodans1}&order=prodnum">최신순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="${pageContext.request.contextPath}/product/shop?prodans1=${prodans1}&order=stock">판매량순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp 
+			<a href="${pageContext.request.contextPath}/product/shop?prodans1=${prodans1}&order=price">평점순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp 
+		
+
+			<a href="${pageContext.request.contextPath}/product/shop?prodans1=${prodans1}&order=price">낮은가격순</a>
 		</p>
 	</div>
-
+ <input type="hidden"   name="order"   value="${order}"/> 
 	<!-- 제품 이미지 -->
 	<div class="product text-center  flex-wrap:wrap"
 		style="width: 81%; margin: auto;">
@@ -106,14 +107,14 @@ li {
 		</c:if>
 		<c:if test="${start > bottomLine}">
 			<a
-				href="${pageContext.request.contextPath}/product/shop?pageNum=${start-bottomLine}"
+				href="${pageContext.request.contextPath}/product/shop?pageNum=${start-bottomLine}&prodans1=${prodans1}&order=${order}"
 				class="btn btn-sm btn-outline-primary">이전</a>
 		</c:if>
 
 		<!-- 현재 페이지 표시 -->
 		<c:forEach var="p" begin="${start}" end="${end}">
 			<a
-				href="${pageContext.request.contextPath}/product/shop?pageNum=${p}"
+				href="${pageContext.request.contextPath}/product/shop?pageNum=${p}&prodans1=${prodans1}&order=${order}"
 				class="btn <c:if test="${pageInt==p}"> btn-sm btn-outline-secondary </c:if> ml-3 mr-3">${p}</a>
 		</c:forEach>
 
@@ -123,7 +124,7 @@ li {
 		</c:if>
 		<c:if test="${end <  maxPage}">
 			<a
-				href="${pageContext.request.contextPath}/product/shop?pageNum=${start+bottomLine}"
+				href="${pageContext.request.contextPath}/product/shop?pageNum=${start+bottomLine}&prodans1=${prodans1}&order=${order}"
 				class="btn btn-sm btn-outline-primary">다음</a>
 		</c:if>
 	</div>
@@ -162,6 +163,7 @@ li {
 			}
 
 		});
+		
 	</script>
 </body>
 </html>

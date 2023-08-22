@@ -69,7 +69,7 @@
 		게시글 목록                 
 	</button>
 	
-	<button id="deleteChk" type="submit" class="btn btn-outline-danger">선택한 댓글 삭제</button>
+	<button id="deleteChk" type="submit" class="btn btn-outline-danger">댓글 삭제</button>
 	</div>
 
 </form>

@@ -82,6 +82,10 @@
 	<update id="readCntUpdate" parameterType="int">
 		update board2 set readcnt = readcnt + 1 where num = #{num}
 	</update>
+	
+	<select id="commentName" parameterType="String" resultType="comment">                                 
+		select * from boardcomment2 where id = #{id} order by regdate desc
+	</select>
 
 
 </mapper>

@@ -305,7 +305,7 @@ public class BoardController {
 		} else {
 			
 		}
-
+		
 		m.addAttribute("name", name);
 		m.addAttribute("commentLi", commentLi);
 		m.addAttribute("board", board);
@@ -375,5 +375,36 @@ public class BoardController {
 		m.addAttribute("url", url);
 		return "alert";
 	} // boardDeletePro End
+	
+	// 로그인 한 유저가 자신이 쓴 댓글을 볼 수 있는 페이지
+	@RequestMapping("myComment")                                         
+	public String myComment() {
+		
+		String id = (String) session.getAttribute("id");
+		List<BoardComment> coname = new ArrayList<BoardComment>();
+		coname = bd.commentName(id);
+		
+		//myComment.jsp에서[게시글목록]버튼                                       
+		if (request.getParameter("pageNum") != null) /* pageNum을 넘겨 받음 */ {
+			session.setAttribute("pageNum", request.getParameter("pageNum"));
+		}
+		String pageNum = (String) session.getAttribute("pageNum");
+		int pageInt = Integer.parseInt(pageNum); // page 번호
+
+		m.addAttribute("pageInt", pageInt);
+		m.addAttribute("coname", coname);
+
+		return "board/myComment";
+	} // myComment End
+	
+	
+	// myComment 페이지에서 선택한 댓글 삭제
+	@RequestMapping("checkCommentDelete")
+	public String checkCommentDelete(String[] chk) {
+		
+        System.out.println(Arrays.asList(chk));
+
+		return "board/checkCommentDelete";
+	} // checkCommentDelete
 
 } // BoardController End

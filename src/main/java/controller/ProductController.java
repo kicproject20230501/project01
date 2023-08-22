@@ -103,20 +103,48 @@ public class ProductController {
 	// 상품 페이지
 	@RequestMapping("shop")
 	public String productList() {
-		session.setAttribute("pageNum", "1");
+		
+		// 상품 카테고리
+		String prodans1 = request.getParameter("prodans1");
+		if ( prodans1!= null) /* */ {
+			session.setAttribute("pageNum", "1");
+		}
+
 		if (request.getParameter("pageNum") != null) /* pageNum을 넘겨 받음 */ {
 			session.setAttribute("pageNum", request.getParameter("pageNum"));
 		}
 		String pageNum = (String) session.getAttribute("pageNum");
 		if (pageNum == null)
 			pageNum = "1"; // 넘겨받은 pageNum이 없으면 1페이지로
+		
 
 		int limit = 6; // 한 page 당 게시물 갯수
 		int pageInt = Integer.parseInt(pageNum); // page 번호
-		int productCount = pd.productCount(); // 전체 게시물 갯수
+		
+		
+		int productCount = pd.productCount(prodans1); // 전체 게시물 갯수
 		int prodNum = productCount - ((pageInt - 1) * limit);
 
-		List<Product> li = pd.productList(pageInt, limit);
+		List<Product> li = pd.productList(pageInt, limit, prodans1);
+		
+		// 상품 카테고리 이름
+		String ansName = "";
+		if (prodans1==null) prodans1="all";
+		switch (prodans1) {
+		case "all":
+			ansName = "전체 상품";
+			break;
+		case "wood":
+			ansName = "우디";
+			break;
+		case "flower":
+			ansName = "플로럴";
+			break;
+		case "fruit":
+			ansName = "프루티";
+			break;	
+		}
+		
 
 		int bottomLine = 3;
 		int start = (pageInt - 1) / bottomLine * bottomLine + 1;
@@ -165,20 +193,31 @@ public class ProductController {
 	// 상품 관리 페이지 (admin 전용)
 	@RequestMapping("productManagement")
 	public String productManagement() {
+		if (request.getParameter("prodans1") != null) /* */ {
+			session.setAttribute("prodans1", request.getParameter("prodans1"));
+			
+			
 		session.setAttribute("pageNum", "1");
+		}
+		
 		if (request.getParameter("pageNum") != null) /* pageNum을 넘겨 받음 */ {
 			session.setAttribute("pageNum", request.getParameter("pageNum"));
 		}
+		
+		
+		String prodans1 = (String) session.getAttribute("prodans1");
+		
 		String pageNum = (String) session.getAttribute("pageNum");
 		if (pageNum == null)
 			pageNum = "1"; // 넘겨받은 pageNum이 없으면 1페이지로
+		
 
 		int limit = 6; // 한 page 당 게시물 갯수
 		int pageInt = Integer.parseInt(pageNum); // page 번호
-		int productCount = pd.productCount(); // 전체 게시물 갯수
+		int productCount = pd.productCount(prodans1); // 전체 게시물 갯수
 		int prodNum = productCount - ((pageInt - 1) * limit);
 
-		List<Product> ma = pd.productList(pageInt, limit);
+		List<Product> ma = pd.productList(pageInt, limit, prodans1);
 
 		int bottomLine = 5;
 		int start = (pageInt - 1) / bottomLine * bottomLine + 1;

@@ -46,6 +46,13 @@ public class SurveyMybatis {
 		map.put("ans1", ans1);
 		return sqlSession.selectOne(NS + "ProductImage2", map);
 	}
+	
+	public Product ProductImage3(String ans1) {
+		Map map = new HashMap();
+		map.put("ans1", ans1);
+		System.out.println(map);
+		return sqlSession.selectOne(NS + "ProductImage3", map);
+	}
 
 	public List<Survey> surveyList(String id) {
 
@@ -57,6 +64,11 @@ public class SurveyMybatis {
 	public List<Survey> AnswerDoughnut(int ansGender) {
 
 		return sqlSession.selectList(NS + "AnswerDoughnut", ansGender);
+	}
+	
+	public Product surveyNo1(int ansGender) {
+		
+		return sqlSession.selectOne(NS + "surveyNo1", ansGender);
 	}
 
 }// end

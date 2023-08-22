@@ -31,9 +31,22 @@
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/home/about">ABOUT</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/product/shop">SHOP</a>
-                        </li>
+                        <li class="nav-item dropdown">
+          					<button onclick="location.href='${pageContext.request.contextPath}/product/productList'"  class="nav-link dropdown-toggle"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
+           					SHOP
+          					</button>
+          				
+          					<ul class="dropdown-menu">
+          					<li><a class="dropdown-item" 
+            					href="${pageContext.request.contextPath}/product/shop">전체 상품</a></li>
+            					<li><a class="dropdown-item" 
+            					href="${pageContext.request.contextPath}/product/shop?prodans1=wood">우디</a></li>
+            					<li><a class="dropdown-item" 
+            					href="${pageContext.request.contextPath}/product/shop?prodans1=flower">플로럴</a></li>
+            					<li><a class="dropdown-item" 
+            					href="${pageContext.request.contextPath}/product/shop?prodans1=fruit">프루티</a></li>
+          					</ul>
+        				</li>
                         <li class="nav-item dropdown">
           					<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
            					NOTICE
@@ -46,10 +59,9 @@
           					</ul>
         				</li>
         				<!-- 세션 id가 admin이면 MANAGEMENT를, 그 외에는 CART 페이지를 보여줌 -->
-        				 <%
- 						String admin = (String)session.getAttribute("id");
- 						if (admin!=null && admin.equals("admin")) { 
- 						%> <li class="nav-item dropdown">
+        				<c:choose>
+        				<c:when test="${id != null && id.equals('admin')}">
+        				<li class="nav-item dropdown">
           					<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
            					MANAGEMENT
           					</a>
@@ -62,12 +74,13 @@
             					href="${pageContext.request.contextPath}/order/orderManagement">주문관리</a></li>
           					</ul>
         				</li>
-                        <% } else { %>
+                        </c:when>
+                        <c:otherwise>
         				<li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/cart/cartList">CART</a>
                         </li>
-                        <% } %>
-
+                        </c:otherwise>
+                        </c:choose>
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">

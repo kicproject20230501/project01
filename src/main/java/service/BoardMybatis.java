@@ -78,5 +78,11 @@ public class BoardMybatis {
 	public int readCntUpdate(int num) {
 		return sqlSession.insert(NS + "readCntUpdate", num);
 	}
+	
+	public List<BoardComment> commentName(String id) {                                     
+		Map map = new HashMap();
+		map.put("id", id);
+		return sqlSession.selectList(NS+"commentName", id);
+	}
 
 }

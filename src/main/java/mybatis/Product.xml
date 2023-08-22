@@ -8,14 +8,15 @@
 		(productseq.nextval,#{name},#{price},#{stock},#{info},#{image},#{prodgender},#{prodans1},#{prodans2},sysdate,#{detail})
 	</insert>
 
-	<select id="productCount" parameterType="string" resultType="int">
-		select nvl(count(*),0) from product
+	<select id="productCount" parameterType="map" resultType="int">
+		select nvl(count(*),0) from product   ${prodans1}	
 	</select>
 
 	<select id="productList" parameterType="map" resultType="product">
 		select * from ( 
 		select rownum rnum, a.* from
-		(select * from product   order by prodnum desc) a) 
+		(select * from product  ${prodans1}
+		 order by prodnum desc) a) 
 		where rnum BETWEEN #{start} and #{end}
 	</select>
 	

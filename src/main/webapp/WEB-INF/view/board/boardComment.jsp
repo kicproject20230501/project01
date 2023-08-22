@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,19 +64,26 @@
 		</tr>
 		</table>
 		
+		<!-- 코멘트 갯수 -->
+		<div class="card-header bi bi-chat-dots">
+    		<span><c:out value="${fn:length(commentLi)}" /></span>  
+    		Comments
+		</div>
+		
 		<table class="table table-borderless">
 		<tr>
 			<!-- 세션에 로그인이 되어 있지 않으면 댓글을 남길 수 없음 -->
-			<% if (session.getAttribute("id")==null) { %>
+			<c:if test="${id eq null}">
 			<td colspan="3"><textarea rows="1" class="form-control"
 			cols="50" name="content" id="comment" placeholder="로그인한 사용자만 댓글을 남길 수 있습니다." readonly></textarea></td>
-			<% } else { %>
+			</c:if>
+			<c:if test="${id ne null}">
 			<td colspan="3" class="center">
 			<textarea rows="1" class="form-control"
 			cols="50" name="content" id="comment" placeholder="댓글을 입력하세요"></textarea></td>
 			<td><input type="button" class="btn btn-outline-secondary"
 					onclick="commentPro('${board.num}')" value="입력"></td>
-			<% } %>
+			</c:if>
 			
 			<tr>
 				<td colspan="2">내용</td>
@@ -86,8 +94,18 @@
 			<c:forEach var="c" items="${commentLi}" varStatus="status">
 			<tr>
 				<td colspan="2">${c.content}</td>
-				<td>${c.name}</td>
-				<td><fmt:formatDate value="${c.regdate}" var="dateValue" pattern="yyyy-MM-dd"/>${dateValue}</td>
+				<c:choose>
+					<c:when test="${sessionScope.id eq c.id}">
+						<td>${c.name}
+						<img src="${pageContext.request.contextPath}/images/board/my.png"
+						style="width: 30px; padding-left: 3px;"></td>
+					</c:when>
+					<c:otherwise>
+						<td>${c.name}</td>
+					</c:otherwise>
+				</c:choose>
+				<td>
+				<fmt:formatDate value="${c.regdate}" var="dateValue" pattern="yyyy-MM-dd HH:mm"/>${dateValue}</td>
 				<c:if test="${id ne null}">
 				<td>
 					<form action="${pageContext.request.contextPath}/board/boardCommentDeleteForm?ser=${c.ser}"

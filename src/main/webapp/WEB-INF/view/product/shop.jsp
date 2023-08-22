@@ -42,16 +42,18 @@ li {
 
 <body>
 	<div class="text-center mb-2">
-		<h2>전체 제품</h2>
+		<h2>${ansName}</h2>
 	</div>
 
 	<!-- 상품 정렬 -->
-	<div class="array mb-3 text-center subdivision">
+	<div class="array mb-3 text-center subdivision" >
+	<div id="items"></div>
 		<p>
-			<a href="#none" style="font-weight: bold;">최신순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="#none">인기순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp <a
-				href="#none">후기순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp <a href="#none">낮은
-				가격순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp <a href="">높은 가격순</a>
+			<button>최신순</button>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a href="${pageContext.request.contextPath}/product/shop">가격순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp 
+			<a href="${pageContext.request.contextPath}/product/shop">후기순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp 
+			<a href="${pageContext.request.contextPath}/product/shop">높은가격</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<button id="price_desc">높은가격</button>
 		</p>
 	</div>
 

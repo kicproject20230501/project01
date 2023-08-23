@@ -184,40 +184,7 @@
 	<!-- 회원가입 아이디, 비밀번호 확인용 변수 -->
 	var id_result = 0;
 	var pass_result = 0;
-	
-	<!-- 회원가입 아이디 확인 ajax -->
-	<!--
-	function checkId() {
-		var inputId = $("#id").val();
-		var blank_pattern1 = /^\s+|\s+$/g;
-		var blank_pattern2 = /[\s]/g;
-		
-		$.ajax({
-			data : {
-				id : inputId // 입력한 아이디를 chkId라는 변수에 담기
-			},
-			url : "checkid", // data를 checkid url에 보낸다 (controller에서 처리)
-			success : function(data) {
-				if (inputId.trim().length < 4) {
-					$("#idCheckResult").css('color', 'red').html('사용할 수 없는 아이디입니다.')
-					$("#signupBtn").prop("disabled", true)
-				} else {
-					if (data == '1') { // 아이디가 중복일 경우
-						$("#idCheckResult").css('color', 'red').html('사용 중인 아이디입니다.')
-						$("#signupBtn").prop("disabled", true)
-					} else {
-						$("#idCheckResult").css('color', 'blue').html('사용가능한 아이디입니다.')
-						id_result = 1
-						if (id_result == 1 && pass_result == 1) {
-							$("#signupBtn").prop("disabled", false)
-							checkSignup()
-						}
-					}
-				}
-			}
-		})	
-	}
-	-->
+
 	<!-- 회원가입 아이디 확인 ajax -->
 	function checkId() {
 		let inputId = $("#id").val();
@@ -257,12 +224,7 @@
 	function checkPass(){
 		var pass = $("#pass").val();
 		var chkPass = $("#chkPass").val();
-		if (pass.search(/\s/) != -1) {
-			if (pass.trim().length < 4) {
-				$("#passCheckResult").css('color', 'red').html("비밀번호는 4자리 이상 사용가능합니다.")
-				$("#signupBtn").prop("disabled", true)
-				pass_result = 0;
-			}
+		if (pass.search(/\s/) != -1 || pass.trim().length < 4) {
 			$("#passCheckResult").css('color', 'red').html("사용할 수 없는 비밀번호입니다.")
 			$("#signupBtn").prop("disabled", true)
 			pass_result = 0;
@@ -309,21 +271,6 @@
 		  	return false;
 		} else return true;
 	}
-	
-	/*
-	function checkSignup() {
-		var name = $("#name").val();
-		var tel = $("#tel").val();
-		var email = $("#email").val();
-		var zipcode = $("sample4_postcode").val();
-		var address = $("sample4_roadAddress").val();
-		
-		if (name.trim() != "" && tel.trim() != "" && email.trim() != ""
-				&& zipcode.trim() != "" && address.trim() != "") {
-			$("#signupBtn").prop("disabled", false);
-		}
-	} */
-	
 	
 </script>
 </body>

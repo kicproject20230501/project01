@@ -260,16 +260,17 @@
 			document.getElementById( 'email' ).focus();
 		  	return false;
 		}
+		if(document.getElementById( 'sample4_postcode' ).value.trim() == "") {
+			alert("우편번호는 필수 입력 값입니다.")
+			document.getElementById( 'sample4_postcode' ).focus();
+		  	return false;
+		}
 		if(document.getElementById( 'sample4_roadAddress' ).value.trim() == "") {
 			alert("도로명주소는 필수 입력 값입니다.")
 			document.getElementById( 'sample4_postcode' ).focus();
 		  	return false;
 		}
-		if(document.getElementById( 'sample4_postcode' ).value.trim() == "") {
-			alert("우편번호는 필수 입력 값입니다.")
-			document.getElementById( 'sample4_postcode' ).focus();
-		  	return false;
-		} else return true;
+		else return true;
 	}
 	
 </script>

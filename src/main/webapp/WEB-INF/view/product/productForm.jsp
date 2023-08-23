@@ -11,7 +11,7 @@
 <body>
 
 <form action="${pageContext.request.contextPath}/product/productPro" enctype="multipart/form-data"  
-method="post" onsubmit="return blankchk();">
+method="post" id="productForm" onsubmit="return blankchk();">
 	<div  class="jumbotron">
 		<div class="container">
 			<h1 class="display-3">
@@ -63,7 +63,7 @@ method="post" onsubmit="return blankchk();">
 			
 			<div class="form-group row">
 				<label class="col-sm-2">설문정보1</label>
-				<select class="form-select required" name="prodans1" id="prodans1">
+				<select class="form-select required" name="prodans1" id="prodans1" onchange="prodansList(this.value);">
 				  <option value="" selected>설문정보1 선택</option>
 				  <option value="flower">꽃</option>
 				  <option value="fruit">과일</option>
@@ -146,14 +146,33 @@ method="post" onsubmit="return blankchk();">
 		if(document.getElementById( 'detail' ).value.trim() == "") {
 			alert("상품 상세정보 이미지는 필수 입력 값입니다.")
 		  	return false;
+		} else return true;
+	}
+	
+	function prodansList(prodans1) {
+		let f = document.getElementById( 'productForm' );
+		let opt = $("prodans2 option").length;
+		
+		if (prodans1 == "") {
+			num = new Array("설문정보2");
+			vnum = new Array("");
+		} else if (prodans1 == "flower") {
+			num = new Array("라일락", "시트러스", "라벤더", "장미");
+			vnum = new Array("lilac", "citrus", "lavender", "rose");
+		} else if (prodans1 == "fruit") {
+			num = new Array("복숭아", "체리", "딸기", "레몬");
+			vnum = new Array("peach", "cherry", "strawberry", "lemon");
+		} else if (prodans1 == "wood") {
+			num = new Array("샌달우드", "편백나무", "소나무", "보이드우드");
+			vnum = new Array("sandal", "pyeonbaeg", "sonamu", "void");
 		}
-		if (document.getElementById( 'prodans1' ).value == "flower") {
-			if (document.getElementById( 'prodans2' ).value == "lilac"
-					|| document.getElementById( 'prodans2' ).value == "citrus"
-					|| document.getElementById( 'prodans2' ).value == "lavender"
-					|| document.getElementById( 'prodans2' ).value == "rose") {
-				return true;
-			}
+		
+		for (let i = 0; i < num.length; i++) {
+			f.prodans2.options[0] = null;
+		}
+		
+		for (k = 0; k < num.length; k++) {
+			f.prodans2.options[k] = new Option(num[k], vnum[k])
 		}
 	}
 	

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet"
@@ -14,7 +14,7 @@
 	<div class="container">
 		<form
 			action="${pageContext.request.contextPath}/product/productUpdatePro"
-			enctype="multipart/form-data" method="post"
+			enctype="multipart/form-data" method="post" id="productForm"
 			onsubmit="return blankchk();">
 			<input type="hidden" name="prodnum" value="${product.prodnum}">
 			<input type="hidden" name="image" value="${product.image}"> <input
@@ -40,7 +40,7 @@
 			<div class="form-group row">
 				<label class="col-sm-2">상품 가격</label>
 				<div class="com-sm-3">
-					<<input type="number" id="price" name="price" class="form-control"
+					<input type="number" id="price" name="price" class="form-control"
 						value="${product.price}">
 				</div>
 			</div>
@@ -75,7 +75,7 @@
 
 			<div class="form-group row">
 				<label class="col-sm-2">설문정보1</label> <select class="form-select"
-					name="prodans1" id="prodans1">
+					name="prodans1" id="prodans1" onchange="prodansList(this.value);">
 					<option value="" selected>설문정보1 선택</option>
 					<option value="flower"
 						<c:if test="${product.prodans1 == 'flower'}">selected</c:if>>꽃</option>
@@ -89,34 +89,7 @@
 			<div class="form-group row">
 				<label class="col-sm-2">설문정보2</label> <select class="form-select"
 					name="prodans2" id="prodans2">
-					<option value="" selected>설문정보2 선택</option>
-					<option value="">-------꽃-------</option>
-					<option value="lilac"
-						<c:if test="${product.prodans2 == 'lilac'}">selected</c:if>>라일락</option>
-					<option value="citrus"
-						<c:if test="${product.prodans2 == 'citrus'}">selected</c:if>>시트러스</option>
-					<option value="lavender"
-						<c:if test="${product.prodans2 == 'lavender'}">selected</c:if>>라벤더</option>
-					<option value="rose"
-						<c:if test="${product.prodans2 == 'rose'}">selected</c:if>>장미</option>
-					<option value="">-------과일-------</option>
-					<option value="peach"
-						<c:if test="${product.prodans2 == 'peach'}">selected</c:if>>라일락</option>
-					<option value="cherry"
-						<c:if test="${product.prodans2 == 'cherry'}">selected</c:if>>체리</option>
-					<option value="strawberry"
-						<c:if test="${product.prodans2 == 'strawberry'}">selected</c:if>>딸기</option>
-					<option value="lemon"
-						<c:if test="${product.prodans2 == 'lemon'}">selected</c:if>>레몬</option>
-					<option value="">-------나무-------</option>
-					<option value="sandal"
-						<c:if test="${product.prodans2 == 'sandal'}">selected</c:if>>샌달우드</option>
-					<option value="pyeonbaeg"
-						<c:if test="${product.prodans2 == 'pyeonbaeg'}">selected</c:if>>편백나무</option>
-					<option value="sonamu"
-						<c:if test="${product.prodans2 == 'sonamu'}">selected</c:if>>소나무</option>
-					<option value="void"
-						<c:if test="${product.prodans2 == 'void'}">selected</c:if>>보이드우드</option>
+					
 				</select>
 			</div>
 
@@ -181,6 +154,33 @@
 				return false;
 			}else
 				return true;
+		}
+		
+		function prodansList(prodans1) {
+			let f = document.getElementById( 'productForm' );
+			let opt = $("prodans2 option").length;
+			
+			if (prodans1 == "") {
+				num = new Array("설문정보2");
+				vnum = new Array("");
+			} else if (prodans1 == "flower") {
+				num = new Array("라일락", "시트러스", "라벤더", "장미");
+				vnum = new Array("lilac", "citrus", "lavender", "rose");
+			} else if (prodans1 == "fruit") {
+				num = new Array("복숭아", "체리", "딸기", "레몬");
+				vnum = new Array("peach", "cherry", "strawberry", "lemon");
+			} else if (prodans1 == "wood") {
+				num = new Array("샌달우드", "편백나무", "소나무", "보이드우드");
+				vnum = new Array("sandal", "pyeonbaeg", "sonamu", "void");
+			}
+			
+			for (let i = 0; i < num.length; i++) {
+				f.prodans2.options[0] = null;
+			}
+			
+			for (k = 0; k < num.length; k++) {
+				f.prodans2.options[k] = new Option(num[k], vnum[k]);
+			}
 		}
 	</script>
 

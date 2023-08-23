@@ -307,10 +307,10 @@ public class BoardController {
 		}
 		String pageNum = (String) session.getAttribute("pageNum");
 		int pageInt = 0;
-		if (pageNum != "0") {
-			pageInt = Integer.parseInt(pageNum); // page 번호
-		} else {
+		if (pageNum == "0" || pageNum == null) {
 			pageInt = 1;
+		} else {
+			pageInt = Integer.parseInt(pageNum); // page 번호
 		}
 
 		m.addAttribute("pageInt", pageInt);

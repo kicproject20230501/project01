@@ -89,7 +89,7 @@
 							<td><fmt:formatNumber value='${li.price}' pattern="#,### 원" /></td>
 						</tr>
 						<c:set var="totalQuantity" value="${totalQuantity + li.quantity}" />
-						<c:set var="totalPrice" value="${totalPrice + li.price}" />
+						<c:set var="totalPrice" value="${totalPrice + (li.price * li.quantity)}" />
 					</c:forEach>
 					<tr>
 						<td></td>

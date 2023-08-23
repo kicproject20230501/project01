@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="utf-8" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -33,14 +34,14 @@ method="post" onsubmit="return blankchk();">
 			<div class="form-group row">
 				<label class="col-sm-2">상품 가격</label>
 				<div class="com-sm-3">
-					<input type="number" id="price" name="price" class="form-control">
+					<input type="number" min="1" id="price" name="price" class="form-control">
 				</div>
 			</div>
 			
 			<div class="form-group row">
 				<label class="col-sm-2">재고</label>
 				<div class="com-sm-3">
-					<input type="number" id="stock" name="stock" class="form-control">
+					<input type="number" min="1" id="stock" name="stock" class="form-control">
 				</div>
 			</div>
 			
@@ -108,7 +109,7 @@ method="post" onsubmit="return blankchk();">
 				
 			<div class="form-group row">
 				<div class="col-sm-offset-2 col-sm-10">
-					<button type="submit" class="btn btn-primary" >등록</button>
+					<button type="submit" class="btn btn-primary">등록</button>
 				</div>
 			</div>
 			
@@ -117,7 +118,6 @@ method="post" onsubmit="return blankchk();">
 
 <script>
 	<!-- 빈칸 체크 -->
-	
 	function blankchk() {
 		if(document.getElementById( 'name' ).value.trim() == "") {
 			alert("상품 이름은 필수 입력 값입니다.")
@@ -127,17 +127,9 @@ method="post" onsubmit="return blankchk();">
 			alert("상품 가격은 필수 입력 값입니다.")
 		  	return false;
 		}
-		if (document.getElementById( 'price' ).value < 1) {
-			alert("가격은 1원 이상이어야 합니다.")
-			return false;
-		}
 		if(document.getElementById( 'stock' ).value.trim() == "") {
 			alert("재고는 필수 입력 값입니다.")
 		  	return false;
-		}
-		if (document.getElementById( 'stock' ).value < 0) {
-			alert("재고는 0개 이상이어야 합니다.")
-			return false;
 		}
 		if(document.getElementById( 'prodans1' ).value.trim() == "") {
 			alert("설문정보1은 필수 입력 값입니다.")
@@ -154,11 +146,15 @@ method="post" onsubmit="return blankchk();">
 		if(document.getElementById( 'detail' ).value.trim() == "") {
 			alert("상품 상세정보 이미지는 필수 입력 값입니다.")
 		  	return false;
-		} else return true;
-	}
-	
-	$(document).ready(function () {
-		
+		}
+		if (document.getElementById( 'prodans1' ).value == "flower") {
+			if (document.getElementById( 'prodans2' ).value == "lilac"
+					|| document.getElementById( 'prodans2' ).value == "citrus"
+					|| document.getElementById( 'prodans2' ).value == "lavender"
+					|| document.getElementById( 'prodans2' ).value == "rose") {
+				return true;
+			}
+		}
 	}
 	
 </script>

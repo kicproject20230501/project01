@@ -100,17 +100,27 @@
 							<b>배송방법 </b> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 퍼퓸컴퍼니 / 본사
 							검수 및 직배송 / CJ대한통운
 						</div>
-						<div class="quantity-div-parent">
-							<div class="quantity-div" style="display: inline-block;">
-								<input type="text" value="1"
-									style="border: radius; outline: none; width: 50px;"
-									class="text-center">
-								<button class="plus-btn btn btn-sm btn-outline-primary">+</button>
-								<button class="minus-btn btn btn-sm btn-outline-success">-</button>
+						<c:choose>
+							<c:when test="${product.stock < 1}">
+							<div>
+								<span style="color: red;">품절된 상품입니다.</span>
 							</div>
-							<a class="order-btn btn btn-info">상품주문</a> <a
-								class="cart-btn btn btn-secondary">장바구니</a>
-						</div>
+							</c:when>
+							<c:otherwise>
+								<div class="quantity-div-parent">
+									<div class="quantity-div" style="display: inline-block;">
+										<input type="text" value="1"
+											style="border: radius; outline: none; width: 50px;"
+											class="text-center">
+										<button class="plus-btn btn btn-sm btn-outline-primary">+</button>
+										<button class="minus-btn btn btn-sm btn-outline-success">-</button>
+									</div>
+									<a class="order-btn btn btn-info">상품주문</a> <a
+										class="cart-btn btn btn-secondary">장바구니</a>
+								</div>
+							</c:otherwise>
+						</c:choose>
+
 					</div>
 				</div>
 			</div>

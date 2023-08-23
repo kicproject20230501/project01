@@ -307,7 +307,7 @@ public class BoardController {
 		}
 		String pageNum = (String) session.getAttribute("pageNum");
 		int pageInt = 0;
-		if (pageNum == "0") {
+		if (pageNum != "0") {
 			pageInt = Integer.parseInt(pageNum); // page 번호
 		} else {
 			pageInt = 1;

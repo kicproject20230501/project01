@@ -73,7 +73,7 @@
             					<li><a class="dropdown-item" 
             					href="${pageContext.request.contextPath}/order/orderManagement">주문관리</a></li>
             					<li><a class="dropdown-item" 
-            					href="${pageContext.request.contextPath}/board/commentManagement">전체댓글관리</a></li>
+            					href="${pageContext.request.contextPath}/board/commentManagement?pageNum=1">전체댓글관리</a></li>
           					</ul>
         				</li>
                         </c:when>

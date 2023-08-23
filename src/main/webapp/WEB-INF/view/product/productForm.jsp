@@ -157,6 +157,10 @@ method="post" onsubmit="return blankchk();">
 		} else return true;
 	}
 	
+	$(document).ready(function () {
+		
+	}
+	
 </script>
 </body>
 </html>

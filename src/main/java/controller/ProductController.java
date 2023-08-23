@@ -128,6 +128,7 @@ public class ProductController {
 		int prodNum = productCount - ((pageInt - 1) * limit);
 
 		List<Product> li = pd.productList(pageInt, limit, prodans1, order);
+		System.out.println(li.size());
 
 		// 상품 카테고리 이름
 		String ansName = "";
@@ -178,7 +179,7 @@ public class ProductController {
 				ratingList.add(0);
 			}
 		}
-
+		System.out.println(start + ":" + end);
 		m.addAttribute("ratingList", ratingList);
 		m.addAttribute("li", li);
 		m.addAttribute("prodNum", prodNum);
@@ -191,7 +192,7 @@ public class ProductController {
 		m.addAttribute("prodans1", prodans1);
 		m.addAttribute("ansName", ansName);
 		return "product/shop";
-	} // productList End
+	} // shop End
 
 	// 상품 관리 페이지 (admin 전용)
 	@RequestMapping("productManagement")

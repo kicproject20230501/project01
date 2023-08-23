@@ -85,9 +85,18 @@ public class BoardMybatis {
 		return sqlSession.selectList(NS+"commentName", id);
 	}
 	
-	public List<BoardComment> commentListAdmin() {
-		Map map = new HashMap();
-		return sqlSession.selectList(NS + "commentListAdmin");
+
+	
+	
+	
+	public int commentCountAdmin() {
+		return sqlSession.selectOne(NS + "commentCountAdmin");
 	}
 
+	public List<BoardComment> commentListAdmin(int pageInt, int limit) {
+		Map map = new HashMap();
+		map.put("start", (pageInt - 1) * limit + 1);
+		map.put("end", pageInt * limit);
+		return sqlSession.selectList(NS + "commentListAdmin", map);
+	}
 }

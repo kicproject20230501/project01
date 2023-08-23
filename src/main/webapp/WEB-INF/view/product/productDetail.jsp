@@ -246,15 +246,23 @@
 		/* 장바구니 버튼 */
 		$(".cart-btn").on("click", function() {
 			let quantity = $(this).parent("div").find("input").val();
-			$(".input-quantity").val(quantity);
-			$(".cart-form").submit();
+			if (quantity < 1) {
+				alert("장바구니에 추가하려는 수량이 1개 미만입니다.");
+			} else {
+				$(".input-quantity").val(quantity);
+				$(".cart-form").submit();
+			}
 		});
 		
 		/* 주문하기 버튼 */
 		$(".order-btn").on("click", function() {
 			let quantity = $(this).parent("div").find("input").val();
-			$(".order-quantity").val(quantity);
-			$(".order-form").submit();
+			if (quantity < 1) {
+				alert("주문하시려는 수량이 1개 미만입니다.");
+			} else {
+				$(".order-quantity").val(quantity);
+				$(".order-form").submit();
+			}
 		});
 		
 		/* 리뷰 평점 별 */

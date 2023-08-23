@@ -56,6 +56,40 @@
 		</div>
 	</form>
 
+
+	<!-- 게시판 페이지 표시 -->
+	<br>
+	<div class="text-center">
+		<!-- 이전 버튼 -->
+		<c:if test="${start < bottomLine}">
+			<a href="#" class="btn btn-sm btn-outline-danger disabled">이전</a>
+		</c:if>
+		<c:if test="${start > bottomLine}">
+			<a
+				href="${pageContext.request.contextPath}/board/commentManagement?pageNum=${start-bottomLine+(bottomLine-1)}"          
+				class="btn btn-sm btn-outline-primary">이전</a> 					       
+			</c:if>
+
+		<!-- 현재 페이지 표시 -->
+		<c:forEach var="p" begin="${start}" end="${end}">
+			<a
+				href="${pageContext.request.contextPath}/board/commentManagement?pageNum=${p}"
+				class="btn <c:if test="${pageInt==p}"> btn-sm btn-outline-secondary </c:if> ml-3 mr-3">${p}</a>
+		</c:forEach>
+
+		<!-- 다음 버튼 -->
+		<c:if test="${end >= maxPage}">
+			<a href="#" class="btn btn-sm btn-outline-danger disabled">다음</a>
+		</c:if>
+		<c:if test="${end <  maxPage}">
+			<a
+				href="${pageContext.request.contextPath}/board/commentManagement?pageNum=${start+bottomLine}"
+				class="btn btn-sm btn-outline-primary">다음</a>
+		</c:if>
+	</div>
+	
+	
+	
 <script>
 	$(document).ready(function() {
 		$("#chkAll").click(function() {

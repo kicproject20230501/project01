@@ -18,17 +18,17 @@
 	<div class="container mt-3">
 		<form class="container" name="f"
 			action="${pageContext.request.contextPath}/member/joinPro"
-			method="post" >
+			method="post" onsubmit="return blankchk();">
 			<div>
-				<label><span style="color: red;">*</span> 아이디 (4글자 이상)</label> <input
+				<label><span style="color: red;">*</span> 아이디 (4글자 이상, 특수문자, 공백, 한글 사용불가)</label> <input
 					class="form-control" type="text" name="id" id="id" placeholder="Id"
 					min="4" autocomplete="off" oninput="checkId()">
 			</div>
 			<div id="idCheckResult" class="mb-3"></div>
 
 			<div class="mb-3">
-				<label><span style="color: red;">*</span> 비밀번호</label> <input
-					class="form-control" type="password" name="pass"
+				<label><span style="color: red;">*</span> 비밀번호 (4글자 이상)</label> <input
+					class="form-control" type="password" name="pass" onchange="checkPass()"
 					placeholder="Password" id="pass">
 			</div>
 			
@@ -81,7 +81,7 @@
 							name="zipcode" placeholder="우편번호" readonly>
 					</div>
 					<div class="col">
-						<input type="button" class="btn btn-outline-secondary"
+						<input type="button" class="btn btn-outline-secondary" id="postBtn"
 							onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
 					</div>
 				</div>
@@ -186,6 +186,7 @@
 	var pass_result = 0;
 	
 	<!-- 회원가입 아이디 확인 ajax -->
+	<!--
 	function checkId() {
 		var inputId = $("#id").val();
 		var blank_pattern1 = /^\s+|\s+$/g;
@@ -216,28 +217,100 @@
 			}
 		})	
 	}
+	-->
+	<!-- 회원가입 아이디 확인 ajax -->
+	function checkId() {
+		let inputId = $("#id").val();
+		const specialCheck = /[`~!@#$%^&*|\\\'\";:\/?]/gi; // 특수문자 체크
+		const koreanCheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; // 한글 체크
+		
+		$.ajax({
+			data : {
+				id : inputId // 입력한 아이디를 chkId라는 변수에 담기
+			},
+			url : "checkid", // data를 checkid url에 보낸다 (controller에서 처리)
+			error : function(err) {
+	               alert("오류가 발생하였습니다..");
+	        },
+			success : function(data) {
+				if (inputId.trim().length < 4 || inputId.search(/\s/) != -1
+						|| specialCheck.test(inputId) || koreanCheck.test(inputId)) { // 순서대로 길이체크, 공백 포함체크, 특수문자 체크
+					$("#idCheckResult").css('color', 'red').html('사용할 수 없는 아이디입니다.')
+					$("#signupBtn").prop("disabled", true)
+				} else {
+					if (data == '1') { // 아이디가 중복일 경우
+						$("#idCheckResult").css('color', 'red').html('사용 중인 아이디입니다.')
+						$("#signupBtn").prop("disabled", true)
+					} else {
+						$("#idCheckResult").css('color', 'blue').html('사용가능한 아이디입니다.')
+						id_result = 1
+					}
+				}
+			}
+		})	
+		if (id_result == 1 && pass_result == 1) {
+				$("#signupBtn").prop("disabled", false)
+		}
+	}
 	
 	<!-- 비밀번호 체크 -->
 	function checkPass(){
 		var pass = $("#pass").val();
 		var chkPass = $("#chkPass").val();
-		if (pass.trim() == "" && chkPass.trim() == "") {
-			$("#passCheckResult").css('color', 'red').html("비밀번호를 입력해주세요.")
-			$("#signupBtn").prop("disabled", true)
-		} else if (pass != chkPass) {
-			$("#passCheckResult").css('color', 'red').html("비밀번호가 일치하지 않습니다.")
-			$("#signupBtn").prop("disabled", true)
-		} else if (pass == chkPass) {
-			$("#passCheckResult").css('color', 'blue').html("비밀번호가 일치합니다.")
-			$("#signupBtn").prop("disabled", false)
-			pass_result = 1
-			if (id_result == 1 && pass_result == 1) {
-				$("#signupBtn").prop("disabled", false)
-				checkSignup()
+		if (pass.search(/\s/) != -1) {
+			if (pass.trim().length < 4) {
+				$("#passCheckResult").css('color', 'red').html("비밀번호는 4자리 이상 사용가능합니다.")
+				$("#signupBtn").prop("disabled", true)
+				pass_result = 0;
 			}
+			$("#passCheckResult").css('color', 'red').html("사용할 수 없는 비밀번호입니다.")
+			$("#signupBtn").prop("disabled", true)
+			pass_result = 0;
+		} else {
+			if (pass != chkPass) {
+				$("#passCheckResult").css('color', 'red').html("비밀번호가 일치하지 않습니다.")
+				$("#signupBtn").prop("disabled", true)
+				pass_result = 0;
+			} else if (pass == chkPass) {
+				$("#passCheckResult").css('color', 'blue').html("비밀번호가 일치합니다.")
+				pass_result = 1
+			}
+		}
+		if (id_result == 1 && pass_result == 1) {
+			$("#signupBtn").prop("disabled", false)
 		}
 	}
 	
+	<!-- 그 외 정보들 공백 체크 -->
+	function blankchk() {
+		if(document.getElementById( 'name' ).value.trim() == "") {
+			alert("이름은 필수 입력 값입니다.")
+			document.getElementById( 'name' ).focus();
+		  	return false;
+		}
+		if(document.getElementById( 'tel' ).value.trim() == "") {
+			alert("전화번호는 필수 입력 값입니다.")
+			document.getElementById( 'tel' ).focus();
+		  	return false;
+		}
+		if(document.getElementById( 'email' ).value.trim() == "") {
+			alert("이메일은 필수 입력 값입니다.")
+			document.getElementById( 'email' ).focus();
+		  	return false;
+		}
+		if(document.getElementById( 'sample4_roadAddress' ).value.trim() == "") {
+			alert("도로명주소는 필수 입력 값입니다.")
+			document.getElementById( 'sample4_postcode' ).focus();
+		  	return false;
+		}
+		if(document.getElementById( 'sample4_postcode' ).value.trim() == "") {
+			alert("우편번호는 필수 입력 값입니다.")
+			document.getElementById( 'sample4_postcode' ).focus();
+		  	return false;
+		} else return true;
+	}
+	
+	/*
 	function checkSignup() {
 		var name = $("#name").val();
 		var tel = $("#tel").val();
@@ -245,11 +318,11 @@
 		var zipcode = $("sample4_postcode").val();
 		var address = $("sample4_roadAddress").val();
 		
-		if (name.trim() == "" || tel.trim() == "" || email.trim() == ""
-				|| zipcode.trim() == "" || address.trim() == "") {
-			$("#signupBtn").prop("disabled", true);
+		if (name.trim() != "" && tel.trim() != "" && email.trim() != ""
+				&& zipcode.trim() != "" && address.trim() != "") {
+			$("#signupBtn").prop("disabled", false);
 		}
-	}
+	} */
 	
 	
 </script>

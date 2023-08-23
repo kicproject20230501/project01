@@ -40,7 +40,7 @@
 			<div class="form-group row">
 				<label class="col-sm-2">상품 가격</label>
 				<div class="com-sm-3">
-					<input type="text" id="price" name="price" class="form-control"
+					<<input type="number" id="price" name="price" class="form-control"
 						value="${product.price}">
 				</div>
 			</div>
@@ -48,7 +48,7 @@
 			<div class="form-group row">
 				<label class="col-sm-2">재고</label>
 				<div class="com-sm-3">
-					<input type="text" id="stock" name="stock" class="form-control"
+					<input type="number" id="stock" name="stock" class="form-control"
 						value="${product.stock}">
 				</div>
 			</div>
@@ -160,8 +160,16 @@
 				alert("상품 가격은 필수 입력 값입니다.")
 				return false;
 			}
-			if (document.getElementById('stock').value.trim() == "") {
+			if (document.getElementById( 'price' ).value < 1) {
+				alert("가격은 1원 이상이어야 합니다.")
+				return false;
+			}
+			if(document.getElementById( 'stock' ).value.trim() == "") {
 				alert("재고는 필수 입력 값입니다.")
+			  	return false;
+			}
+			if (document.getElementById( 'stock' ).value < 0) {
+				alert("재고는 0개 이상이어야 합니다.")
 				return false;
 			}
 			if (document.getElementById('prodans1').value.trim() == "") {
@@ -171,16 +179,7 @@
 			if (document.getElementById('prodans2').value.trim() == "") {
 				alert("설문정보2는 필수 입력 값입니다.")
 				return false;
-			}
-			/*
-			if(document.getElementById( 'image' ).value.trim() == "") {
-				alert("상품 이미지는 필수 입력 값입니다.")
-			  	return false;
-			}
-			if(document.getElementById( 'detail' ).value.trim() == "") {
-				alert("상품 상세정보 이미지는 필수 입력 값입니다.")
-			  	return false;
-			} */else
+			}else
 				return true;
 		}
 	</script>

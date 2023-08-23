@@ -87,9 +87,21 @@
 		select * from boardcomment2 where id = #{id} order by regdate desc
 	</select>
 	
-	<select id="commentListAdmin" resultType="comment">
-		select * from boardcomment2 order by regdate desc
-	</select>
 
+
+
+
+
+	<select id="commentListAdmin" parameterType="map" resultType="comment">
+		select *
+		from (
+		select rownum rnum, a.* from
+		(select * from boardcomment2
+		order by regdate desc) a) where rnum BETWEEN #{start}
+		and #{end}
+	</select>
+	<select id="commentCountAdmin" parameterType="String" resultType="int">
+		select nvl(count(*),0) from boardcomment2
+	</select>
 
 </mapper>

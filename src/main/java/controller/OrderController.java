@@ -243,9 +243,14 @@ public class OrderController {
 		for (int i = 0; i < li.size(); i++) {
 			prodnum = li.get(i).getProdnum();
 			Product product = pd.productOne(prodnum);
-			prodnumLi.add(prodnum);
-			prodname = product.getName();
-			prodnameLi.add(prodname);
+			if (product != null) {
+				prodnumLi.add(prodnum);
+				prodname = product.getName();
+				prodnameLi.add(prodname);
+			} else {
+				prodnameLi.add("삭제된 상품");
+			}
+			
 		}
 
 		m.addAttribute("id", id);

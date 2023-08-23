@@ -23,34 +23,41 @@ public class ProductMybatis {
 	}
 
 	public int productCount(String prodans1) {
-		 
-		if (prodans1 != null) {		
-			prodans1 =" where prodans1 = '"+prodans1+"'"; }
-		else  prodans1="";
+
+		if (prodans1 != null && !prodans1.equals("all")) {
+			prodans1 = " where prodans1 = '" + prodans1 + "'";
+		} else
+			prodans1 = "";
 		Map map = new HashMap();
-		map.put("prodans1",prodans1);
+		map.put("prodans1", prodans1);
 		return sqlSession.selectOne(NS + "productCount", map);
 	}
 
 	public List<Product> productList(int pageInt, int limit, String prodans1, String order) {
 		System.out.println(prodans1);
 		// 상품 카테고리 관련 추가
-		
+
 		Map map = new HashMap();
-		if (prodans1 != null && !prodans1.equals("all")) {		
-			prodans1 =" where prodans1 = '"+prodans1+"'"; }
-		else  prodans1="";
-		
-		if (order != null) {
-			order=" order by "+order;
+		if (prodans1 != null && !prodans1.equals("all")) {
+			prodans1 = " where prodans1 = '" + prodans1 + "'";
+		} else
+			prodans1 = "";
+
+		if (order.equals("stock")) {
+			order = "order by stock asc";
+		} else if (order.equals("priceasc"))
+			order = "order by price asc";
+		else if (order.equals("pricedesc"))
+			order = "order by price desc";
+		else {
+			order = "order by prodnum desc";
 		}
-		else order= "order by prodnum" ;
-		
-		map.put("order",order);
-		map.put("prodans1",prodans1);
+
+		map.put("order", order);
+		map.put("prodans1", prodans1);
 		map.put("start", (pageInt - 1) * limit + 1);
 		map.put("end", pageInt * limit);
-        System.out.println(map);
+		System.out.println(map);
 		return sqlSession.selectList(NS + "productList", map);
 	}
 

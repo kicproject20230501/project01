@@ -400,18 +400,68 @@ public class BoardController {
 	
 	// myComment 페이지에서 선택한 댓글 삭제
 	@RequestMapping("checkCommentDelete")
-	public String checkCommentDelete(String[] chk) {
-		
-        System.out.println(Arrays.asList(chk));
+	public String checkCommentDelete() {
+	
+		String[] chk = request.getParameterValues("chk");
 
-		return "board/checkCommentDelete";
+		String msg = "";
+		String url = "";
+
+		if (chk==null) {
+		    msg = "선택된 댓글이 없습니다";
+		    url = "/board/boardList";
+		} else if (chk != null || chk.length>0) {
+        	for (int i=0; i<chk.length; i++) {
+        		int value = Integer.parseInt(chk[i]);
+        		System.out.println(value);
+        		
+        		bd.commentDelete(value);
+        		
+    		    msg = "삭제가 완료되었습니다.";
+    		    url = "/board/boardList";       		
+        	} 
+		}
+        
+		m.addAttribute("msg", msg);
+		m.addAttribute("url", url);
+		return "alert"; 
 	} // checkCommentDelete
 	
 	// 전체 댓글 관리 페이지
 	@RequestMapping("commentManagement")
 	public String commentListAdmin() {
 		
-		List<BoardComment> adminComment = bd.commentListAdmin();
+		
+		// boardid가 파라미터로 넘어 왔을 때만 session에 저장
+		if (request.getParameter("boardid") != null) /* */ {
+			session.setAttribute("boardid", request.getParameter("boardid"));
+			session.setAttribute("pageNum", "1");
+		}
+		String boardid = (String) session.getAttribute("boardid");
+		if (boardid == null)
+			boardid = "1";
+
+		if (request.getParameter("pageNum") != null) /* pageNum을 넘겨 받음 */ {
+			session.setAttribute("pageNum", request.getParameter("pageNum"));
+		}
+		String pageNum = (String) session.getAttribute("pageNum");
+		if (pageNum == null)
+			pageNum = "1"; // 넘겨받은 pageNum이 없으면 1페이지로
+
+		int limit = 10; // 한 page 당 게시물 갯수
+		int pageInt = Integer.parseInt(pageNum); // page 번호
+
+		int boardCount = bd.commentCountAdmin(); // 전체 게시물 갯수
+		int boardNum = boardCount - ((pageInt - 1) * limit);
+
+		int bottomLine = 10;
+		int start = (pageInt - 1) / bottomLine * bottomLine + 1;
+		int end = start + bottomLine - 1;
+		int maxPage = (boardCount / limit) + (boardCount % limit == 0 ? 0 : 1);
+		if (end > maxPage)
+			end = maxPage;		
+
+		List<BoardComment> adminComment = bd.commentListAdmin(pageInt, limit);
 		int boardnum = 0;
 		List subjectList = new ArrayList();
 		for (int i = 0; i < adminComment.size(); i++) {
@@ -420,6 +470,12 @@ public class BoardController {
 			String subject = board.getSubject();
 			subjectList.add(subject);
 		}
+		
+		m.addAttribute("pageInt", pageInt);
+		m.addAttribute("bottomLine", bottomLine);
+		m.addAttribute("start", start);
+		m.addAttribute("end", end);
+		m.addAttribute("maxPage", maxPage);		
 		
 		m.addAttribute("subjectList", subjectList);		
 		m.addAttribute("adminComment", adminComment);

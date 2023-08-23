@@ -74,9 +74,16 @@
 					<c:set var="totalPrice" value="0" />
 					<c:forEach var="li" items="${li}" varStatus="status">
 						<tr>
+							<c:choose>
+							<c:when test="${prodnameLi[status.index].value() != '삭제된 상품'">
 							<td class="prodname-td"><a
 								href="${pageContext.request.contextPath}/product/productDetail?prodnum=${prodnumLi[status.index]}"
 								style="color: black;"> ${prodnameLi[status.index]}</a></td>
+							</c:when>
+							<c:otherwise>
+							<td class="prodname-td"><span>${prodnameLi[status.index]}</span></td>
+							</c:otherwise>
+							</c:choose>
 							<td>${li.quantity}</td>
 							<td><fmt:formatNumber value='${li.price}' pattern="#,### 원" /></td>
 						</tr>

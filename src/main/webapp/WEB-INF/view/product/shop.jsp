@@ -37,6 +37,7 @@ li {
 	width: auto;
 	height: 19px;
 }
+
 </style>
 </head>
 
@@ -49,15 +50,44 @@ li {
 	<!-- 상품 정렬 -->
 	<div class="array mb-3 text-center subdivision">
 		<p>
-			<a href="${pageContext.request.contextPath}/product/shop?prodans1=${prodans1}&order=prodnum">최신순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
-			<a href="${pageContext.request.contextPath}/product/shop?prodans1=${prodans1}&order=stock">판매량순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp 
-			<a href="${pageContext.request.contextPath}/product/shop?prodans1=${prodans1}&order=price">평점순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp 
-		
-
-			<a href="${pageContext.request.contextPath}/product/shop?prodans1=${prodans1}&order=price">낮은가격순</a>
+		<c:if test="${order eq 'prodnum'}">
+			<a  href="${pageContext.request.contextPath}/product/shop?prodans1=${prodans1}&order=prodnum"><b>최신순</b></a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			</c:if>
+			<c:if test="${order ne 'prodnum'}">
+			<a  href="${pageContext.request.contextPath}/product/shop?prodans1=${prodans1}&order=prodnum">최신순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			</c:if>
+			
+			<c:if test="${order eq 'stock'}">
+			<a  href="${pageContext.request.contextPath}/product/shop?prodans1=${prodans1}&order=stock"><b>판매량순</b></a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			</c:if>
+			<c:if test="${order ne 'stock'}">
+			<a  href="${pageContext.request.contextPath}/product/shop?prodans1=${prodans1}&order=stock">판매량순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			</c:if>
+			
+			<c:if test="${order eq 'pricedesc'}">
+			<a  href="${pageContext.request.contextPath}/product/shop?prodans1=${prodans1}&order=pricedesc"><b>높은 가격순</b></a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			</c:if>
+			<c:if test="${order ne 'pricedesc'}">
+			<a  href="${pageContext.request.contextPath}/product/shop?prodans1=${prodans1}&order=pricedesc">높은 가격순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			</c:if>
+			
+			<c:if test="${order eq 'priceasc'}">
+			<a  href="${pageContext.request.contextPath}/product/shop?prodans1=${prodans1}&order=priceasc"><b>낮은 가격순</b></a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			</c:if> 
+			<c:if test="${order ne 'priceasc'}">
+			<a  href="${pageContext.request.contextPath}/product/shop?prodans1=${prodans1}&order=priceasc">낮은 가격순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			</c:if> 
+			
+			 <%-- <a href="${pageContext.request.contextPath}/product/shop?prodans1=${prodans1}&order=stock">판매량순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp 
+			
+			<a href="${pageContext.request.contextPath}/product/shop?prodans1=${prodans1}&order=pricedesc">높은가격순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp 
+			
+			<a href="${pageContext.request.contextPath}/product/shop?prodans1=${prodans1}&order=priceasc">낮은가격순</a> 
+		 --%>
 		</p>
 	</div>
  <input type="hidden"   name="order"   value="${order}"/> 
+ 
 	<!-- 제품 이미지 -->
 	<div class="product text-center  flex-wrap:wrap"
 		style="width: 81%; margin: auto;">
@@ -114,7 +144,7 @@ li {
 		<!-- 현재 페이지 표시 -->
 		<c:forEach var="p" begin="${start}" end="${end}">
 			<a
-				href="${pageContext.request.contextPath}/product/shop?pageNum=${p}&prodans1=${prodans1}&order=${order}"
+				href="${pageContext.request.contextPath}/product/shop?pageNum=${p}&prodans1=${prodans1}&order=${order} "
 				class="btn <c:if test="${pageInt==p}"> btn-sm btn-outline-secondary </c:if> ml-3 mr-3">${p}</a>
 		</c:forEach>
 
@@ -128,6 +158,7 @@ li {
 				class="btn btn-sm btn-outline-primary">다음</a>
 		</c:if>
 	</div>
+
 
 	<!-- 장바구니 form -->
 	<form action="${pageContext.request.contextPath}/cart/cartPro"
@@ -163,6 +194,9 @@ li {
 			}
 
 		});
+		
+		function lb(id){
+			document.getElementById(id).style.fontWeight = "bold";
 		
 	</script>
 </body>

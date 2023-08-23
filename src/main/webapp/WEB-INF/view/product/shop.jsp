@@ -72,18 +72,13 @@ li {
 			</c:if>
 			
 			<c:if test="${order eq 'priceasc'}">
-			<a  href="${pageContext.request.contextPath}/product/shop?prodans1=${prodans1}&order=priceasc"><b>낮은 가격순</b></a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a  href="${pageContext.request.contextPath}/product/shop?prodans1=${prodans1}&order=priceasc"><b>낮은 가격순</b></a>
 			</c:if> 
 			<c:if test="${order ne 'priceasc'}">
-			<a  href="${pageContext.request.contextPath}/product/shop?prodans1=${prodans1}&order=priceasc">낮은 가격순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp
+			<a  href="${pageContext.request.contextPath}/product/shop?prodans1=${prodans1}&order=priceasc">낮은 가격순</a>
 			</c:if> 
 			
-			 <%-- <a href="${pageContext.request.contextPath}/product/shop?prodans1=${prodans1}&order=stock">판매량순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp 
-			
-			<a href="${pageContext.request.contextPath}/product/shop?prodans1=${prodans1}&order=pricedesc">높은가격순</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp 
-			
-			<a href="${pageContext.request.contextPath}/product/shop?prodans1=${prodans1}&order=priceasc">낮은가격순</a> 
-		 --%>
+			 
 		</p>
 	</div>
  <input type="hidden"   name="order"   value="${order}"/> 
@@ -193,8 +188,7 @@ li {
 				$("#avg_rating_"+i).css("width", star_width + '%');
 			}
 
-		});
-		
+		});		
 	</script>
 </body>
 </html>

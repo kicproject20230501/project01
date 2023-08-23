@@ -69,7 +69,7 @@
             					<li><a class="dropdown-item" 
             					href="${pageContext.request.contextPath}/member/memberList">회원관리</a></li>
             					<li><a class="dropdown-item" 
-            					href="${pageContext.request.contextPath}/product/productManagement">상품관리</a></li>
+            					href="${pageContext.request.contextPath}/product/productManagement?prodans1=all&order=prodnum">상품관리</a></li>
             					<li><a class="dropdown-item" 
             					href="${pageContext.request.contextPath}/order/orderManagement">주문관리</a></li>
             					<li><a class="dropdown-item" 

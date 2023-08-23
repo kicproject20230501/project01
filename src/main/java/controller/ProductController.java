@@ -181,8 +181,7 @@ public class ProductController {
 		}
 		System.out.println(start + ":" + end);
 		System.out.println(ratingList);
-		
-		
+
 		m.addAttribute("ratingList", ratingList);
 		m.addAttribute("li", li);
 		m.addAttribute("prodNum", prodNum);

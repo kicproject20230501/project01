@@ -86,7 +86,7 @@ public class BoardController {
 
 		if (num > 0) {
 			msg = "게시물이 등록되었습니다.";
-			url = "/board/boardList";
+			url = "/board/boardList?pageNum=1";
 		}
 
 		m.addAttribute("msg", msg);
@@ -306,7 +306,12 @@ public class BoardController {
 			session.setAttribute("pageNum", request.getParameter("pageNum"));
 		}
 		String pageNum = (String) session.getAttribute("pageNum");
-		int pageInt = Integer.parseInt(pageNum); // page 번호
+		int pageInt = 0;
+		if (pageNum == "0") {
+			pageInt = Integer.parseInt(pageNum); // page 번호
+		} else {
+			pageInt = 1;
+		}
 
 		m.addAttribute("pageInt", pageInt);
 		m.addAttribute("name", name);
@@ -464,7 +469,6 @@ public class BoardController {
 		m.addAttribute("start", start);
 		m.addAttribute("end", end);
 		m.addAttribute("maxPage", maxPage);
-
 		m.addAttribute("subjectList", subjectList);
 		m.addAttribute("adminComment", adminComment);
 		return "board/commentManagement";

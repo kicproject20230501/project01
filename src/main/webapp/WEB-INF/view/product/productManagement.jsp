@@ -24,8 +24,44 @@ li {
  
      <div class="text-lg-end text-center container d-flex justify-content-center">
 		<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/product/productForm" >상품 등록</a>
-		</div>		      
-            
+		</div>		   
+		
+		
+		<!-- 제품 카테고리 -->
+		<div class="array mt-5 mb-3 text-center subdivision">
+		<p>
+		<c:if test="${prodans1 eq 'all'}">
+			<a   class="btn btn-dark" href="${pageContext.request.contextPath}/product/productManagement?prodans1=all&order=prodnum">전체상품</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			</c:if>
+			<c:if test="${prodans1 ne 'all'}">
+			<a  class="btn btn-outline-dark" href="${pageContext.request.contextPath}/product/productManagement?prodans1=all&order=prodnum">전체상품</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			</c:if>
+			
+			<c:if test="${prodans1 eq 'wood'}">
+			<a  class="btn btn-dark"  href="${pageContext.request.contextPath}/product/productManagement?prodans1=wood&order=prodnum">우디</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			</c:if>
+			<c:if test="${prodans1 ne 'wood'}">
+			<a  class="btn btn-outline-dark" href="${pageContext.request.contextPath}/product/productManagement?prodans1=wood&order=prodnum">우디</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			</c:if>
+			
+			<c:if test="${prodans1 eq 'flower'}">
+			<a class="btn btn-dark"  href="${pageContext.request.contextPath}/product/productManagement?prodans1=flower&order=prodnum">플로럴</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			</c:if>
+			<c:if test="${prodans1 ne 'flower'}">
+			<a  class="btn btn-outline-dark" href="${pageContext.request.contextPath}/product/productManagement?prodans1=flower&order=prodnum">플로럴</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			</c:if>
+			
+			<c:if test="${prodans1 eq 'fruit'}">
+			<a class="btn btn-dark"  href="${pageContext.request.contextPath}/product/productManagement?prodans1=fruit&order=prodnum">프루티</a>
+			</c:if> 
+			<c:if test="${prodans1 ne 'fruit'}">
+			<a  class="btn btn-outline-dark" href="${pageContext.request.contextPath}/product/productManagement?prodans1=fruit&order=prodnum">프루티</a>
+			</c:if> 
+			
+			 
+		</p>
+	</div>   
+       <input type="hidden"   name="prodans1"   value="${prodans1}"/>      
  	<c:forEach var="p" items="${ma}">
              <!-- C: 반복문 사용 !! -->
  <!--나누기-->
@@ -94,14 +130,14 @@ li {
 		</c:if>
 		<c:if test="${start > bottomLine}">
 			<a
-				href="${pageContext.request.contextPath}/product/productManagement?pageNum=${start-bottomLine}"
+				href="${pageContext.request.contextPath}/product/productManagement?pageNum=${start-bottomLine}&prodans1=${prodans1}&order=prodnum"
 				class="btn btn-sm btn-outline-primary">이전</a>
 		</c:if>
 
 		<!-- 현재 페이지 표시 -->
 		<c:forEach var="p" begin="${start}" end="${end}">
 			<a
-				href="${pageContext.request.contextPath}/product/productManagement?pageNum=${p}"
+				href="${pageContext.request.contextPath}/product/productManagement?pageNum=${p}&prodans1=${prodans1}&order=prodnum"
 				class="btn <c:if test="${pageInt==p}"> btn-sm btn-outline-secondary </c:if> ml-3 mr-3">${p}</a>
 		</c:forEach>
 
@@ -111,7 +147,7 @@ li {
 		</c:if>
 		<c:if test="${end <  maxPage}">
 			<a
-				href="${pageContext.request.contextPath}/product/productManagement?pageNum=${start+bottomLine}"
+				href="${pageContext.request.contextPath}/product/productManagement?pageNum=${start+bottomLine}&prodans1=${prodans1}&order=prodnum"
 				class="btn btn-sm btn-outline-primary">다음</a>
 		</c:if>
 	</div>   

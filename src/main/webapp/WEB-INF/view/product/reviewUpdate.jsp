@@ -122,8 +122,9 @@
 	
 	<script>
 	/* 최초 글자 수 표시 */
-	$("document").ready(function() {
-		var original_content = String(${review.content});
+	$('document').ready(function() {
+		var original_content = String('${review.content}');
+		console.log(original_content.length);
 		$('#counter').html("("+original_content.length+" / 최대 100자)");
 	});
 	

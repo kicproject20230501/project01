@@ -76,7 +76,7 @@
 					<c:set var="currentProdname" value="${prodnameLi[status.index]}" />
 						<tr>
 							<c:choose>
-							<c:when test="currentProdname ne 'deletedProduct'">
+							<c:when test="${currentProdname ne 'deletedProduct'}">
 							<td class="prodname-td"><a
 								href="${pageContext.request.contextPath}/product/productDetail?prodnum=${prodnumLi[status.index]}"
 								style="color: black;"> ${prodnameLi[status.index]}</a></td>

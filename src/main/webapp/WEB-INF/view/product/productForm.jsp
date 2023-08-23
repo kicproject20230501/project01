@@ -62,7 +62,7 @@ method="post" onsubmit="return blankchk();">
 			
 			<div class="form-group row">
 				<label class="col-sm-2">설문정보1</label>
-				<select class="form-select required" name="prodans1" id="prodans1" onchange="categoryChange(this)">
+				<select class="form-select required" name="prodans1" id="prodans1">
 				  <option value="" selected>설문정보1 선택</option>
 				  <option value="flower">꽃</option>
 				  <option value="fruit">과일</option>
@@ -73,6 +73,22 @@ method="post" onsubmit="return blankchk();">
 			<div class="form-group row">
 				<label class="col-sm-2 required">설문정보2</label>
 				<select class="form-select" name="prodans2" id="prodans2">
+					<option value="" selected>설문정보2 선택</option>
+					<option value="">-------꽃-------</option>
+					<option value="lilac">라일락</option>
+					<option value="citrus">시트러스</option>
+					<option value="lavender">라벤더</option>
+					<option value="rose">장미</option>
+					<option value="">-------과일-------</option>
+					<option value="peach">복숭아</option>
+					<option value="cherry">체리</option>
+					<option value="strawberry">딸기</option>
+					<option value="lemon">레몬</option>
+					<option value="">-------나무-------</option>
+					<option value="sandal">샌달우드</option>
+					<option value="pyeonbaeg">편백나무</option>
+					<option value="sonamu">소나무</option>
+					<option value="void">보이드우드</option>
 				</select>
 			</div>
 			
@@ -141,27 +157,9 @@ method="post" onsubmit="return blankchk();">
 		} else return true;
 	}
 	
-	function categoryChange(e) {
-	    let prodans2_flower = ["라일락", "시트러스", "라벤더", "장미"];
-	    let prodans2_fruit = ["복숭아", "체리", "딸기", "레몬"];
-	    let prodans2_wood = ["샌달우드", "편백나무", "소나무", "보이드우드"];
-	    let target = document.getElementById("good");
-	 
-	    if(e.value == "flower") var d = prodans2_flower;
-	    else if(e.value == "fruit") var d = prodans2_fruit;
-	    else if(e.value == "wood") var d = prodans2_wood;
-	 
-	    target.options.length = 0;
-	 
-	    for (x in d) {
-	        var opt = document.createElement("option");
-	        opt.value = d[x];
-	        opt.innerHTML = d[x];
-	        target.appendChild(opt);
-	    }    
+	$(document).ready(function () {
+		
 	}
-	
-	
 	
 </script>
 </body>

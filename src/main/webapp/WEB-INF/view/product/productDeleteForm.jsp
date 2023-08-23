@@ -21,7 +21,7 @@
 					삭제
 				</button>
 				
-				<a href="${pageContext.request.contextPath}/product/productManagement">
+				<a href="${pageContext.request.contextPath}/product/productManagement?prodans1=all&order=prodnum">
 				<button type="button" class="btn btn-outline-secondary">
 				 취소
 				</button>

@@ -272,7 +272,7 @@ public class BoardController {
 		String loginId = (String) session.getAttribute("id");
 		Cookie cookie = null;
 		Cookie[] cookies = request.getCookies();
-		
+
 		if (!id.equals(loginId)) {
 			if (cookies != null && cookies.length > 0) { // 기존 쿠키가 있을 경우
 				for (Cookie c : cookies) {
@@ -281,10 +281,9 @@ public class BoardController {
 					}
 				}
 			}
-			
+
 			int result = 0;
-			
-			
+
 			if (cookie == null) { // "readBoard" 쿠키가 없을 경우
 				cookie = new Cookie("readBoard", boardnum + "");
 				result = bd.readCntUpdate(boardnum);
@@ -301,11 +300,15 @@ public class BoardController {
 				cookie.setMaxAge(60 * 60 * 24); // 쿠키 지속시간 = 24시간
 				response.addCookie(cookie);
 			}
-
-		} else {
-			
 		}
 		
+		if (request.getParameter("pageNum") != null) /* pageNum을 넘겨 받음 */ {
+			session.setAttribute("pageNum", request.getParameter("pageNum"));
+		}
+		String pageNum = (String) session.getAttribute("pageNum");
+		int pageInt = Integer.parseInt(pageNum); // page 번호
+
+		m.addAttribute("pageInt", pageInt);
 		m.addAttribute("name", name);
 		m.addAttribute("commentLi", commentLi);
 		m.addAttribute("board", board);
@@ -375,16 +378,16 @@ public class BoardController {
 		m.addAttribute("url", url);
 		return "alert";
 	} // boardDeletePro End
-	
+
 	// 로그인 한 유저가 자신이 쓴 댓글을 볼 수 있는 페이지
-	@RequestMapping("myComment")                                         
+	@RequestMapping("myComment")
 	public String myComment() {
-		
+
 		String id = (String) session.getAttribute("id");
 		List<BoardComment> coname = new ArrayList<BoardComment>();
 		coname = bd.commentName(id);
-		
-		//myComment.jsp에서[게시글목록]버튼                                       
+
+		// myComment.jsp에서[게시글목록]버튼
 		if (request.getParameter("pageNum") != null) /* pageNum을 넘겨 받음 */ {
 			session.setAttribute("pageNum", request.getParameter("pageNum"));
 		}
@@ -396,57 +399,42 @@ public class BoardController {
 
 		return "board/myComment";
 	} // myComment End
-	
-	
+
 	// myComment 페이지에서 선택한 댓글 삭제
 	@RequestMapping("checkCommentDelete")
 	public String checkCommentDelete() {
-	
+
 		String[] chk = request.getParameterValues("chk");
 
 		String msg = "";
 		String url = "";
 
-		if (chk==null) {
-		    msg = "선택된 댓글이 없습니다";
-		    url = "/board/boardList";
-		} else if (chk != null || chk.length>0) {
-        	for (int i=0; i<chk.length; i++) {
-        		int value = Integer.parseInt(chk[i]);
-        		System.out.println(value);
-        		
-        		bd.commentDelete(value);
-        		
-    		    msg = "삭제가 완료되었습니다.";
-    		    url = "/board/boardList";       		
-        	} 
+		if (chk == null) {
+			msg = "선택된 댓글이 없습니다";
+			url = "/board/boardList";
+		} else if (chk != null || chk.length > 0) {
+			for (int i = 0; i < chk.length; i++) {
+				int value = Integer.parseInt(chk[i]);
+				System.out.println(value);
+
+				bd.commentDelete(value);
+
+				msg = "삭제가 완료되었습니다.";
+				url = "/board/boardList";
+			}
 		}
-        
+
 		m.addAttribute("msg", msg);
 		m.addAttribute("url", url);
-		return "alert"; 
+		return "alert";
 	} // checkCommentDelete
-	
+
 	// 전체 댓글 관리 페이지
 	@RequestMapping("commentManagement")
 	public String commentListAdmin() {
-		
-		
-		// boardid가 파라미터로 넘어 왔을 때만 session에 저장
-		if (request.getParameter("boardid") != null) /* */ {
-			session.setAttribute("boardid", request.getParameter("boardid"));
-			session.setAttribute("pageNum", "1");
-		}
-		String boardid = (String) session.getAttribute("boardid");
-		if (boardid == null)
-			boardid = "1";
 
-		if (request.getParameter("pageNum") != null) /* pageNum을 넘겨 받음 */ {
-			session.setAttribute("pageNum", request.getParameter("pageNum"));
-		}
 		String pageNum = (String) session.getAttribute("pageNum");
-		if (pageNum == null)
-			pageNum = "1"; // 넘겨받은 pageNum이 없으면 1페이지로
+		pageNum = "1"; // 넘겨받은 pageNum이 없으면 1페이지로
 
 		int limit = 10; // 한 page 당 게시물 갯수
 		int pageInt = Integer.parseInt(pageNum); // page 번호
@@ -459,7 +447,7 @@ public class BoardController {
 		int end = start + bottomLine - 1;
 		int maxPage = (boardCount / limit) + (boardCount % limit == 0 ? 0 : 1);
 		if (end > maxPage)
-			end = maxPage;		
+			end = maxPage;
 
 		List<BoardComment> adminComment = bd.commentListAdmin(pageInt, limit);
 		int boardnum = 0;
@@ -470,16 +458,16 @@ public class BoardController {
 			String subject = board.getSubject();
 			subjectList.add(subject);
 		}
-		
+
 		m.addAttribute("pageInt", pageInt);
 		m.addAttribute("bottomLine", bottomLine);
 		m.addAttribute("start", start);
 		m.addAttribute("end", end);
-		m.addAttribute("maxPage", maxPage);		
-		
-		m.addAttribute("subjectList", subjectList);		
+		m.addAttribute("maxPage", maxPage);
+
+		m.addAttribute("subjectList", subjectList);
 		m.addAttribute("adminComment", adminComment);
-		return "board/commentManagement"; 
-	}
+		return "board/commentManagement";
+	} // commentManagement End
 
 } // BoardController End

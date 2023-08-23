@@ -71,7 +71,7 @@
 				삭제
 			</button>
 			<button type="button" class="btn btn-outline-primary"
-			onclick="location.href='${pageContext.request.contextPath}/board/boardList?boardid=${boardid}'">
+			onclick="location.href='${pageContext.request.contextPath}/board/boardList?pageNum=${pageInt}'">
 				돌아가기
 			</button>
 			</td>

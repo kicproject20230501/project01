@@ -50,6 +50,7 @@ public class ProductMybatis {
 		map.put("prodans1",prodans1);
 		map.put("start", (pageInt - 1) * limit + 1);
 		map.put("end", pageInt * limit);
+        System.out.println(map);
 		return sqlSession.selectList(NS + "productList", map);
 	}
 

@@ -3,6 +3,7 @@ package controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -325,6 +326,7 @@ public class ProductController {
 		return "alert";
 	} // productDeletePro End
 
+	// 상품 상세 페이지
 	// 상품 상세 페이지
 	@RequestMapping("productDetail")
 	public String productDetail(@RequestParam("prodnum") int prodnum) {

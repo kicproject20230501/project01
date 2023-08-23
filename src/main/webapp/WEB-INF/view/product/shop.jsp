@@ -195,9 +195,6 @@ li {
 
 		});
 		
-		function lb(id){
-			document.getElementById(id).style.fontWeight = "bold";
-		
 	</script>
 </body>
 </html>

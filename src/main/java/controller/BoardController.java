@@ -301,7 +301,7 @@ public class BoardController {
 				response.addCookie(cookie);
 			}
 		}
-		
+
 		if (request.getParameter("pageNum") != null) /* pageNum을 넘겨 받음 */ {
 			session.setAttribute("pageNum", request.getParameter("pageNum"));
 		}
@@ -436,10 +436,14 @@ public class BoardController {
 
 	// 전체 댓글 관리 페이지
 	@RequestMapping("commentManagement")
-	public String commentListAdmin() {
+	public String commentManagement() {
 
+		if (request.getParameter("pageNum") != null) /* pageNum을 넘겨 받음 */ {
+			session.setAttribute("pageNum", request.getParameter("pageNum"));
+		}
 		String pageNum = (String) session.getAttribute("pageNum");
-		pageNum = "1"; // 넘겨받은 pageNum이 없으면 1페이지로
+		if (pageNum == null)
+			pageNum = "1"; // 넘겨받은 pageNum이 없으면 1페이지로
 
 		int limit = 10; // 한 page 당 게시물 갯수
 		int pageInt = Integer.parseInt(pageNum); // page 번호
@@ -472,6 +476,7 @@ public class BoardController {
 		m.addAttribute("subjectList", subjectList);
 		m.addAttribute("adminComment", adminComment);
 		return "board/commentManagement";
+
 	} // commentManagement End
 
 } // BoardController End

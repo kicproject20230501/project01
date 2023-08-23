@@ -73,15 +73,16 @@
 					<c:set var="totalQuantity" value="0" />
 					<c:set var="totalPrice" value="0" />
 					<c:forEach var="li" items="${li}" varStatus="status">
+					<c:set var="currentProdname" value="${prodnameLi[status.index]}" />
 						<tr>
 							<c:choose>
-							<c:when test="${prodnameLi[status.index] ne '삭제된 상품'">
+							<c:when test="currentProdname ne 'deletedProduct'">
 							<td class="prodname-td"><a
 								href="${pageContext.request.contextPath}/product/productDetail?prodnum=${prodnumLi[status.index]}"
 								style="color: black;"> ${prodnameLi[status.index]}</a></td>
 							</c:when>
 							<c:otherwise>
-							<td class="prodname-td"><span>${prodnameLi[status.index]}</span></td>
+							<td class="prodname-td">삭제된 상품</td>
 							</c:otherwise>
 							</c:choose>
 							<td>${li.quantity}</td>

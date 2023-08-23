@@ -287,9 +287,11 @@ public class SurveyController {
 				ansGender = anslist.get(i).getAnsGender();
 				prodName = anslist.get(i).getProdname();
 				p = surbd.ProductImageN(prodName, ansGender);
-				anslistImage.add(p.getImage());
-				anslistImageName.add(prodName);
-				anslistProdnum.add(p.getProdnum());
+				if (p != null) {
+					anslistImage.add(p.getImage());
+					anslistImageName.add(prodName);
+					anslistProdnum.add(p.getProdnum());
+				}
 			}
 			System.out.println("anslistImage: " + anslistImage);
 			System.out.println("prodname: " + anslistImageName);

@@ -91,7 +91,7 @@ public class ProductController {
 		int num = pd.insertProduct(product);
 		if (num > 0) {
 			msg = "상품이 등록되었습니다.";
-			url = "/product/productManagement";
+			url = "productManagement?prodans1=all&order=prodnum";
 		}
 
 		m.addAttribute("msg", msg);
@@ -291,10 +291,10 @@ public class ProductController {
 
 		if (pd.productUpdate(product) > 0) /* Update OK */ {
 			msg = "수정을 완료했습니다.";
-			url = "/product/productManagement";
+			url = "productManagement?prodans1=all&order=prodnum";
 		} else { // update fail
 			msg = "수정을 실패했습니다.";
-			url = "/product/productUpdateForm?prodnum=" + product.getProdnum(); // 해당 게시물의 UpdateForm으로 이동
+			url = "product/productUpdateForm?prodnum=" + product.getProdnum(); // 해당 게시물의 UpdateForm으로 이동
 		}
 
 		m.addAttribute("msg", msg);

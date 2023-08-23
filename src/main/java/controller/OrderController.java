@@ -248,10 +248,11 @@ public class OrderController {
 				prodname = product.getName();
 				prodnameLi.add(prodname);
 			} else {
-				prodnameLi.add("삭제된 상품");
+				prodnameLi.add("deletedProduct");
 			}
 			
 		}
+		System.out.println(prodnameLi);
 
 		m.addAttribute("id", id);
 		m.addAttribute("order", order);

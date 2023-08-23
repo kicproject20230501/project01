@@ -1,3 +1,22 @@
+-- 테이블 및 시퀀스 삭제
+--drop table board2;
+--drop table boardcomment2;
+--drop table member2;
+--drop table cart;
+--drop table answer;
+--drop table product;
+--drop table order2;
+--drop table orderitem;
+--drop table prodreview;
+--
+--drop sequence boardseq2;
+--drop sequence boardcomseq2;
+--drop sequence productseq;
+--drop sequence cartseq;
+--drop sequence orderitemseq;
+--drop sequence surveyseq;
+--drop sequence reviewnumseq;
+
 -- 회원 테이블 생성
 create table member2 (
 id varchar(20) primary key,
@@ -146,19 +165,4 @@ regdate date
 create sequence reviewnumseq;
 
 
--- 테이블 및 시퀀스 삭제
---drop table board2;
---drop table boardcomment2;
---drop table member2;
---drop table cart;
---drop table answer;
---drop table product;
---drop table order2;
---drop table orderitem;
---
---drop sequence boardseq2;
---drop sequence boardcomseq2;
---drop sequence productseq;
---drop sequence cartseq;
---drop sequence orderitemseq;
---drop sequence surveyseq;
+

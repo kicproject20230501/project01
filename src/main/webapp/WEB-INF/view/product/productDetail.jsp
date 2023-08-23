@@ -83,9 +83,9 @@
 								style="display: inline-block; width: 120px; height: 19px;">
 								<span class="avg_rating" style="height: 19px;"></span>
 							</div>
-							<span style="font-size: 17px; padding-left: 20px;">평점: </span>
-							<span class="avg_rating_text" style="font-size: 20px;"></span> 
-							<span style="font-size: 20px;">/ 5.0</span>
+							<span style="font-size: 17px; padding-left: 20px;">평점: </span> <span
+								class="avg_rating_text" style="font-size: 20px;"></span> <span
+								style="font-size: 20px;">/ 5.0</span>
 						</div>
 						<hr>
 						<div class="mb-3">
@@ -194,19 +194,19 @@
 						</c:if>
 					</c:if>
 					<c:if test="${id eq null}">
-							<div class="mb-2">
-								<span class="pe-3"><strong>${r.id}</strong></span>
-								<div class="rate" style="display: inline-block;">
-									<span class="other_rating_${status.index} other_rating">${r.rating}</span>
-								</div>
-								<span class="px-3"> <fmt:formatDate value="${r.regdate}"
-										var="dateValue" pattern="yyyy-MM-dd" />${dateValue}
-								</span>
+						<div class="mb-2">
+							<span class="pe-3"><strong>${r.id}</strong></span>
+							<div class="rate" style="display: inline-block;">
+								<span class="other_rating_${status.index} other_rating">${r.rating}</span>
 							</div>
-							<div>
-								<span>${r.content}</span>
-							</div>
-							<hr>
+							<span class="px-3"> <fmt:formatDate value="${r.regdate}"
+									var="dateValue" pattern="yyyy-MM-dd" />${dateValue}
+							</span>
+						</div>
+						<div>
+							<span>${r.content}</span>
+						</div>
+						<hr>
 					</c:if>
 				</c:forEach>
 			</c:if>
@@ -349,26 +349,36 @@
 		
 		/* 리뷰 수정 버튼 */
 		$(document).on('click', '.review_update_btn', function(e){
-				
+			
+			const availableReview = '${availableReview}';
+			
+			if (availableReview == 1) {
 			e.preventDefault();
 			let reviewnum = $(this).parent("div").find("input").val();
 			let popUrl = "reviewUpdate?reviewnum=" + reviewnum + "&prodnum=" + '${product.prodnum}' + "&id=" + '${id}';	
 			let popOption = "width = 490px, height=490px, top=300px, left=300px, scrollbars=yes"	
 				
 			window.open(popUrl,"리뷰 수정",popOption);
-			
+			} else {
+				alert("주문 내역이 없어 리뷰를 수정하실 수 없습니다. 관리자에게 문의하세요.") // 주문이 삭제되어서 확인이 불가능한 경우
+			}
 		});
 		
 		/* 리뷰 삭제 버튼 */
 		$(document).on('click', '.review_delete_btn', function(e){
-				
+			
+			const availableReview = '${availableReview}';
+			
+			if (availableReview == 1) {
 			e.preventDefault();
 			let reviewnum = $(this).parent("div").find("input").val();
 			let popUrl = "reviewDelete?reviewnum=" + reviewnum;	
 			let popOption = "width = 490px, height=490px, top=300px, left=300px, scrollbars=yes"	
 			
 			window.open(popUrl,"리뷰 삭제",popOption);
-			
+			} else {
+				alert("주문 내역이 없어 리뷰를 삭제하실 수 없습니다. 관리자에게 문의하세요.") // 주문이 삭제되어서 확인이 불가능한 경우
+			}
 		});
 		
 	</script>

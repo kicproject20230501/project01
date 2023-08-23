@@ -3,7 +3,6 @@ package controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,10 +33,9 @@ public class ProductController {
 
 	@Autowired
 	ProdReviewMybatis prd;
-	
+
 	@Autowired
 	OrderMybatis od;
-	
 
 	Model m;
 	HttpSession session;
@@ -103,14 +101,14 @@ public class ProductController {
 	// 상품 페이지
 	@RequestMapping("shop")
 	public String productList() {
-		
+
 		// 상품 카테고리
 		String prodans1 = request.getParameter("prodans1");
-		if ( prodans1!= null) /* */ {
+		if (prodans1 != null) /* */ {
 			session.setAttribute("pageNum", "1");
 		}
 		String order = request.getParameter("order");
-		
+
 		if (request.getParameter("pageNum") != null) /* pageNum을 넘겨 받음 */ {
 			session.setAttribute("pageNum", request.getParameter("pageNum"));
 		}
@@ -119,21 +117,20 @@ public class ProductController {
 			pageNum = "1"; // 넘겨받은 pageNum이 없으면 1페이지로
 		if (order == null)
 			order = "prodnum";
-		
-		
-		if (prodans1==null) prodans1="all";
+
+		if (prodans1 == null)
+			prodans1 = "all";
 		int limit = 6; // 한 page 당 게시물 갯수
 		int pageInt = Integer.parseInt(pageNum); // page 번호
-		
-		
+
 		int productCount = pd.productCount(prodans1); // 전체 게시물 갯수
 		int prodNum = productCount - ((pageInt - 1) * limit);
 
 		List<Product> li = pd.productList(pageInt, limit, prodans1, order);
-		
+
 		// 상품 카테고리 이름
 		String ansName = "";
-		
+
 		switch (prodans1) {
 		case "all":
 			ansName = "전체 상품";
@@ -146,9 +143,8 @@ public class ProductController {
 			break;
 		case "fruit":
 			ansName = "프루티";
-			break;	
+			break;
 		}
-		
 
 		int bottomLine = 3;
 		int start = (pageInt - 1) / bottomLine * bottomLine + 1;
@@ -157,7 +153,7 @@ public class ProductController {
 		int maxPage = (productCount / limit) + (productCount % limit == 0 ? 0 : 1);
 		if (end > maxPage)
 			end = maxPage;
-		
+
 		List prodnumLi = new ArrayList();
 		List<ProdReview> reviewList = new ArrayList();
 		List ratingList = new ArrayList();
@@ -173,15 +169,15 @@ public class ProductController {
 						totalRating += reviewList.get(j).getRating();
 					}
 					avgRating = (double) totalRating / reviewList.size();
-					ratingList.add(Math.round(avgRating*10)/10.0);
+					ratingList.add(Math.round(avgRating * 10) / 10.0);
 				} else {
 					ratingList.add(reviewList.get(0).getRating());
-				}				
+				}
 			} else { // 리뷰가 없는 경우
 				ratingList.add(0);
 			}
 		}
-		
+
 		m.addAttribute("ratingList", ratingList);
 		m.addAttribute("li", li);
 		m.addAttribute("prodNum", prodNum);
@@ -190,7 +186,9 @@ public class ProductController {
 		m.addAttribute("start", start);
 		m.addAttribute("end", end);
 		m.addAttribute("maxPage", maxPage);
-
+		m.addAttribute("order", order);
+		m.addAttribute("prodans1", prodans1);
+		m.addAttribute("ansName", ansName);
 		return "product/shop";
 	} // productList End
 
@@ -199,22 +197,19 @@ public class ProductController {
 	public String productManagement() {
 		if (request.getParameter("prodans1") != null) /* */ {
 			session.setAttribute("prodans1", request.getParameter("prodans1"));
-			
-			
-		session.setAttribute("pageNum", "1");
+
+			session.setAttribute("pageNum", "1");
 		}
-		
+
 		if (request.getParameter("pageNum") != null) /* pageNum을 넘겨 받음 */ {
 			session.setAttribute("pageNum", request.getParameter("pageNum"));
 		}
-		
-		
+
 		String prodans1 = (String) session.getAttribute("prodans1");
-		
+
 		String pageNum = (String) session.getAttribute("pageNum");
 		if (pageNum == null)
 			pageNum = "1"; // 넘겨받은 pageNum이 없으면 1페이지로
-		
 
 		int limit = 6; // 한 page 당 게시물 갯수
 		int pageInt = Integer.parseInt(pageNum); // page 번호
@@ -335,12 +330,12 @@ public class ProductController {
 	public String productDetail(@RequestParam("prodnum") int prodnum) {
 		String id = (String) session.getAttribute("id");
 		Product product = pd.productOne(prodnum);
-		
+
 		List<ProdReview> list = prd.reviewList(prodnum);
-		
+
 		int myReviewNum = 0;
 		List reviewIdList = new ArrayList();
-		
+
 		for (int i = 0; i < list.size(); i++) {
 			int reviewnum = list.get(i).getReviewnum();
 			if (prd.reviewOne(reviewnum).getId().equals(id)) {
@@ -349,29 +344,33 @@ public class ProductController {
 			}
 		}
 		ProdReview myReview = prd.reviewOne(myReviewNum);
-		
+
 		// 구매했는지 확인 (구매한 경우에만 리뷰 작성 가능)
 		List<OrderItem> orderItemList = od.reviewOrderItem(prodnum);
 		List<String> ordernumList = new ArrayList<String>(); // 모든 ordernum 리스트
 		List<String> splitOrdernumList = new ArrayList<String>(); // ordernumList를 split("_")한 배열의 요소를 추가한 리스트
 		int availableReview = 0; // 리뷰 작성 가능상태 (0 = 리뷰 작성 불가, 1 = 리뷰 작성 가능)
-		
+
 		if (orderItemList.isEmpty() != true) { // 한 번이라도 누군가 주문한 적이 있는 상품인 경우
 			for (int i = 0; i < orderItemList.size(); i++) {
 				String ordernum = orderItemList.get(i).getOrdernum();
-				if (od.orderOne(ordernum).getResult() == 5) { // 주문 확정한 상품인 경우 (주문 확정한 상품에 대해서만 리뷰 작성 가능)
-					String[] ordernumArr = ordernum.split("_"); // ordernum을 split("_")한 배열
-					for (int j = 0; j < ordernumArr.length; j++) {
-						String splitOrdernum = ordernumArr[j];
-						splitOrdernumList.add(splitOrdernum); // 해당 배열의 요소들을 splitOrdernumList에 추가
+				if (od.orderOne(ordernum) != null) { // 만약 주문이 삭제 됐을 경우 null 오류 방지
+					if (od.orderOne(ordernum).getResult() == 5) { // 주문 확정한 상품인 경우 (주문 확정한 상품에 대해서만 리뷰 작성 가능)
+						String[] ordernumArr = ordernum.split("_"); // ordernum을 split("_")한 배열
+						for (int j = 0; j < ordernumArr.length; j++) {
+							String splitOrdernum = ordernumArr[j];
+							splitOrdernumList.add(splitOrdernum); // 해당 배열의 요소들을 splitOrdernumList에 추가
+						}
 					}
+				} else { // 주문이 삭제 됐을 경우 리뷰 작성 X
+					availableReview = 0;
 				}
 			}
 			if (splitOrdernumList.contains(id)) { // splitOrdernumList에 현재 세션의 id가 있는 경우
 				availableReview = 1;
 			}
 		}
-		
+
 		m.addAttribute("availableReview", availableReview);
 		m.addAttribute("reviewIdList", reviewIdList);
 		m.addAttribute("myReview", myReview);
@@ -385,40 +384,35 @@ public class ProductController {
 	@RequestMapping("reviewEnroll/{id}")
 	public String reviewEnrollWindowGET(@PathVariable("id") String id, @RequestParam("prodnum") int prodnum) {
 		Product product = pd.productOne(prodnum);
-		
-				
+
 		m.addAttribute("product", product);
 		m.addAttribute("id", id);
 		return "product/reviewEnroll";
 	}
-	
+
 	/* 리뷰 수정 팝업창 */
 	@RequestMapping("reviewUpdate")
-	public String reviewUpdateWindowGET(ProdReview prodReview,
-			@RequestParam("reviewnum") int reviewnum,
+	public String reviewUpdateWindowGET(ProdReview prodReview, @RequestParam("reviewnum") int reviewnum,
 			@RequestParam("prodnum") int prodnum) {
 		String id = (String) session.getAttribute("id");
 		Product product = pd.productOne(prodnum);
 		ProdReview review = prd.reviewOne(reviewnum);
-		
+
 		m.addAttribute("product", product);
 		m.addAttribute("review", review);
 		m.addAttribute("id", id);
 		return "product/reviewUpdate";
 	}
-	
+
 	/* 리뷰 삭제 팝업창 */
 	@RequestMapping("reviewDelete")
-	public String reviewDeleteWindowGET(ProdReview prodReview,
-			@RequestParam("reviewnum") int reviewnum) {
+	public String reviewDeleteWindowGET(ProdReview prodReview, @RequestParam("reviewnum") int reviewnum) {
 		String id = (String) session.getAttribute("id");
 		ProdReview review = prd.reviewOne(reviewnum);
-		
+
 		m.addAttribute("id", id);
 		m.addAttribute("review", review);
 		return "product/reviewDelete";
 	}
-	
-	
 
 } // ProductController End
